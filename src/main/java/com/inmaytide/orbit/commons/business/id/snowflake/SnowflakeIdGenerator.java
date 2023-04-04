@@ -1,16 +1,12 @@
 package com.inmaytide.orbit.commons.business.id.snowflake;
 
-import com.inmaytide.orbit.commons.business.id.IdGenerator;
-
-import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
+import com.baomidou.mybatisplus.core.incrementer.IdentifierGenerator;
 
 /**
  * @author inmaytide
  * @since 2023/4/4
  */
-public class SnowflakeIdGenerator implements IdGenerator<Long> {
+public class SnowflakeIdGenerator implements IdentifierGenerator {
 
     private final SnowflakeIdWorker worker;
 
@@ -19,13 +15,8 @@ public class SnowflakeIdGenerator implements IdGenerator<Long> {
     }
 
     @Override
-    public Long generate() {
+    public Long nextId(Object entity) {
         return worker.nextId();
-    }
-
-    @Override
-    public List<Long> batchGenerate(int number) {
-        return IntStream.range(0, number).mapToObj(i -> generate()).collect(Collectors.toList());
     }
 
 }

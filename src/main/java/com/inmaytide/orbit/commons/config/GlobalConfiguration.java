@@ -2,8 +2,8 @@ package com.inmaytide.orbit.commons.config;
 
 import com.baomidou.mybatisplus.core.incrementer.IdentifierGenerator;
 import com.inmaytide.orbit.commons.business.id.snowflake.SnowflakeIdGenerator;
+import com.inmaytide.orbit.commons.utils.ApplicationContextHolder;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -20,6 +20,11 @@ public class GlobalConfiguration {
     @Bean
     public IdentifierGenerator identifierGenerator(@Value("orbit.server.worker-id") Long workerId, @Value("orbit.server.data-center-id") Long dataCenterId) {
         return new SnowflakeIdGenerator(workerId, dataCenterId);
+    }
+
+    @Bean
+    public ApplicationContextHolder applicationContextHolder() {
+        return new ApplicationContextHolder();
     }
 
 }

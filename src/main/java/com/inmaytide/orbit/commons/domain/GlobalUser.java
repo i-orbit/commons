@@ -21,6 +21,8 @@ public class GlobalUser implements Serializable {
 
     private String email;
 
+    private String employeeId;
+
     private String lang;
 
     private String avatar;
@@ -29,11 +31,13 @@ public class GlobalUser implements Serializable {
 
     private Long tenantId;
 
-    private List<Long> organizations;
-
     private List<String> roles;
 
     private List<String> authorities;
+
+    private List<Long> organizations;
+
+    private List<Long> areas;
 
     private UserState state;
 
@@ -77,6 +81,14 @@ public class GlobalUser implements Serializable {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getEmployeeId() {
+        return employeeId;
+    }
+
+    public void setEmployeeId(String employeeId) {
+        this.employeeId = employeeId;
     }
 
     public String getLang() {
@@ -151,4 +163,11 @@ public class GlobalUser implements Serializable {
         this.proxy = proxy;
     }
 
+    public List<Long> getAreas() {
+        return areas;
+    }
+
+    public void setAreas(List<Long> areas) {
+        this.areas = areas;
+    }
 }

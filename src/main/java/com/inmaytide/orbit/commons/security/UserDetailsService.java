@@ -8,6 +8,6 @@ import com.inmaytide.orbit.commons.domain.GlobalUser;
  */
 public interface UserDetailsService {
 
-    GlobalUser findUserByUsername(String username);
+    GlobalUser loadUserByUsername(String username);
 
 }

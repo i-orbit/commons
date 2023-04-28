@@ -1,4 +1,4 @@
-package com.inmaytide.orbit.commons.config;
+package com.inmaytide.orbit.commons.configuration;
 
 import com.baomidou.mybatisplus.core.incrementer.IdentifierGenerator;
 import com.inmaytide.orbit.commons.business.id.snowflake.SnowflakeIdGenerator;

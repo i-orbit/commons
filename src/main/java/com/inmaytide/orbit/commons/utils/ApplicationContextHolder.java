@@ -1,6 +1,7 @@
 package com.inmaytide.orbit.commons.utils;
 
 import org.springframework.beans.BeansException;
+import org.springframework.boot.context.properties.bind.Binder;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 
@@ -14,9 +15,11 @@ public class ApplicationContextHolder implements ApplicationContextAware {
 
     private ApplicationContext context;
 
+    private Binder binder;
+
     public ApplicationContextHolder() {
         if (INSTANCE != null) {
-            throw new UnsupportedOperationException();
+            throw new UnsupportedOperationException("\"ApplicationContextHolder\" has been initialized");
         }
         ApplicationContextHolder.INSTANCE = this;
     }
@@ -32,5 +35,16 @@ public class ApplicationContextHolder implements ApplicationContextAware {
 
     public <T> T getBean(Class<T> cls) {
         return context.getBean(cls);
+    }
+
+    public Binder getBinder() {
+        if (binder == null) {
+            binder = Binder.get(context.getEnvironment());
+        }
+        return binder;
+    }
+
+    public boolean getPropertyBoolValue(String s, boolean defaultValue) {
+        return context.getEnvironment().getProperty(s, Boolean.class, defaultValue);
     }
 }

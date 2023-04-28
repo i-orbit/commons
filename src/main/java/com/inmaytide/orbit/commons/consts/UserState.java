@@ -29,7 +29,12 @@ public enum UserState {
     /**
      * 账号禁用, 无法登录系统
      */
-    DISABLED(50000, "禁用");
+    DISABLED(50000, "禁用"),
+
+    /**
+     * 账号锁定, 无法登录系统(一般用于暂时禁止登录)
+     */
+    LOCKED(60000, "禁用");;
 
     private final Integer value;
 

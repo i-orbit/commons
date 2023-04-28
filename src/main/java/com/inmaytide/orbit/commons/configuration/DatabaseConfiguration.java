@@ -1,4 +1,4 @@
-package com.inmaytide.orbit.commons.config;
+package com.inmaytide.orbit.commons.configuration;
 
 import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.OptimisticLockerInnerInterceptor;

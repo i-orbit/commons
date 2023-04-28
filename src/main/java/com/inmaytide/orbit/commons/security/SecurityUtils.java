@@ -26,12 +26,12 @@ public class SecurityUtils {
      * 获取当前登录用户详细信息
      */
     public static GlobalUser getAuthorizedUser() {
-        return getUserDetailsService().findUserByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
+        return getUserDetailsService().loadUserByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
     }
 
     public static GlobalUser getAuthorizedUserAllowUnauthorized() {
         try {
-            return getUserDetailsService().findUserByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
+            return getUserDetailsService().loadUserByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
         } catch (Exception ignored) {
             return null;
         }

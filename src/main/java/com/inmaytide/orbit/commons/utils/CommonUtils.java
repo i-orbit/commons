@@ -18,7 +18,6 @@ import java.util.stream.Collectors;
  */
 public class CommonUtils {
 
-
     public static List<String> splitByCommas(String joined) {
         if (StringUtils.isEmpty(joined)) {
             return Collections.emptyList();

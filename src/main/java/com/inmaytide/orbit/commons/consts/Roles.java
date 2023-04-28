@@ -9,6 +9,10 @@ package com.inmaytide.orbit.commons.consts;
 public enum Roles {
 
     /**
+     * 角色在Spring Security中的前缀字符串
+     */
+    ROLE_,
+    /**
      * 超级管理员<br />
      * 拥有系统全局最大权限, 通过系统静态配置开启, 不允许通过其他方式分配该角色
      */

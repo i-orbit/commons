@@ -6,19 +6,16 @@ package com.inmaytide.orbit.commons.consts;
  * @author inmaytide
  * @since 2023/3/31
  */
-public enum CacheNames {
+public final class CacheNames {
 
-    AUTHORIZATION_STORE("AUTHORIZATION_STORE"),
+    private CacheNames() {
 
-    ACCESS_TOKEN_STORE("ACCESS_TOKEN_STORE");
-
-    private final String value;
-
-    CacheNames(String value) {
-        this.value = value;
     }
 
-    public String getValue() {
-        return value;
-    }
+    public static final String AUTHORIZATION_STORE = "AUTHORIZATION_STORE";
+
+    public static final String ACCESS_TOKEN_STORE = "ACCESS_TOKEN_STORE";
+
+    public static final String USER_DETAILS = "USER_DETAILS";
+
 }

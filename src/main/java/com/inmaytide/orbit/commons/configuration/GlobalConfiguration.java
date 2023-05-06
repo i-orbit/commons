@@ -6,6 +6,7 @@ import com.inmaytide.orbit.commons.utils.ApplicationContextHolder;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.annotation.Order;
 
 /**
  * @author inmaytide
@@ -18,11 +19,12 @@ public class GlobalConfiguration {
      * 全局的唯一标识生成器
      */
     @Bean
-    public IdentifierGenerator identifierGenerator(@Value("orbit.server.worker-id") Long workerId, @Value("orbit.server.data-center-id") Long dataCenterId) {
+    public IdentifierGenerator identifierGenerator(@Value("${orbit.server.worker-id}") Long workerId, @Value("${orbit.server.data-center-id}") Long dataCenterId) {
         return new SnowflakeIdGenerator(workerId, dataCenterId);
     }
 
     @Bean
+    @Order(Integer.MIN_VALUE)
     public ApplicationContextHolder applicationContextHolder() {
         return new ApplicationContextHolder();
     }

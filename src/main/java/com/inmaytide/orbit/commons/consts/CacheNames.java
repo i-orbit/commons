@@ -16,6 +16,8 @@ public final class CacheNames {
 
     public static final String ACCESS_TOKEN_STORE = "ACCESS_TOKEN_STORE";
 
+    public static final String REFRESH_TOKEN_STORE = "REFRESH_TOKEN_STORE";
+
     public static final String USER_DETAILS = "USER_DETAILS";
 
 }

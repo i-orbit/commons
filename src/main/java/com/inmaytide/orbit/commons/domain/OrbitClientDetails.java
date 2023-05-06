@@ -15,7 +15,7 @@ public class OrbitClientDetails implements Serializable {
 
     public static final String ORBIT_CLIENT_ID = "orbit";
 
-    private volatile static OrbitClientDetails INSTANCE = new OrbitClientDetails();
+    private volatile static OrbitClientDetails INSTANCE;
 
     private String clientId;
 
@@ -67,27 +67,55 @@ public class OrbitClientDetails implements Serializable {
         return clientId;
     }
 
+    public void setClientId(String clientId) {
+        this.clientId = clientId;
+    }
+
     public String getClientSecret() {
         return clientSecret;
+    }
+
+    public void setClientSecret(String clientSecret) {
+        this.clientSecret = clientSecret;
     }
 
     public List<String> getAuthorizedGrantTypes() {
         return authorizedGrantTypes;
     }
 
+    public void setAuthorizedGrantTypes(List<String> authorizedGrantTypes) {
+        this.authorizedGrantTypes = authorizedGrantTypes;
+    }
+
     public Integer getAccessTokenValiditySeconds() {
         return accessTokenValiditySeconds;
+    }
+
+    public void setAccessTokenValiditySeconds(Integer accessTokenValiditySeconds) {
+        this.accessTokenValiditySeconds = accessTokenValiditySeconds;
     }
 
     public Integer getRefreshTokenValiditySeconds() {
         return refreshTokenValiditySeconds;
     }
 
+    public void setRefreshTokenValiditySeconds(Integer refreshTokenValiditySeconds) {
+        this.refreshTokenValiditySeconds = refreshTokenValiditySeconds;
+    }
+
     public List<String> getScopes() {
         return scopes;
     }
 
+    public void setScopes(List<String> scopes) {
+        this.scopes = scopes;
+    }
+
     public String getIntrospectionUri() {
         return introspectionUri;
+    }
+
+    public void setIntrospectionUri(String introspectionUri) {
+        this.introspectionUri = introspectionUri;
     }
 }

@@ -20,4 +20,11 @@ public class Query implements Serializable {
         return new LambdaQueryWrapper<>();
     }
 
+    public String getQueryName() {
+        return queryName;
+    }
+
+    public void setQueryName(String queryName) {
+        this.queryName = queryName;
+    }
 }

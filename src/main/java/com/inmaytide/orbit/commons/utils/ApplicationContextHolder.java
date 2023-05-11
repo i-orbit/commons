@@ -1,9 +1,11 @@
 package com.inmaytide.orbit.commons.utils;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeansException;
 import org.springframework.boot.context.properties.bind.Binder;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
+import org.springframework.lang.NonNull;
 
 /**
  * @author inmaytide
@@ -29,7 +31,7 @@ public class ApplicationContextHolder implements ApplicationContextAware {
     }
 
     @Override
-    public void setApplicationContext(ApplicationContext context) throws BeansException {
+    public void setApplicationContext(@NonNull ApplicationContext context) throws BeansException {
         this.context = context;
     }
 
@@ -44,7 +46,11 @@ public class ApplicationContextHolder implements ApplicationContextAware {
         return binder;
     }
 
-    public boolean getPropertyBoolValue(String s, boolean defaultValue) {
-        return context.getEnvironment().getProperty(s, Boolean.class, defaultValue);
+    public boolean getPropertyBoolValue(String key, boolean defaultValue) {
+        return context.getEnvironment().getProperty(key, Boolean.class, defaultValue);
+    }
+
+    public String getProperty(String key) {
+        return context.getEnvironment().getProperty(key, StringUtils.EMPTY);
     }
 }

@@ -6,19 +6,17 @@ package com.inmaytide.orbit.commons.consts;
  * @author inmaytide
  * @since 2023/3/31
  */
-public enum HttpHeaderNames {
+public final class HttpHeaderNames {
 
-    AUTHORIZATION("Authorization"),
+    private HttpHeaderNames() {
 
-    AUTHORIZATION_PREFIX("Bearer ");
-
-    private final String value;
-
-    HttpHeaderNames(String value) {
-        this.value = value;
     }
 
-    public String getValue() {
-        return value;
-    }
+    public static final String AUTHORIZATION = "Authorization";
+
+    public static final String AUTHORIZATION_PREFIX = "Bearer ";
+
+    public static final String SERVICE_INSTANCE_ID = "Service-Instance-ID";
+
+
 }

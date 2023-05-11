@@ -3,6 +3,8 @@ package com.inmaytide.orbit.commons.security;
 import com.inmaytide.exception.web.UnauthorizedException;
 import com.inmaytide.orbit.commons.domain.GlobalUser;
 import com.inmaytide.orbit.commons.utils.ApplicationContextHolder;
+import org.springframework.lang.NonNull;
+import org.springframework.lang.Nullable;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.server.resource.authentication.BearerTokenAuthentication;
@@ -24,15 +26,27 @@ public class SecurityUtils {
 
     /**
      * 获取当前登录用户详细信息
+     *
+     * @return 用户详情
+     * @throws UnauthorizedException 如果用户未登录
      */
-    public static GlobalUser getAuthorizedUser() {
-        return getUserDetailsService().loadUserById(SecurityContextHolder.getContext().getAuthentication().getName());
+    public static @NonNull GlobalUser getAuthorizedUser() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication == null || !authentication.isAuthenticated()) {
+            throw new UnauthorizedException();
+        }
+        return getUserDetailsService().loadUserById(authentication.getName());
     }
 
-    public static GlobalUser getAuthorizedUserAllowUnauthorized() {
+    /**
+     * 获取当前登录用户详细信息
+     *
+     * @return 用户详情, 当用户未登录时返回 null
+     */
+    public static @Nullable GlobalUser getAuthorizedUserAllowUnauthorized() {
         try {
             return getAuthorizedUser();
-        } catch (Exception ignored) {
+        } catch (UnauthorizedException ignored) {
             return null;
         }
     }

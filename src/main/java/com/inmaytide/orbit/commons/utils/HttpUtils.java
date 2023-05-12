@@ -14,7 +14,7 @@ public final class HttpUtils {
 
     public final static List<String> HEADER_NAMES_FOR_CLIENT_ID = List.of("X-Client-address", "X-Forward-For", "x-forwarded-for", "Proxy-Client-IP", "WL-Proxy-Client-IP", "HTTP_CLIENT_IP", "HTTP_X_FORWARDED_FOR");
 
-    private static String getIpAddress(String addresses) {
+    public static String getIpAddress(String addresses) {
         if (StringUtils.isBlank(addresses)) {
             return addresses;
         }

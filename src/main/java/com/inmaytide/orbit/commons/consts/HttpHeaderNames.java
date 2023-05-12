@@ -18,5 +18,9 @@ public final class HttpHeaderNames {
 
     public static final String SERVICE_INSTANCE_ID = "Service-Instance-ID";
 
+    public static final String CALL_CHAIN = "Call-Chain";
+
+    public static final String USER_AGENT = "User-Agent";
+
 
 }

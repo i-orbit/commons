@@ -37,6 +37,11 @@ public class ValueCaches {
         return Optional.ofNullable(value);
     }
 
+    public static Optional<String> getAndDelete(String cacheName, String key) {
+        String value = getOperations().getAndDelete(getCacheKey(cacheName, key));
+        return Optional.ofNullable(value);
+    }
+
     public static <T> Optional<T> getFor(String cacheName, String key, Class<T> cls) {
         final ObjectMapper mapper = ApplicationContextHolder.getInstance().getBean(ObjectMapper.class);
         return get(cacheName, key).map(value -> {
@@ -73,4 +78,7 @@ public class ValueCaches {
         getOperations().getOperations().expire(getCacheKey(cacheName, key), timeout, unit);
     }
 
+    public static Long getExpire(String cacheName, String key) {
+        return getOperations().getOperations().getExpire(getCacheKey(cacheName, key));
+    }
 }

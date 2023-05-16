@@ -24,7 +24,7 @@ public final class HttpUtils {
     public static String getClientIpAddress(HttpServletRequest request) {
         for (String name : HEADER_NAMES_FOR_CLIENT_ID) {
             String value = request.getHeader(name);
-            if (StringUtils.isNotBlank(value) && !StringUtils.equals("unknown", value)) {
+            if (StringUtils.isNotBlank(value) && !StringUtils.equalsIgnoreCase("unknown", value)) {
                 return getIpAddress(value);
             }
         }

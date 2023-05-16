@@ -98,6 +98,12 @@
             <version>1.9.19</version>
             <scope>provided</scope>
         </dependency>
+        <dependency>
+            <groupId>org.springframework.amqp</groupId>
+            <artifactId>spring-rabbit</artifactId>
+            <version>3.0.4</version>
+            <scope>provided</scope>
+        </dependency>
     </dependencies>
 
 </project>

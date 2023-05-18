@@ -41,6 +41,8 @@ public class GlobalUser implements Serializable {
 
     private UserState state;
 
+    private String stateName;
+
     private Long proxy;
 
     public Long getId() {
@@ -153,6 +155,14 @@ public class GlobalUser implements Serializable {
 
     public void setState(UserState state) {
         this.state = state;
+    }
+
+    public String getStateName() {
+        return stateName;
+    }
+
+    public void setStateName(String stateName) {
+        this.stateName = stateName;
     }
 
     public Long getProxy() {

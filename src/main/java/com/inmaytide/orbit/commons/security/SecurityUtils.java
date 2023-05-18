@@ -1,15 +1,18 @@
 package com.inmaytide.orbit.commons.security;
 
 import com.inmaytide.exception.web.UnauthorizedException;
+import com.inmaytide.orbit.commons.consts.ParameterNames;
 import com.inmaytide.orbit.commons.consts.Platforms;
 import com.inmaytide.orbit.commons.domain.GlobalUser;
 import com.inmaytide.orbit.commons.utils.ApplicationContextHolder;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.server.resource.authentication.BearerTokenAuthentication;
 
+import java.util.Objects;
 import java.util.Optional;
 
 /**
@@ -46,28 +49,21 @@ public class SecurityUtils {
      *
      * @return 用户详情, 当用户未登录时返回 null
      */
-    public static @Nullable GlobalUser getAuthorizedUserAllowUnauthorized() {
+    public static Optional<GlobalUser> getAuthorizedUserAllowUnauthorized() {
         try {
-            return getAuthorizedUser();
+            return Optional.of(getAuthorizedUser());
         } catch (UnauthorizedException ignored) {
-            return null;
+            return Optional.empty();
         }
     }
 
     public static @NonNull Optional<Platforms> getPlatform() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication != null && authentication.isAuthenticated() && authentication instanceof BearerTokenAuthentication bearerTokenAuthentication) {
+            String value = Objects.toString(bearerTokenAuthentication.getTokenAttributes().get(ParameterNames.PLATFORM), StringUtils.EMPTY);
+            return Optional.ofNullable(StringUtils.isBlank(value) ? null : Platforms.valueOf(value));
+        }
         return Optional.empty();
-    }
-
-    public static String getTokenValue() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (!authentication.isAuthenticated()) {
-            throw new UnauthorizedException();
-        }
-        if (authentication instanceof BearerTokenAuthentication bearerTokenAuthentication) {
-            return bearerTokenAuthentication.getToken().getTokenValue();
-        }
-        throw new UnauthorizedException();
     }
 
 }

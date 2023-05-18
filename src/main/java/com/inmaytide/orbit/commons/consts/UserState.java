@@ -1,5 +1,12 @@
 package com.inmaytide.orbit.commons.consts;
 
+import com.baomidou.mybatisplus.annotation.EnumValue;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
+
+import java.util.Objects;
+import java.util.stream.Stream;
+
 /**
  * 系统用户状态
  *
@@ -36,6 +43,8 @@ public enum UserState {
      */
     LOCKED(60000, "禁用");;
 
+    @EnumValue
+    @JsonValue
     private final Integer value;
 
     private final String description;
@@ -43,6 +52,13 @@ public enum UserState {
     UserState(Integer value, String description) {
         this.value = value;
         this.description = description;
+    }
+
+    @JsonCreator
+    public static UserState ofValue(Integer value) {
+        return Stream.of(values()).filter(e -> Objects.equals(value, e.getValue()))
+                .findFirst()
+                .orElseThrow(IllegalArgumentException::new);
     }
 
     public Integer getValue() {

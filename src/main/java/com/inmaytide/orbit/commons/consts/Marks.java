@@ -21,8 +21,11 @@ public enum Marks {
     /**
      * 标记一些存在但不适用当前情况的相关信息
      */
-    NOT_APPLICABLE("N/A");
+    NOT_APPLICABLE("N/A"),
 
+    LOCAL("LOCAL"),
+
+    LAN("LAN");
     private final String value;
 
     Marks(String value) {

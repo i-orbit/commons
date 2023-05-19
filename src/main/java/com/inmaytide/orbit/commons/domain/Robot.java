@@ -99,7 +99,7 @@ public class Robot implements Serializable {
             user.setUsername(Robot.getInstance().getUsername());
             user.setState(UserState.NORMAL);
             user.setAuthorities(Collections.emptyList());
-            user.setRoles(Collections.singletonList(Roles.ROBOT.name()));
+            user.setRoles(Collections.singletonList(Roles.ROLE_ROBOT.name()));
         }
         return user;
     }

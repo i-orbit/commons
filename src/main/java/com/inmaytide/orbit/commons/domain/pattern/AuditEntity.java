@@ -1,5 +1,6 @@
 package com.inmaytide.orbit.commons.domain.pattern;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.Version;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -16,11 +17,19 @@ public class AuditEntity extends Entity {
     @ApiModelProperty("创建人")
     private Long createdBy;
 
+    @TableField(exist = false)
+    @ApiModelProperty("创建人姓名")
+    private String createdByName;
+
     @ApiModelProperty("创建时间")
     private Instant createdTime;
 
     @ApiModelProperty("最后修改人")
     private Long modifiedBy;
+
+    @TableField(exist = false)
+    @ApiModelProperty("最后修改人姓名")
+    private String modifiedByName;
 
     @ApiModelProperty("最后修改时间")
     private Instant modifiedTime;
@@ -67,5 +76,21 @@ public class AuditEntity extends Entity {
 
     public void setVersion(Integer version) {
         this.version = version;
+    }
+
+    public String getCreatedByName() {
+        return createdByName;
+    }
+
+    public void setCreatedByName(String createdByName) {
+        this.createdByName = createdByName;
+    }
+
+    public String getModifiedByName() {
+        return modifiedByName;
+    }
+
+    public void setModifiedByName(String modifiedByName) {
+        this.modifiedByName = modifiedByName;
     }
 }

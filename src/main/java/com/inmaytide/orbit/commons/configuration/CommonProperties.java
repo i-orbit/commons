@@ -14,7 +14,11 @@ import org.springframework.stereotype.Component;
 public class CommonProperties implements InitializingBean {
 
     public boolean isEnableSuperAdministrator() {
-        return ApplicationContextHolder.getInstance().getPropertyBoolValue("carrot.security.super-administrator.enable", false);
+        return ApplicationContextHolder.getInstance().getPropertyBoolValue("orbit.security.super-administrator.enable", false);
+    }
+
+    public String getSuperAdministratorUsername() {
+        return ApplicationContextHolder.getInstance().getProperty("orbit.security.super-administrator.username");
     }
 
     @Override

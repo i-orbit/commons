@@ -15,7 +15,6 @@ import org.apache.ibatis.plugin.Signature;
 import java.sql.SQLException;
 import java.time.Instant;
 import java.util.Map;
-import java.util.Objects;
 
 /**
  * @author inmaytide
@@ -26,32 +25,33 @@ public class EntityAuditDataInterceptor implements InnerInterceptor {
 
     @Override
     public void beforeUpdate(Executor executor, MappedStatement ms, Object parameter) throws SQLException {
-        if (parameter instanceof Map) {
-            Map<String, Object> map = (Map<String, Object>) parameter;
-            setAuditFields(map, ms);
+        if (parameter instanceof AuditEntity params) {
+            setAuditFields(params, ms);
+        }
+        if (parameter instanceof Map<?, ?> params) {
+            setAuditFields(params, ms);
         }
     }
 
-    private void setAuditFields(Map<String, Object> parameter, MappedStatement ms) {
+    private void setAuditFields(Map<?, ?> parameter, MappedStatement ms) {
         Object et = parameter.getOrDefault(Constants.ENTITY, null);
-        if (Objects.nonNull(et)) {
-            if (ms.getSqlCommandType() == SqlCommandType.INSERT) {
-                if (et instanceof AuditEntity entity) {
-                    entity.setCreatedBy(SecurityUtils.getAuthorizedUser().getId());
-                    entity.setCreatedTime(Instant.now());
-                    entity.setVersion(1);
-                }
-                if (et instanceof TombstoneEntity entity) {
-                    entity.setDeleted(Is.N);
-                }
-            }
+        if (et instanceof AuditEntity entity) {
+            setAuditFields(entity, ms);
+        }
+    }
 
-            if (ms.getSqlCommandType() == SqlCommandType.UPDATE) {
-                if (et instanceof AuditEntity entity) {
-                    entity.setModifiedBy(SecurityUtils.getAuthorizedUser().getId());
-                    entity.setCreatedTime(Instant.now());
-                }
+    private void setAuditFields(AuditEntity entity, MappedStatement ms) {
+        if (ms.getSqlCommandType() == SqlCommandType.INSERT) {
+            entity.setCreatedBy(SecurityUtils.getAuthorizedUser().getId());
+            entity.setCreatedTime(Instant.now());
+            entity.setVersion(1);
+            if (entity instanceof TombstoneEntity tombstoneEntity) {
+                tombstoneEntity.setDeleted(Is.N);
             }
+        }
+        if (ms.getSqlCommandType() == SqlCommandType.UPDATE) {
+            entity.setModifiedBy(SecurityUtils.getAuthorizedUser().getId());
+            entity.setModifiedTime(Instant.now());
         }
     }
 

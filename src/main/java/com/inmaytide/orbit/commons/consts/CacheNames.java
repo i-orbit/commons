@@ -24,4 +24,6 @@ public final class CacheNames {
 
     public static final String USER_DETAILS = "USER_DETAILS";
 
+    public static final String TENANT_DETAILS = "TENANT_DETAILS";
+
 }

@@ -2,8 +2,7 @@ package com.inmaytide.orbit.commons.domain.pattern;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.Version;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 
 import java.time.Instant;
 
@@ -11,31 +10,31 @@ import java.time.Instant;
  * @author inmaytide
  * @since 2023/4/6
  */
-@ApiModel("包含审计信息的数据实体基类")
+@Schema(title = "包含审计信息的数据实体基类")
 public class AuditEntity extends Entity {
 
-    @ApiModelProperty("创建人")
+    @Schema(title = "创建人")
     private Long createdBy;
 
     @TableField(exist = false)
-    @ApiModelProperty("创建人姓名")
+    @Schema(title = "创建人姓名")
     private String createdByName;
 
-    @ApiModelProperty("创建时间")
+    @Schema(title = "创建时间")
     private Instant createdTime;
 
-    @ApiModelProperty("最后修改人")
+    @Schema(title = "最后修改人")
     private Long modifiedBy;
 
     @TableField(exist = false)
-    @ApiModelProperty("最后修改人姓名")
+    @Schema(title = "最后修改人姓名")
     private String modifiedByName;
 
-    @ApiModelProperty("最后修改时间")
+    @Schema(title = "最后修改时间")
     private Instant modifiedTime;
 
     @Version
-    @ApiModelProperty("数据版本(修改次数,乐观锁)")
+    @Schema(title = "数据版本(修改次数,乐观锁)")
     private Integer version;
 
     public Long getCreatedBy() {

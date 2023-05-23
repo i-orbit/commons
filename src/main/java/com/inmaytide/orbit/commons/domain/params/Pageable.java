@@ -1,21 +1,18 @@
 package com.inmaytide.orbit.commons.domain.params;
 
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-
-import java.io.Serializable;
+import io.swagger.v3.oas.annotations.media.Schema;
 
 /**
  * @author inmaytide
  * @since 2023/4/7
  */
-@ApiModel("分页查询接口参数基类")
+@Schema(title = "分页查询接口参数基类")
 public class Pageable extends Query {
 
-    @ApiModelProperty("当前页码")
+    @Schema(title = "当前页码")
     private Integer pageNumber;
 
-    @ApiModelProperty("每页数据条数")
+    @Schema(title = "每页数据条数")
     private Integer pageSize;
 
     public Integer getPageNumber() {

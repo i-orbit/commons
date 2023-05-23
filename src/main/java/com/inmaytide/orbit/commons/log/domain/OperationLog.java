@@ -3,63 +3,62 @@ package com.inmaytide.orbit.commons.log.domain;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.inmaytide.orbit.commons.domain.pattern.Entity;
 import com.inmaytide.orbit.commons.log.OperateResult;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 
 import java.io.Serial;
 import java.time.Instant;
 
-@ApiModel("用户操作日志")
+@Schema(title = "用户操作日志")
 public class OperationLog extends Entity {
 
     @Serial
     private static final long serialVersionUID = 5092215481098694779L;
 
-    @ApiModelProperty("操作人")
+    @Schema(title = "操作人")
     private Long operator;
 
-    @ApiModelProperty("操作人姓名")
+    @Schema(title = "操作人姓名")
     @TableField(exist = false)
     private String operatorName;
 
-    @ApiModelProperty("操作时间")
+    @Schema(title = "操作时间")
     private Instant operateTime;
 
-    @ApiModelProperty("操作结果")
+    @Schema(title = "操作结果")
     private OperateResult result;
 
-    @ApiModelProperty("操作结果中文描述")
+    @Schema(title = "操作结果中文描述")
     @TableField(exist = false)
     private String resultName;
 
-    @ApiModelProperty("执行操作客户端信息")
+    @Schema(title = "执行操作客户端信息")
     private String clientDescription;
 
-    @ApiModelProperty("操作人ip地址")
+    @Schema(title = "操作人ip地址")
     private String ipAddress;
 
-    @ApiModelProperty("操作描述")
+    @Schema(title = "操作描述")
     private String description;
 
-    @ApiModelProperty("业务描述")
+    @Schema(title = "业务描述")
     private String business;
 
-    @ApiModelProperty("输入参数")
+    @Schema(title = "输入参数")
     private String arguments;
 
-    @ApiModelProperty("输出内容")
+    @Schema(title = "输出内容")
     private String response;
 
-    @ApiModelProperty("操作记录链标识")
+    @Schema(title = "操作记录链标识")
     private String chain;
 
-    @ApiModelProperty("客户端系统平台")
+    @Schema(title = "客户端系统平台")
     private String platform;
 
-    @ApiModelProperty("接口请求地址")
+    @Schema(title = "接口请求地址")
     private String url;
 
-    @ApiModelProperty("接口请求HTTP_METHOD")
+    @Schema(title = "接口请求HTTP_METHOD")
     private String httpMethod;
 
     public Long getOperator() {

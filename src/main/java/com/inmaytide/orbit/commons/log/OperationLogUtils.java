@@ -8,8 +8,8 @@ import com.inmaytide.orbit.commons.log.annotation.OperationLogging;
 import com.inmaytide.orbit.commons.log.domain.OperationLog;
 import com.inmaytide.orbit.commons.security.SecurityUtils;
 import com.inmaytide.orbit.commons.utils.HttpUtils;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.lang.NonNull;
@@ -55,16 +55,16 @@ public final class OperationLogUtils {
         if (StringUtils.isNotBlank(annotation.description())) {
             return annotation.description();
         }
-        ApiOperation api = method.getAnnotation(ApiOperation.class);
-        return api == null ? "" : api.value();
+        Operation api = method.getAnnotation(Operation.class);
+        return api == null ? "" : api.summary();
     }
 
     private static String getBusiness(Method method, OperationLogging annotation) {
         if (StringUtils.isNotBlank(annotation.business())) {
             return annotation.business();
         }
-        Api api = method.getDeclaringClass().getAnnotation(Api.class);
-        return api == null ? "" : StringUtils.join(api.tags(), ",");
+        Tag api = method.getDeclaringClass().getAnnotation(Tag.class);
+        return api == null ? "" : StringUtils.join(api.name(), ",");
     }
 
 }

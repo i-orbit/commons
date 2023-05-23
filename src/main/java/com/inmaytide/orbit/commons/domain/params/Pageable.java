@@ -1,18 +1,19 @@
 package com.inmaytide.orbit.commons.domain.params;
 
-import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.Parameter;
 
 /**
+ * 分页查询接口参数基类
+ *
  * @author inmaytide
  * @since 2023/4/7
  */
-@Schema(title = "分页查询接口参数基类")
 public class Pageable extends Query {
 
-    @Schema(title = "当前页码")
+    @Parameter(description = "当前页码")
     private Integer pageNumber;
 
-    @Schema(title = "每页数据条数")
+    @Parameter(description = "每页数据条数")
     private Integer pageSize;
 
     public Integer getPageNumber() {

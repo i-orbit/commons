@@ -12,6 +12,7 @@ public final class HttpHeaderNames {
 
     }
 
+
     public static final String AUTHORIZATION = "Authorization";
 
     public static final String AUTHORIZATION_PREFIX = "Bearer ";

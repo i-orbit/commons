@@ -4,11 +4,6 @@ import com.inmaytide.orbit.commons.consts.RabbitMQ;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.stereotype.Component;
 
-/**
- * @Author stayorigin
- * @Date 2022/3/5
- * @Description
- **/
 @Component
 public class RabbitProducer {
 
@@ -38,16 +33,10 @@ public class RabbitProducer {
 
     /**
      * 发送实时消息
-     *
-     * @param message
-     * @param router
      */
-    public void sendRealMessage(Object message, String router) {
-        sendRealMessage(message, RabbitMQ.DIRECT_EXCHANGE, router);
+    public void sendRealMessage(Object message, String route) {
+        rabbitTemplate.convertAndSend(RabbitMQ.DIRECT_EXCHANGE, route, message);
     }
 
-    private void sendRealMessage(Object message, String exchange, String routing) {
-        rabbitTemplate.convertAndSend(exchange, routing, message);
-    }
 
 }

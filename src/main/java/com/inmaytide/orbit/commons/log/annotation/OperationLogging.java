@@ -1,5 +1,8 @@
 package com.inmaytide.orbit.commons.log.annotation;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -11,8 +14,8 @@ import java.lang.annotation.Target;
  *
  * @author inmaytide
  * @since 2022/03/12
- * @see io.swagger.annotations.Api
- * @see io.swagger.annotations.ApiOperation
+ * @see io.swagger.v3.oas.annotations.tags.Tag
+ * @see io.swagger.v3.oas.annotations.Operation
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.METHOD})
@@ -20,19 +23,18 @@ public @interface OperationLogging {
 
     /**
      * 操作说明 <br/>
-     * 为空时自动获取该方法上的 {@link io.swagger.annotations.ApiOperation#value()} 配置信息
+     * 为空时自动获取该方法上的 {@link Operation#summary()} 配置信息
      */
     String description() default "";
 
     /**
      * 操作对应业务说明 <br/>
-     * 为空时自动获取对应 Controller 类上的 {@link io.swagger.annotations.Api#tags()} 配置信息
+     * 为空时自动获取对应 Controller 类上的 {@link Tag#name()} 配置信息
      */
     String business() default "";
 
     /**
      * 日志中是记录请求中的参数信息 <br/>
-     * TO-DO 目前除了登陆请求其他暂不支持
      */
     boolean retainArguments() default false;
 

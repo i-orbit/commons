@@ -1,65 +1,90 @@
 package com.inmaytide.orbit.commons.log.domain;
 
 import com.baomidou.mybatisplus.annotation.TableField;
+import com.inmaytide.orbit.commons.consts.Constants;
+import com.inmaytide.orbit.commons.consts.Is;
 import com.inmaytide.orbit.commons.domain.pattern.Entity;
-import com.inmaytide.orbit.commons.log.OperateResult;
+import com.inmaytide.orbit.commons.utils.ApplicationContextHolder;
 import io.swagger.v3.oas.annotations.media.Schema;
 
 import java.io.Serial;
 import java.time.Instant;
 
+/**
+ * @author inmaytide
+ * @since 2023/5/26
+ */
 @Schema(title = "用户操作日志")
 public class OperationLog extends Entity {
-
     @Serial
-    private static final long serialVersionUID = 5092215481098694779L;
+    private static final long serialVersionUID = 3471044645864428769L;
 
-    @Schema(title = "操作人")
+    @Schema(title = "所属租户")
+    private Long tenantId;
+
+    @Schema(title = "操作人", nullable = true, description = "为NULL时表示操作人未登录或登录失败")
     private Long operator;
 
-    @Schema(title = "操作人姓名")
     @TableField(exist = false)
+    @Schema(title = "操作人姓名", accessMode = Schema.AccessMode.READ_ONLY, description = "查询时系统自动填入")
     private String operatorName;
 
     @Schema(title = "操作时间")
-    private Instant operateTime;
+    private Instant operationTime;
 
     @Schema(title = "操作结果")
-    private OperateResult result;
+    private Is result;
 
-    @Schema(title = "操作结果中文描述")
-    @TableField(exist = false)
-    private String resultName;
-
-    @Schema(title = "执行操作客户端信息")
+    @Schema(title = "客户端信息", description = "通过HttpHeaders[User-Agent]获取, 包含系统/浏览器版本等信息")
     private String clientDescription;
 
-    @Schema(title = "操作人ip地址")
+    @Schema(title = "客户端IP及其归属地", description = "格式IP(归属地)")
     private String ipAddress;
 
-    @Schema(title = "操作描述")
-    private String description;
+    @Schema(title = "接口所在服务名称")
+    private String service;
 
     @Schema(title = "业务描述")
     private String business;
 
-    @Schema(title = "输入参数")
+    @Schema(title = "操作描述")
+    private String description;
+
+    @Schema(title = "请求参数")
     private String arguments;
 
-    @Schema(title = "输出内容")
+    @Schema(title = "响应内容/错误描述")
     private String response;
 
-    @Schema(title = "操作记录链标识")
+    @Schema(title = "接口调用链标识")
     private String chain;
 
-    @Schema(title = "客户端系统平台")
+    @Schema(title = "客户端平台")
     private String platform;
 
-    @Schema(title = "接口请求地址")
-    private String url;
+    @Schema(title = "请求地址")
+    private String path;
 
-    @Schema(title = "接口请求HTTP_METHOD")
+    @Schema(title = "HttpMethod")
     private String httpMethod;
+
+    public OperationLog() {
+        this.operationTime = Instant.now();
+        this.tenantId = Constants.NON_TENANT_ID;
+        try {
+            this.setService(ApplicationContextHolder.getInstance().getProperty("spring.application.name"));
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public Long getTenantId() {
+        return tenantId;
+    }
+
+    public void setTenantId(Long tenantId) {
+        this.tenantId = tenantId;
+    }
 
     public Long getOperator() {
         return operator;
@@ -77,19 +102,19 @@ public class OperationLog extends Entity {
         this.operatorName = operatorName;
     }
 
-    public Instant getOperateTime() {
-        return operateTime;
+    public Instant getOperationTime() {
+        return operationTime;
     }
 
-    public void setOperateTime(Instant operateTime) {
-        this.operateTime = operateTime;
+    public void setOperationTime(Instant operationTime) {
+        this.operationTime = operationTime;
     }
 
-    public OperateResult getResult() {
+    public Is getResult() {
         return result;
     }
 
-    public void setResult(OperateResult result) {
+    public void setResult(Is result) {
         this.result = result;
     }
 
@@ -109,12 +134,12 @@ public class OperationLog extends Entity {
         this.ipAddress = ipAddress;
     }
 
-    public String getDescription() {
-        return description;
+    public String getService() {
+        return service;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setService(String service) {
+        this.service = service;
     }
 
     public String getBusiness() {
@@ -123,6 +148,14 @@ public class OperationLog extends Entity {
 
     public void setBusiness(String business) {
         this.business = business;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public String getArguments() {
@@ -157,12 +190,12 @@ public class OperationLog extends Entity {
         this.platform = platform;
     }
 
-    public String getUrl() {
-        return url;
+    public String getPath() {
+        return path;
     }
 
-    public void setUrl(String url) {
-        this.url = url;
+    public void setPath(String path) {
+        this.path = path;
     }
 
     public String getHttpMethod() {
@@ -171,33 +204,5 @@ public class OperationLog extends Entity {
 
     public void setHttpMethod(String httpMethod) {
         this.httpMethod = httpMethod;
-    }
-
-    public String getResultName() {
-        if (result != null) {
-            resultName = result.getName();
-        }
-        return resultName;
-    }
-
-    @Override
-    public String toString() {
-        return "OperationLog{" +
-                "id=" + getId() +
-                ", operator=" + operator +
-                ", operatorName='" + operatorName + '\'' +
-                ", operateTime=" + operateTime +
-                ", result=" + result +
-                ", clientDescription='" + clientDescription + '\'' +
-                ", ipAddress='" + ipAddress + '\'' +
-                ", description='" + description + '\'' +
-                ", business='" + business + '\'' +
-                ", arguments='" + arguments + '\'' +
-                ", response='" + response + '\'' +
-                ", chain='" + chain + '\'' +
-                ", platform='" + platform + '\'' +
-                ", url='" + url + '\'' +
-                ", httpMethod='" + httpMethod + '\'' +
-                '}';
     }
 }

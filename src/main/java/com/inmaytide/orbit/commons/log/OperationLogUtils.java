@@ -28,8 +28,8 @@ public final class OperationLogUtils {
         OperationLog log = new OperationLog();
         if (operator != null) {
             log.setOperator(operator.getId());
+            log.setTenantId(operator.getTenantId());
         }
-        log.setOperateTime(Instant.now());
         return log;
     }
 
@@ -46,7 +46,7 @@ public final class OperationLogUtils {
         }
         log.setChain(request.getHeader(HttpHeaderNames.CALL_CHAIN));
         log.setPlatform(SecurityUtils.getPlatform().map(Platforms::name).orElse(Marks.NOT_APPLICABLE.getValue()));
-        log.setUrl(request.getRequestURI());
+        log.setPath(request.getRequestURI());
         log.setHttpMethod(request.getMethod());
         return log;
     }
@@ -64,7 +64,7 @@ public final class OperationLogUtils {
             return annotation.business();
         }
         Tag api = method.getDeclaringClass().getAnnotation(Tag.class);
-        return api == null ? "" : StringUtils.join(api.name(), ",");
+        return api == null ? "" : api.name();
     }
 
 }

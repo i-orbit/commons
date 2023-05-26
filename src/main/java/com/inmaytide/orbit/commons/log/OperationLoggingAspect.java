@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.inmaytide.exception.translator.ThrowableTranslator;
 import com.inmaytide.exception.web.HttpResponseException;
 import com.inmaytide.exception.web.domain.DefaultResponse;
+import com.inmaytide.orbit.commons.consts.Is;
 import com.inmaytide.orbit.commons.log.annotation.OperationLogging;
 import com.inmaytide.orbit.commons.log.domain.OperationLog;
 import com.inmaytide.orbit.commons.security.UserDetailsService;
@@ -54,7 +55,7 @@ public class OperationLoggingAspect {
         Method method = getMethod(point);
         OperationLogging annotation = method.getAnnotation(OperationLogging.class);
         OperationLog log = OperationLogUtils.build(getRequest(), method);
-        log.setResult(OperateResult.SUCCESS);
+        log.setResult(Is.Y);
         if (annotation.retainResponseBody()) {
             log.setResponse(objectMapper.writeValueAsString(returnVal));
         }
@@ -64,7 +65,7 @@ public class OperationLoggingAspect {
     @AfterThrowing(value = "@annotation(com.inmaytide.orbit.commons.log.annotation.OperationLogging)", throwing = "e")
     public void onFailed(JoinPoint point, Throwable e) {
         OperationLog log = OperationLogUtils.build(getRequest(), getMethod(point));
-        log.setResult(OperateResult.FAIL);
+        log.setResult(Is.N);
         throwableTranslator.translate(e).ifPresent(ex -> log.setResponse(DefaultResponse.withException(ex).URL(getRequest().getRequestURI()).build().toString()));
         producer.produce(log);
     }

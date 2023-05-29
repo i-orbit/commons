@@ -16,7 +16,6 @@ import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 
 import java.lang.reflect.Method;
-import java.time.Instant;
 
 public final class OperationLogUtils {
 

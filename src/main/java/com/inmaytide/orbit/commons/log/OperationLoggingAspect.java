@@ -7,7 +7,7 @@ import com.inmaytide.exception.web.domain.DefaultResponse;
 import com.inmaytide.orbit.commons.consts.Is;
 import com.inmaytide.orbit.commons.log.annotation.OperationLogging;
 import com.inmaytide.orbit.commons.log.domain.OperationLog;
-import com.inmaytide.orbit.commons.security.UserDetailsService;
+import com.inmaytide.orbit.commons.provider.UserDetailsProvider;
 import jakarta.servlet.http.HttpServletRequest;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterReturning;
@@ -31,7 +31,7 @@ import java.lang.reflect.Method;
 @ConditionalOnWebApplication(type = ConditionalOnWebApplication.Type.SERVLET)
 public class OperationLoggingAspect {
 
-    protected final UserDetailsService userDetailsService;
+    protected final UserDetailsProvider userDetailsProvider;
 
     protected final StringRedisTemplate redisTemplate;
 
@@ -41,8 +41,8 @@ public class OperationLoggingAspect {
 
     private final ThrowableTranslator<HttpResponseException> throwableTranslator;
 
-    public OperationLoggingAspect(UserDetailsService userDetailsService, StringRedisTemplate redisTemplate, OperationLogMessageProducer producer, ObjectMapper objectMapper, ThrowableTranslator<HttpResponseException> throwableTranslator) {
-        this.userDetailsService = userDetailsService;
+    public OperationLoggingAspect(UserDetailsProvider userDetailsProvider, StringRedisTemplate redisTemplate, OperationLogMessageProducer producer, ObjectMapper objectMapper, ThrowableTranslator<HttpResponseException> throwableTranslator) {
+        this.userDetailsProvider = userDetailsProvider;
         this.redisTemplate = redisTemplate;
         this.producer = producer;
         this.objectMapper = objectMapper;

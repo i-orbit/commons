@@ -5,6 +5,7 @@ import com.inmaytide.orbit.commons.consts.ParameterNames;
 import com.inmaytide.orbit.commons.consts.Platforms;
 import com.inmaytide.orbit.commons.consts.Roles;
 import com.inmaytide.orbit.commons.domain.GlobalUser;
+import com.inmaytide.orbit.commons.provider.UserDetailsProvider;
 import com.inmaytide.orbit.commons.utils.ApplicationContextHolder;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.lang.NonNull;
@@ -21,13 +22,18 @@ import java.util.Optional;
  */
 public class SecurityUtils {
 
-    private static UserDetailsService userDetailsService;
+    private static UserDetailsProvider userDetailsProvider;
 
-    public static UserDetailsService getUserDetailsService() {
-        if (userDetailsService == null) {
-            userDetailsService = ApplicationContextHolder.getInstance().getBean(UserDetailsService.class);
+    public static UserDetailsProvider getUserDetailsProvider() {
+        if (userDetailsProvider == null) {
+            userDetailsProvider = ApplicationContextHolder.getInstance().getBean(UserDetailsProvider.class);
         }
-        return userDetailsService;
+        return userDetailsProvider;
+    }
+
+    public static boolean isAuthorized() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        return authentication != null && authentication.isAuthenticated();
     }
 
     /**
@@ -41,7 +47,7 @@ public class SecurityUtils {
         if (authentication == null || !authentication.isAuthenticated()) {
             throw new UnauthorizedException();
         }
-        return getUserDetailsService().loadUserById(authentication.getName());
+        return getUserDetailsProvider().get(authentication.getName());
     }
 
     /**

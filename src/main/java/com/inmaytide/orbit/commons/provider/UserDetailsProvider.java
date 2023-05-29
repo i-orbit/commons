@@ -1,4 +1,4 @@
-package com.inmaytide.orbit.commons.security;
+package com.inmaytide.orbit.commons.provider;
 
 import com.inmaytide.orbit.commons.domain.GlobalUser;
 
@@ -8,8 +8,8 @@ import java.io.Serializable;
  * @author inmaytide
  * @since 2023/4/7
  */
-public interface UserDetailsService {
+public interface UserDetailsProvider {
 
-    GlobalUser loadUserById(Serializable id);
+    GlobalUser get(Serializable id);
 
 }

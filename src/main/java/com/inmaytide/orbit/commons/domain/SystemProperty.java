@@ -11,8 +11,8 @@ import java.io.Serializable;
  * @since 2023/5/26
  */
 @Schema(
-    title = "系统运行时属性配置",
-    description = "可区分不同租户, 若租户没有单独配置取系统默认值. 系统默认值[租户ID=3721]仅超级管理员可修改"
+        title = "系统运行时属性配置",
+        description = "可区分不同租户, 若租户没有单独配置取系统默认值. 系统默认值[租户ID=3721]仅超级管理员可修改"
 )
 public class SystemProperty implements Serializable {
     @Serial
@@ -38,6 +38,15 @@ public class SystemProperty implements Serializable {
 
     @Schema(title = "是否全局默认值", description = "仅租户为3721时有效")
     private Is global;
+
+    public static SystemProperty empty(Long tenantId, String key) {
+        SystemProperty entity = new SystemProperty();
+        entity.setTenantId(tenantId);
+        entity.setKey(key);
+        entity.setAuthenticated(Is.Y);
+        entity.setExposed(Is.N);
+        return entity;
+    }
 
     public Long getTenantId() {
         return tenantId;

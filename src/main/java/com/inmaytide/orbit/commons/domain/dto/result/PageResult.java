@@ -1,4 +1,4 @@
-package com.inmaytide.orbit.commons.domain.dto;
+package com.inmaytide.orbit.commons.domain.dto.result;
 
 import com.github.pagehelper.PageInfo;
 import com.inmaytide.orbit.commons.domain.pattern.Entity;

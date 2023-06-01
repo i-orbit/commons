@@ -1,4 +1,4 @@
-package com.inmaytide.orbit.commons.domain.dto;
+package com.inmaytide.orbit.commons.domain.dto.result;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 

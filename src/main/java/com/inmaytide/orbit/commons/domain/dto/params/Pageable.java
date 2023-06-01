@@ -1,4 +1,4 @@
-package com.inmaytide.orbit.commons.domain.params;
+package com.inmaytide.orbit.commons.domain.dto.params;
 
 import io.swagger.v3.oas.annotations.Parameter;
 

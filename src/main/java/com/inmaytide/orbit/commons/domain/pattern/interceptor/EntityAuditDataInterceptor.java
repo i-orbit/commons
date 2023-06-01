@@ -1,4 +1,4 @@
-package com.inmaytide.orbit.commons.domain.pattern.interptor;
+package com.inmaytide.orbit.commons.domain.pattern.interceptor;
 
 import com.baomidou.mybatisplus.core.toolkit.Constants;
 import com.baomidou.mybatisplus.extension.plugins.inner.InnerInterceptor;

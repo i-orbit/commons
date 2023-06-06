@@ -20,8 +20,6 @@ public class Tenant extends Entity {
 
     private Is menuSynced;
 
-    private Integer operationLogRetentionTime;
-
     private String license;
     
     public String getName() {
@@ -62,14 +60,6 @@ public class Tenant extends Entity {
 
     public void setMenuSynced(Is menuSynced) {
         this.menuSynced = menuSynced;
-    }
-
-    public Integer getOperationLogRetentionTime() {
-        return operationLogRetentionTime;
-    }
-
-    public void setOperationLogRetentionTime(Integer operationLogRetentionTime) {
-        this.operationLogRetentionTime = operationLogRetentionTime;
     }
 
     public String getLicense() {

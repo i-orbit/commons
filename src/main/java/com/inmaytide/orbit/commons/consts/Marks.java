@@ -25,7 +25,9 @@ public enum Marks {
 
     LOCAL("LOCAL"),
 
-    LAN("LAN");
+    LAN("LAN"),
+
+    TREE_ROOT("0");
     private final String value;
 
     Marks(String value) {

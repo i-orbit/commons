@@ -8,7 +8,7 @@ public enum Sharing {
 
     PRIVATE,
 
-    REGION,
+    AREA,
 
     ORGANIZATION,
 

@@ -9,16 +9,16 @@ import java.math.BigDecimal;
  * @author inmaytide
  * @since 2023/6/26
  */
-@Schema(title = "地址位置信息(坐标点)")
-public class GeographicLocation implements Serializable {
+@Schema(title = "地理位置坐标点")
+public class GeographicCoordinate implements Serializable {
 
     @Schema(title = "归属实体对象唯一标识", nullable = false)
     private Long attribution;
 
-    @Schema(title = "坐标点-经度", nullable = false)
+    @Schema(title = "经度", nullable = false)
     private BigDecimal longitude;
 
-    @Schema(title = "坐标点-纬度", nullable = false)
+    @Schema(title = "纬度", nullable = false)
     private BigDecimal latitude;
 
     public Long getAttribution() {

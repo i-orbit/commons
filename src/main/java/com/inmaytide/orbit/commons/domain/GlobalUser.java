@@ -13,6 +13,10 @@ public class GlobalUser implements Serializable {
 
     private Long id;
 
+    private Long defaultUnderOrganization;
+
+    private List<Long> underOrganizations;
+
     private String name;
 
     private String username;
@@ -35,9 +39,7 @@ public class GlobalUser implements Serializable {
 
     private List<String> authorities;
 
-    private List<Long> organizations;
-
-    private List<Long> areas;
+    private Perspective perspective;
 
     private UserState state;
 
@@ -51,6 +53,22 @@ public class GlobalUser implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Long getDefaultUnderOrganization() {
+        return defaultUnderOrganization;
+    }
+
+    public void setDefaultUnderOrganization(Long defaultUnderOrganization) {
+        this.defaultUnderOrganization = defaultUnderOrganization;
+    }
+
+    public List<Long> getUnderOrganizations() {
+        return underOrganizations;
+    }
+
+    public void setUnderOrganizations(List<Long> underOrganizations) {
+        this.underOrganizations = underOrganizations;
     }
 
     public String getName() {
@@ -125,14 +143,6 @@ public class GlobalUser implements Serializable {
         this.tenantId = tenantId;
     }
 
-    public List<Long> getOrganizations() {
-        return organizations;
-    }
-
-    public void setOrganizations(List<Long> organizations) {
-        this.organizations = organizations;
-    }
-
     public List<String> getRoles() {
         return roles;
     }
@@ -147,6 +157,14 @@ public class GlobalUser implements Serializable {
 
     public void setAuthorities(List<String> authorities) {
         this.authorities = authorities;
+    }
+
+    public Perspective getPerspective() {
+        return perspective;
+    }
+
+    public void setPerspective(Perspective perspective) {
+        this.perspective = perspective;
     }
 
     public UserState getState() {
@@ -173,11 +191,4 @@ public class GlobalUser implements Serializable {
         this.proxy = proxy;
     }
 
-    public List<Long> getAreas() {
-        return areas;
-    }
-
-    public void setAreas(List<Long> areas) {
-        this.areas = areas;
-    }
 }

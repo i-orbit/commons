@@ -1,6 +1,7 @@
 package com.inmaytide.orbit.commons.domain;
 
 import com.inmaytide.orbit.commons.consts.UserState;
+import io.swagger.v3.oas.annotations.media.Schema;
 
 import java.io.Serializable;
 import java.util.List;
@@ -9,42 +10,58 @@ import java.util.List;
  * @author inmaytide
  * @since 2023/3/31
  */
+@Schema(title = "系统用户详细信息", description = "登录用的详细信息, 包含功能权限和数据权限信息")
 public class GlobalUser implements Serializable {
 
+    @Schema(title = "唯一标识")
     private Long id;
 
+    @Schema(title = "默认所属组织")
     private Long defaultUnderOrganization;
 
+    @Schema(title = "所属组织唯一标识列表", description = "一个用户允许归属于多个组织")
     private List<Long> underOrganizations;
 
+    @Schema(title = "用户姓名")
     private String name;
 
+    @Schema(title = "用户登录名")
     private String username;
 
+    @Schema(title = "手机号码")
     private String telephoneNumber;
 
+    @Schema(title = "邮箱地址")
     private String email;
 
+    @Schema(title = "员工编号")
     private String employeeId;
 
+    @Schema(title = "系统语言标识")
     private String lang;
 
+    @Schema(title = "用户头像存储地址")
     private String avatar;
 
+    @Schema(title = "电子签名存储地址")
     private String signature;
 
+    @Schema(title = "用户所属租户")
     private Long tenantId;
 
+    @Schema(title = "用户拥有角色编号")
     private List<String> roles;
 
+    @Schema(title = "用户拥有功能权限编号")
     private List<String> authorities;
 
+    @Schema(title = "用户当前视角(数据权限)")
     private Perspective perspective;
 
+    @Schema(title = "用户状态")
     private UserState state;
 
-    private String stateName;
-
+    @Schema(title = "用户离岗时任务代理人")
     private Long proxy;
 
     public Long getId() {
@@ -173,14 +190,6 @@ public class GlobalUser implements Serializable {
 
     public void setState(UserState state) {
         this.state = state;
-    }
-
-    public String getStateName() {
-        return stateName;
-    }
-
-    public void setStateName(String stateName) {
-        this.stateName = stateName;
     }
 
     public Long getProxy() {

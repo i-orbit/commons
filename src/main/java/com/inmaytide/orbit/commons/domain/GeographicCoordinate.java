@@ -12,13 +12,13 @@ import java.math.BigDecimal;
 @Schema(title = "地理位置坐标点")
 public class GeographicCoordinate implements Serializable {
 
-    @Schema(title = "归属实体对象唯一标识", nullable = false)
+    @Schema(title = "归属实体对象唯一标识", required = true)
     private Long attribution;
 
-    @Schema(title = "经度", nullable = false)
+    @Schema(title = "经度", required = true)
     private BigDecimal longitude;
 
-    @Schema(title = "纬度", nullable = false)
+    @Schema(title = "纬度", required = true)
     private BigDecimal latitude;
 
     public Long getAttribution() {

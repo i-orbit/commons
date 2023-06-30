@@ -36,7 +36,7 @@ public class TreeNode<T> implements Serializable {
     @Schema(title = "子节点列表")
     private List<TreeNode<T>> children;
 
-    @Schema(title = "节点父级表示", description = "根据需要可设置为父级节点唯一标识或父级节点数据对象")
+    @Schema(title = "节点父级标识", description = "根据需要可设置为父级节点唯一标识或父级节点数据对象")
     private Object parent;
 
     public TreeNode() {

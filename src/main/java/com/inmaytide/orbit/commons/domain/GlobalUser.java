@@ -1,9 +1,12 @@
 package com.inmaytide.orbit.commons.domain;
 
+import com.inmaytide.orbit.commons.configuration.CommonProperties;
 import com.inmaytide.orbit.commons.consts.UserState;
+import com.inmaytide.orbit.commons.utils.ApplicationContextHolder;
 import io.swagger.v3.oas.annotations.media.Schema;
 
 import java.io.Serializable;
+import java.time.Instant;
 import java.util.List;
 
 /**
@@ -63,6 +66,9 @@ public class GlobalUser implements Serializable {
 
     @Schema(title = "用户离岗时任务代理人")
     private Long proxy;
+
+    @Schema(title = "密码到期时间")
+    private Instant passwordExpireAt;
 
     public Long getId() {
         return id;
@@ -198,6 +204,23 @@ public class GlobalUser implements Serializable {
 
     public void setProxy(Long proxy) {
         this.proxy = proxy;
+    }
+
+    public Instant getPasswordExpireAt() {
+        return passwordExpireAt;
+    }
+
+    public void setPasswordExpireAt(Instant passwordExpireAt) {
+        this.passwordExpireAt = passwordExpireAt;
+    }
+
+    public boolean forceChangePassword() {
+        if (ApplicationContextHolder.getInstance().getBean(CommonProperties.class).forcePasswordChangesWhenNecessary()) {
+            return state == UserState.INITIALIZATION
+                    || getPasswordExpireAt() == null
+                    || getPasswordExpireAt().isBefore(Instant.now());
+        }
+        return false;
     }
 
 }

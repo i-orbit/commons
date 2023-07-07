@@ -21,6 +21,10 @@ public class CommonProperties implements InitializingBean {
         return ApplicationContextHolder.getInstance().getProperty("orbit.security.super-administrator.username");
     }
 
+    public boolean forcePasswordChangesWhenNecessary() {
+        return ApplicationContextHolder.getInstance().getPropertyBoolValue("orbit.security.force-password-changes-when-necessary", true);
+    }
+
     @Override
     public void afterPropertiesSet() throws Exception {
 

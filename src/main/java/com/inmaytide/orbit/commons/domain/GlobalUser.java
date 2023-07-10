@@ -214,7 +214,7 @@ public class GlobalUser implements Serializable {
         this.passwordExpireAt = passwordExpireAt;
     }
 
-    public boolean forceChangePassword() {
+    public boolean getForceChangePassword() {
         if (ApplicationContextHolder.getInstance().getBean(CommonProperties.class).forcePasswordChangesWhenNecessary()) {
             return state == UserState.INITIALIZATION
                     || getPasswordExpireAt() == null

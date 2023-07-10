@@ -5,6 +5,7 @@ import com.inmaytide.orbit.commons.consts.UserState;
 import com.inmaytide.orbit.commons.utils.ApplicationContextHolder;
 import io.swagger.v3.oas.annotations.media.Schema;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.time.Instant;
 import java.util.List;
@@ -15,6 +16,9 @@ import java.util.List;
  */
 @Schema(title = "系统用户详细信息", description = "登录用的详细信息, 包含功能权限和数据权限信息")
 public class GlobalUser implements Serializable {
+
+    @Serial
+    private static final long serialVersionUID = -1609661989868009319L;
 
     @Schema(title = "唯一标识")
     private Long id;

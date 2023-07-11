@@ -1,5 +1,6 @@
 package com.inmaytide.orbit.commons.domain;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.inmaytide.orbit.commons.consts.Is;
 import io.swagger.v3.oas.annotations.media.Schema;
 
@@ -22,6 +23,7 @@ public class SystemProperty implements Serializable {
     private Long tenantId;
 
     @Schema(title = "属性key")
+    @TableField("`key`")
     private String key;
 
     @Schema(title = "属性描述")

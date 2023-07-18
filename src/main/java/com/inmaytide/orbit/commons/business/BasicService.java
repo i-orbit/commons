@@ -47,21 +47,7 @@ public interface BasicService<T extends Entity> {
         if (ids == null || ids.isEmpty()) {
             return AffectedResult.notAffected();
         }
-        int affected = 0;
-        if (getEntityClass().isAssignableFrom(TombstoneEntity.class)) {
-            try {
-                Constructor<T> constructor = ReflectionUtils.accessibleConstructor(getEntityClass());
-                T seed = constructor.newInstance();
-                ((TombstoneEntity) seed).setDeleted(Is.Y);
-                affected = getMapper().update(seed, new LambdaUpdateWrapper<T>().in(T::getId, ids));
-            } catch (Exception e) {
-                throw new RuntimeException(e);
-            }
-        } else {
-            affected = getMapper().deleteBatchIds(ids);
-        }
-        updated();
-        return AffectedResult.of(affected);
+        return AffectedResult.of(getMapper().deleteBatchIds(ids));
     }
 
     default T update(T entity) {

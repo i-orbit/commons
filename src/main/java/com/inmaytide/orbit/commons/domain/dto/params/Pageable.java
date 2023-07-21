@@ -1,6 +1,9 @@
 package com.inmaytide.orbit.commons.domain.dto.params;
 
+import com.inmaytide.orbit.commons.domain.pattern.Entity;
 import io.swagger.v3.oas.annotations.Parameter;
+
+import java.io.Serial;
 
 /**
  * 分页查询接口参数基类
@@ -8,7 +11,10 @@ import io.swagger.v3.oas.annotations.Parameter;
  * @author inmaytide
  * @since 2023/4/7
  */
-public class Pageable extends Query {
+public class Pageable<T extends Entity> extends Query<T> {
+
+    @Serial
+    private static final long serialVersionUID = -4333214352924071775L;
 
     @Parameter(description = "当前页码")
     private Integer pageNumber;

@@ -23,14 +23,14 @@ public class CodecUtils {
 
     public static final String[] CHARS = new String[]{"a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"};
 
-    /**
-     * RSA私钥加密
-     *
-     * @param str 加密字符串
-     * @param key 私钥
-     * @return 密文
-     * @throws Exception 加密过程中的异常信息
-     */
+    public static String encrypt(String str) throws Exception {
+        return encrypt(str, RSA_PUBLIC_KEY);
+    }
+
+    public static String decrypt(String str) throws Exception {
+        return decrypt(str, RSA_PRIVATE_KEY);
+    }
+
     public static String encrypt(String str, String key) throws Exception {
         //base64编码的公钥
         byte[] decoded = Base64.getDecoder().decode(key);
@@ -40,15 +40,7 @@ public class CodecUtils {
         cipher.init(Cipher.ENCRYPT_MODE, publicKey);
         return Base64.getEncoder().encodeToString(cipher.doFinal(str.getBytes(StandardCharsets.UTF_8)));
     }
-
-    /**
-     * RSA私钥解密
-     *
-     * @param str 加密字符串
-     * @param key 公钥
-     * @return 明文
-     * @throws Exception 解密过程中的异常信息
-     */
+    
     public static String decrypt(String str, String key) throws Exception {
         //64位解码加密后的字符串
         byte[] inputByte = Base64.getDecoder().decode(str);

@@ -3,6 +3,7 @@ package com.inmaytide.orbit.commons.domain.dto.result;
 import io.swagger.v3.oas.annotations.media.Schema;
 import org.springframework.beans.BeanUtils;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +16,9 @@ import java.util.stream.Collectors;
 @Schema(title = "树结构数据节点实体")
 public class TreeNode<T> implements Serializable {
 
+    @Serial
+    private static final long serialVersionUID = 1552067496526042450L;
+    
     @Schema(title = "唯一标识", description = "一般等于关联数据实例对象的唯一标识")
     private Serializable id;
 

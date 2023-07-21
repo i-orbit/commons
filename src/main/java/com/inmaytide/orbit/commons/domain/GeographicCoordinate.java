@@ -2,6 +2,7 @@ package com.inmaytide.orbit.commons.domain;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
@@ -11,6 +12,9 @@ import java.math.BigDecimal;
  */
 @Schema(title = "地理位置坐标点")
 public class GeographicCoordinate implements Serializable {
+
+    @Serial
+    private static final long serialVersionUID = 8801313037798553919L;
 
     @Schema(title = "归属实体对象唯一标识", required = true)
     private Long attribution;

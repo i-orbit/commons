@@ -1,6 +1,7 @@
 package com.inmaytide.orbit.commons.business;
 
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.baomidou.mybatisplus.extension.service.IService;
+import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.inmaytide.exception.web.ObjectNotFoundException;
@@ -18,11 +19,7 @@ import java.util.Optional;
  * @author inmaytide
  * @since 2023/4/7
  */
-public interface BasicService<T extends Entity> {
-
-    BaseMapper<T> getMapper();
-
-    Class<T> getEntityClass();
+public interface BasicService<T extends Entity> extends IService<T> {
 
     /**
      * 更新操作(增/删/改)后执行的一些通用操作
@@ -33,7 +30,7 @@ public interface BasicService<T extends Entity> {
     }
 
     default T create(T entity) {
-        getMapper().insert(entity);
+        getBaseMapper().insert(entity);
         updated();
         return get(entity.getId()).orElseThrow(() -> new ObjectNotFoundException(String.valueOf(entity.getId())));
     }
@@ -42,24 +39,25 @@ public interface BasicService<T extends Entity> {
         if (ids == null || ids.isEmpty()) {
             return AffectedResult.notAffected();
         }
-        return AffectedResult.of(getMapper().deleteBatchIds(ids));
+        return AffectedResult.of(getBaseMapper().deleteBatchIds(ids));
     }
 
     default T update(T entity) {
-        getMapper().updateById(entity);
+        getBaseMapper().updateById(entity);
         updated();
         return get(entity.getId()).orElseThrow(() -> new ObjectNotFoundException(String.valueOf(entity.getId())));
     }
 
-    default PageResult<T> pagination(Pageable params) {
-        PageInfo<T> pi = PageHelper.startPage(params.getPageNumber(), params.getPageSize())
-                .doSelectPageInfo(() -> getMapper().selectList(params.toWrapper()));
-        setExtraAttributes(pi.getList());
-        return PageResult.of(pi);
+    default PageResult<T> pagination(Pageable<T> params) {
+        try (Page<T> p = PageHelper.startPage(params.getPageNumber(), params.getPageSize())) {
+            PageInfo<T> pi = p.doSelectPageInfo(() -> getBaseMapper().selectList(params.toWrapper()));
+            setExtraAttributes(pi.getList());
+            return PageResult.of(pi);
+        }
     }
 
     default Optional<T> get(Long id) {
-        T t = getMapper().selectById(id);
+        T t = getBaseMapper().selectById(id);
         if (t == null) {
             return Optional.empty();
         }

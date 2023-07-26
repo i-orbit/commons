@@ -9,8 +9,8 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * 用户操作日志AOP注解
- * 添加在Spring MVC Controller层的接口方法上
+ * 用户操作日志 AOP 注解
+ * 添加在 Spring MVC Controller 层的接口方法上
  *
  * @author inmaytide
  * @since 2022/03/12

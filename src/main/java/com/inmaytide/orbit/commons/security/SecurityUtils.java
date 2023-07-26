@@ -53,7 +53,7 @@ public class SecurityUtils {
     /**
      * 获取当前登录用户详细信息
      *
-     * @return 用户详情, 当用户未登录时返回 null
+     * @return 用户详情, 当用户未登录时返回空
      */
     public static Optional<GlobalUser> getAuthorizedUserAllowUnauthorized() {
         try {

@@ -2,6 +2,7 @@ package com.inmaytide.orbit.commons.domain;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,6 +15,9 @@ import java.util.List;
  */
 @Schema(title = "用户当前视角(数据权限)")
 public class Perspective implements Serializable {
+
+    @Serial
+    private static final long serialVersionUID = 4191659521852602204L;
 
     @Schema(title = "用户拥有的所有组织权限")
     private List<Long> authorizedOrganizations = new ArrayList<>(0);

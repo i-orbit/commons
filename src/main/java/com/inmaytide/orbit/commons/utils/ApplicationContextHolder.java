@@ -7,6 +7,8 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.lang.NonNull;
 
+import java.util.Objects;
+
 /**
  * @author inmaytide
  * @since 2023/4/7
@@ -46,11 +48,19 @@ public class ApplicationContextHolder implements ApplicationContextAware {
         return binder;
     }
 
+    public <T> T getProperty(String key, Class<T> cls, T defaultValue) {
+        return getBinder().bind(key, cls).orElse(defaultValue);
+    }
+
+    public <T> T getProperty(String key, Class<T> cls) {
+        return getBinder().bind(key, cls).orElse(null);
+    }
+
     public boolean getPropertyBoolValue(String key, boolean defaultValue) {
-        return context.getEnvironment().getProperty(key, Boolean.class, defaultValue);
+        return getProperty(key, Boolean.class, defaultValue);
     }
 
     public String getProperty(String key) {
-        return context.getEnvironment().getProperty(key, StringUtils.EMPTY);
+        return Objects.toString(getProperty(key, Object.class), StringUtils.EMPTY);
     }
 }

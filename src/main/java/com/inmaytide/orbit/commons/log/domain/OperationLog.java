@@ -16,6 +16,7 @@ import java.time.Instant;
  */
 @Schema(title = "用户操作日志")
 public class OperationLog extends Entity {
+
     @Serial
     private static final long serialVersionUID = 3471044645864428769L;
 

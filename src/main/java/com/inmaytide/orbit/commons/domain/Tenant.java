@@ -4,11 +4,16 @@ import com.inmaytide.orbit.commons.consts.Is;
 import com.inmaytide.orbit.commons.consts.TenantState;
 import com.inmaytide.orbit.commons.domain.pattern.Entity;
 
+import java.io.Serial;
+
 /**
  * @author inmaytide
  * @since 2023/6/1
  */
 public class Tenant extends Entity {
+
+    @Serial
+    private static final long serialVersionUID = -6847409286061576833L;
 
     private String name;
 

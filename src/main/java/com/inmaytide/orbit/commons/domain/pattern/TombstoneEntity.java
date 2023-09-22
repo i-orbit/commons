@@ -11,7 +11,7 @@ import java.io.Serial;
  * @since 2023/4/6
  */
 @Schema(title = "逻辑删除的实体基类")
-public class TombstoneEntity extends AuditEntity {
+public abstract class TombstoneEntity extends AuditEntity {
 
     @Serial
     private static final long serialVersionUID = 7802160617960166500L;

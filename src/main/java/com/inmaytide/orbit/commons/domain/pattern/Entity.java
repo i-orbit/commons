@@ -14,7 +14,7 @@ import java.io.Serializable;
  * @since 2023/4/6
  */
 @Schema(title = "数据实体基类")
-public class Entity implements Serializable {
+public abstract class Entity implements Serializable {
 
     @Serial
     private static final long serialVersionUID = -2907777165945798043L;

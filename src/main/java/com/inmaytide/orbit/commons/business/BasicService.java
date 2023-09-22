@@ -37,9 +37,9 @@ public interface BasicService<T extends Entity> extends IService<T> {
 
     default AffectedResult deleteByIds(List<Long> ids) {
         if (ids == null || ids.isEmpty()) {
-            return AffectedResult.notAffected();
+            return AffectedResult.NOT_AFFECTED;
         }
-        return AffectedResult.of(getBaseMapper().deleteBatchIds(ids));
+        return AffectedResult.withAffected(getBaseMapper().deleteBatchIds(ids));
     }
 
     default T update(T entity) {
@@ -52,7 +52,7 @@ public interface BasicService<T extends Entity> extends IService<T> {
         try (Page<T> p = PageHelper.startPage(params.getPageNumber(), params.getPageSize())) {
             PageInfo<T> pi = p.doSelectPageInfo(() -> getBaseMapper().selectList(params.toWrapper()));
             setExtraAttributes(pi.getList());
-            return PageResult.of(pi);
+            return PageResult.with(pi);
         }
     }
 

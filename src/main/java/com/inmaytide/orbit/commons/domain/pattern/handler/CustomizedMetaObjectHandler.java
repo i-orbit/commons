@@ -25,7 +25,7 @@ public class CustomizedMetaObjectHandler implements MetaObjectHandler {
 
     @Override
     public void updateFill(MetaObject entity) {
-        this.strictInsertFill(entity, "modifiedBy", () -> SecurityUtils.getAuthorizedUser().getId(), Long.class);
-        this.strictInsertFill(entity, "modifiedTime", Instant::now, Instant.class);
+        this.strictUpdateFill(entity, "modifiedBy", () -> SecurityUtils.getAuthorizedUser().getId(), Long.class);
+        this.strictUpdateFill(entity, "modifiedTime", Instant::now, Instant.class);
     }
 }

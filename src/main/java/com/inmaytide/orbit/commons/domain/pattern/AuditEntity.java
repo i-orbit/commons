@@ -13,7 +13,7 @@ import java.time.Instant;
  * @since 2023/4/6
  */
 @Schema(title = "包含审计信息的数据实体基类")
-public class AuditEntity extends Entity {
+public abstract class AuditEntity extends Entity {
 
     @Serial
     private static final long serialVersionUID = 1916927544766638648L;

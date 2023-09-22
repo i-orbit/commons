@@ -29,7 +29,7 @@ public class PageResult<T extends Entity> {
 
     }
 
-    public static <T extends Entity> PageResult<T> of(PageInfo<T> pi) {
+    public static <T extends Entity> PageResult<T> with(PageInfo<T> pi) {
         PageResult<T> res = new PageResult<>();
         res.setPageNumber(pi.getPageNum());
         res.setPageSize(pi.getPageSize());

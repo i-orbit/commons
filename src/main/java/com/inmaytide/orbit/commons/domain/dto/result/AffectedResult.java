@@ -9,6 +9,8 @@ import io.swagger.v3.oas.annotations.media.Schema;
 @Schema(title = "批量修改或删除接口返回实体")
 public class AffectedResult {
 
+    public static final AffectedResult NOT_AFFECTED = withAffected(0);
+
     @Schema(title = "操作影响的数据行数")
     private final Integer affected;
 
@@ -16,11 +18,7 @@ public class AffectedResult {
         this.affected = affected;
     }
 
-    public static AffectedResult notAffected() {
-        return new AffectedResult(0);
-    }
-
-    public static AffectedResult of(Integer affected) {
+    public static AffectedResult withAffected(Integer affected) {
         return new AffectedResult(affected);
     }
 

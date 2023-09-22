@@ -44,6 +44,10 @@ public class CommonUtils {
         return splitByCommas(joined, NumberUtils::isCreatable, NumberUtils::createLong);
     }
 
+    public static List<Integer> splitToIntegerByCommas(String joined) {
+        return splitByCommas(joined, NumberUtils::isCreatable, NumberUtils::createInteger);
+    }
+
     @SafeVarargs
     public static <E, M, R> List<R> map(Collection<E> entries, Function<M, R> converter, Function<E, M>... getters) {
         if (CollectionUtils.isEmpty(entries)) {

@@ -6,6 +6,7 @@ import com.inmaytide.orbit.commons.utils.ApplicationContextHolder;
 import org.apache.commons.lang3.StringUtils;
 
 import java.io.IOException;
+import java.io.Serial;
 import java.io.Serializable;
 import java.time.Instant;
 
@@ -14,6 +15,9 @@ import java.time.Instant;
  * @since 2023/5/16
  */
 public class OnlineUser implements Serializable {
+
+    @Serial
+    private static final long serialVersionUID = 881721833226845584L;
 
     private Long id;
 

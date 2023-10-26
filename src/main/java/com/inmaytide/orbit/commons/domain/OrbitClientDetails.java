@@ -4,6 +4,7 @@ import com.inmaytide.orbit.commons.utils.ApplicationContextHolder;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.util.CollectionUtils;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.List;
 
@@ -14,6 +15,9 @@ import java.util.List;
 public class OrbitClientDetails implements Serializable {
 
     public static final String ORBIT_CLIENT_ID = "orbit";
+
+    @Serial
+    private static final long serialVersionUID = 8638107769549228653L;
 
     private volatile static OrbitClientDetails INSTANCE;
 

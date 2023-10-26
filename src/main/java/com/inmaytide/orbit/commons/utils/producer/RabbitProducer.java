@@ -13,29 +13,21 @@ public class RabbitProducer {
         this.rabbitTemplate = rabbitTemplate;
     }
 
-    public void sendDelayMessage(Object msg, Integer delayTime, String exchange, String routing) {
-        rabbitTemplate.convertAndSend(exchange, routing, msg, a -> {
-            a.getMessageProperties().setDelay(delayTime * 1000);
-            return a;
-        });
-    }
-
     /**
      * 发送延时消息
-     *
-     * @param message
-     * @param delayTime
-     * @param router
      */
-    public void sendDelayMessage(Object message, Integer delayTime, String router) {
-        sendDelayMessage(message, delayTime, RabbitMQ.DIRECT_DELAY_EXCHANGE, router);
+    public void sendDelayMessage(Object message, Integer delayInSeconds, String routingKey) {
+        rabbitTemplate.convertAndSend(RabbitMQ.DIRECT_DELAY_EXCHANGE, routingKey, message, m -> {
+            m.getMessageProperties().setDelay(delayInSeconds * 1000);
+            return m;
+        });
     }
 
     /**
      * 发送实时消息
      */
-    public void sendRealMessage(Object message, String route) {
-        rabbitTemplate.convertAndSend(RabbitMQ.DIRECT_EXCHANGE, route, message);
+    public void sendRealMessage(Object message, String routingKey) {
+        rabbitTemplate.convertAndSend(RabbitMQ.DIRECT_EXCHANGE, routingKey, message);
     }
 
 

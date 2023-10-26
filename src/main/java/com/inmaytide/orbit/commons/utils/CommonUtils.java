@@ -21,7 +21,11 @@ import java.util.stream.Stream;
  * @author inmaytide
  * @since 2023/4/7
  */
-public class CommonUtils {
+public final class CommonUtils {
+
+    private CommonUtils() {
+
+    }
 
     public static List<String> splitByCommas(String joined) {
         if (StringUtils.isEmpty(joined)) {

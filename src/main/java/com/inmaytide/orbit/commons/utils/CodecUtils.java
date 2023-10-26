@@ -15,7 +15,11 @@ import java.util.UUID;
  * @author inmaytide
  * @since 2023/4/8
  */
-public class CodecUtils {
+public final class CodecUtils {
+
+    private CodecUtils() {
+
+    }
 
     public static final String RSA_PUBLIC_KEY = "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCAqdUwxEiBO4HVawLDSNfXRX36caZOFwbgTWA0btPvnTNC7hPeoTKePKu7kf5FF7d0RQj2gDr6CNRv+OR1lVCshpe0YMfLaon7NxtAUbV/ffkqD4rTCluIgsE5LGfWhJ9Zy6pvXVJxE4yw+iRALuI9GIuK6Efo/HbYFb6plrVXYQIDAQAB";
 
@@ -40,7 +44,7 @@ public class CodecUtils {
         cipher.init(Cipher.ENCRYPT_MODE, publicKey);
         return Base64.getEncoder().encodeToString(cipher.doFinal(str.getBytes(StandardCharsets.UTF_8)));
     }
-    
+
     public static String decrypt(String str, String key) throws Exception {
         //64位解码加密后的字符串
         byte[] inputByte = Base64.getDecoder().decode(str);

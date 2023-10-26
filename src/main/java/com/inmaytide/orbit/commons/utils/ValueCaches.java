@@ -13,7 +13,7 @@ import java.util.concurrent.TimeUnit;
  * @author inmaytide
  * @since 2022/9/16
  */
-public class ValueCaches {
+public final class ValueCaches {
 
     private static ValueOperations<String, String> operations;
 

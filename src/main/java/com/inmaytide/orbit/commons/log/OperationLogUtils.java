@@ -1,9 +1,8 @@
 package com.inmaytide.orbit.commons.log;
 
-import com.inmaytide.orbit.commons.consts.HttpHeaderNames;
-import com.inmaytide.orbit.commons.consts.Marks;
-import com.inmaytide.orbit.commons.consts.Platforms;
-import com.inmaytide.orbit.commons.domain.GlobalUser;
+import com.inmaytide.orbit.commons.constants.Constants;
+import com.inmaytide.orbit.commons.constants.Platforms;
+import com.inmaytide.orbit.commons.domain.SystemUser;
 import com.inmaytide.orbit.commons.log.annotation.OperationLogging;
 import com.inmaytide.orbit.commons.log.domain.OperationLog;
 import com.inmaytide.orbit.commons.security.SecurityUtils;
@@ -23,7 +22,7 @@ public final class OperationLogUtils {
 
     }
 
-    public static @NonNull OperationLog build(@Nullable GlobalUser operator) {
+    public static @NonNull OperationLog build(@Nullable SystemUser operator) {
         OperationLog log = new OperationLog();
         if (operator != null) {
             log.setOperator(operator.getId());
@@ -34,17 +33,17 @@ public final class OperationLogUtils {
 
     public static @NonNull OperationLog build(@NonNull HttpServletRequest request, @NonNull Method method) {
         OperationLogging annotation = method.getAnnotation(OperationLogging.class);
-        GlobalUser user = SecurityUtils.getAuthorizedUser();
+        SystemUser user = SecurityUtils.getAuthorizedUser();
         OperationLog log = OperationLogUtils.build(user);
         log.setDescription(OperationLogUtils.getDescription(method, annotation));
         log.setBusiness(OperationLogUtils.getBusiness(method, annotation));
-        log.setClientDescription(request.getHeader(HttpHeaderNames.USER_AGENT));
+        log.setClientDescription(request.getHeader(Constants.HttpHeaderNames.USER_AGENT));
         log.setIpAddress(HttpUtils.getClientIpAddress(request));
         if (annotation.retainArguments()) {
             log.setArguments("");
         }
-        log.setChain(request.getHeader(HttpHeaderNames.CALL_CHAIN));
-        log.setPlatform(SecurityUtils.getPlatform().map(Platforms::name).orElse(Marks.NOT_APPLICABLE.getValue()));
+        log.setChain(request.getHeader(Constants.HttpHeaderNames.CALL_CHAIN));
+        log.setPlatform(SecurityUtils.getPlatform().map(Platforms::name).orElse(Constants.Markers.NOT_APPLICABLE));
         log.setPath(request.getRequestURI());
         log.setHttpMethod(request.getMethod());
         return log;

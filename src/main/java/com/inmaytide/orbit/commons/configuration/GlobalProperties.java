@@ -10,15 +10,15 @@ import org.springframework.stereotype.Component;
  * @since 2023/4/12
  */
 @Component
-@ConditionalOnMissingBean({CommonProperties.class})
-public class CommonProperties implements InitializingBean {
+@ConditionalOnMissingBean({GlobalProperties.class})
+public class GlobalProperties implements InitializingBean {
 
     public boolean isEnableSuperAdministrator() {
         return ApplicationContextHolder.getInstance().getPropertyBoolValue("orbit.security.super-administrator.enable", false);
     }
 
-    public String getSuperAdministratorUsername() {
-        return ApplicationContextHolder.getInstance().getProperty("orbit.security.super-administrator.username");
+    public String getSuperAdministratorLoginNames() {
+        return ApplicationContextHolder.getInstance().getProperty("orbit.security.super-administrator.login-names");
     }
 
     public boolean forcePasswordChangesWhenNecessary() {

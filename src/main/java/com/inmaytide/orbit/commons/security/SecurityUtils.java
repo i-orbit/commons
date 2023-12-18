@@ -1,11 +1,11 @@
 package com.inmaytide.orbit.commons.security;
 
 import com.inmaytide.exception.web.UnauthorizedException;
-import com.inmaytide.orbit.commons.consts.ParameterNames;
-import com.inmaytide.orbit.commons.consts.Platforms;
-import com.inmaytide.orbit.commons.consts.Roles;
-import com.inmaytide.orbit.commons.domain.GlobalUser;
-import com.inmaytide.orbit.commons.provider.UserDetailsProvider;
+import com.inmaytide.orbit.commons.business.SystemUserService;
+import com.inmaytide.orbit.commons.constants.Constants;
+import com.inmaytide.orbit.commons.constants.Platforms;
+import com.inmaytide.orbit.commons.constants.Roles;
+import com.inmaytide.orbit.commons.domain.SystemUser;
 import com.inmaytide.orbit.commons.utils.ApplicationContextHolder;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.lang.NonNull;
@@ -22,13 +22,13 @@ import java.util.Optional;
  */
 public class SecurityUtils {
 
-    private static UserDetailsProvider userDetailsProvider;
+    private static SystemUserService systemUserService;
 
-    public static UserDetailsProvider getUserDetailsProvider() {
-        if (userDetailsProvider == null) {
-            userDetailsProvider = ApplicationContextHolder.getInstance().getBean(UserDetailsProvider.class);
+    public static SystemUserService getSystemUserService() {
+        if (systemUserService == null) {
+            systemUserService = ApplicationContextHolder.getInstance().getBean(SystemUserService.class);
         }
-        return userDetailsProvider;
+        return systemUserService;
     }
 
     public static boolean isAuthorized() {
@@ -42,12 +42,12 @@ public class SecurityUtils {
      * @return 用户详情
      * @throws UnauthorizedException If not authenticated
      */
-    public static @NonNull GlobalUser getAuthorizedUser() {
+    public static @NonNull SystemUser getAuthorizedUser() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication == null || !authentication.isAuthenticated()) {
             throw new UnauthorizedException();
         }
-        return getUserDetailsProvider().get(authentication.getName());
+        return getSystemUserService().get(authentication.getName());
     }
 
     /**
@@ -55,7 +55,7 @@ public class SecurityUtils {
      *
      * @return 用户详情, 当用户未登录时返回空
      */
-    public static Optional<GlobalUser> getAuthorizedUserAllowUnauthorized() {
+    public static Optional<SystemUser> getAuthorizedUserAllowUnauthorized() {
         try {
             return Optional.of(getAuthorizedUser());
         } catch (UnauthorizedException ignored) {
@@ -66,7 +66,7 @@ public class SecurityUtils {
     public static @NonNull Optional<Platforms> getPlatform() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication != null && authentication.isAuthenticated() && authentication instanceof BearerTokenAuthentication bearerTokenAuthentication) {
-            String value = Objects.toString(bearerTokenAuthentication.getTokenAttributes().get(ParameterNames.PLATFORM), StringUtils.EMPTY);
+            String value = Objects.toString(bearerTokenAuthentication.getTokenAttributes().get(Constants.RequestParameters.PLATFORM), StringUtils.EMPTY);
             return Optional.ofNullable(StringUtils.isBlank(value) ? null : Platforms.valueOf(value));
         }
         return Optional.empty();

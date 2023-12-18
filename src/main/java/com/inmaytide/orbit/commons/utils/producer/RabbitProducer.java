@@ -1,6 +1,6 @@
 package com.inmaytide.orbit.commons.utils.producer;
 
-import com.inmaytide.orbit.commons.consts.RabbitMQ;
+import com.inmaytide.orbit.commons.constants.Constants;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.stereotype.Component;
 
@@ -17,7 +17,7 @@ public class RabbitProducer {
      * 发送延时消息
      */
     public void sendDelayMessage(Object message, Integer delayInSeconds, String routingKey) {
-        rabbitTemplate.convertAndSend(RabbitMQ.DIRECT_DELAY_EXCHANGE, routingKey, message, m -> {
+        rabbitTemplate.convertAndSend(Constants.RabbitMQ.DIRECT_DELAY_EXCHANGE, routingKey, message, m -> {
             m.getMessageProperties().setDelay(delayInSeconds * 1000);
             return m;
         });
@@ -26,8 +26,8 @@ public class RabbitProducer {
     /**
      * 发送实时消息
      */
-    public void sendRealMessage(Object message, String routingKey) {
-        rabbitTemplate.convertAndSend(RabbitMQ.DIRECT_EXCHANGE, routingKey, message);
+    public void sendMessage(Object message, String routingKey) {
+        rabbitTemplate.convertAndSend(Constants.RabbitMQ.DIRECT_EXCHANGE, routingKey, message);
     }
 
 

@@ -25,4 +25,5 @@ public class AffectedResult {
     public Integer getAffected() {
         return affected;
     }
+    
 }

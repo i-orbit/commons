@@ -19,9 +19,9 @@ public abstract class Entity implements Serializable {
     @Serial
     private static final long serialVersionUID = -2907777165945798043L;
 
+    @Schema(title = "唯一标识")
     @NotNull(groups = {Update.class})
     @TableId(type = IdType.ASSIGN_ID)
-    @Schema(title = "唯一标识")
     private Long id;
 
     public Long getId() {

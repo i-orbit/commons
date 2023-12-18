@@ -1,7 +1,7 @@
 package com.inmaytide.orbit.commons.domain;
 
-import com.inmaytide.orbit.commons.configuration.CommonProperties;
-import com.inmaytide.orbit.commons.consts.UserState;
+import com.inmaytide.orbit.commons.configuration.GlobalProperties;
+import com.inmaytide.orbit.commons.constants.UserState;
 import com.inmaytide.orbit.commons.utils.ApplicationContextHolder;
 import io.swagger.v3.oas.annotations.media.Schema;
 
@@ -15,7 +15,7 @@ import java.util.List;
  * @since 2023/3/31
  */
 @Schema(title = "系统用户详细信息", description = "登录用的详细信息, 包含功能权限和数据权限信息")
-public class GlobalUser implements Serializable {
+public class SystemUser implements Serializable {
 
     @Serial
     private static final long serialVersionUID = -1609661989868009319L;
@@ -33,7 +33,7 @@ public class GlobalUser implements Serializable {
     private String name;
 
     @Schema(title = "用户登录名")
-    private String username;
+    private String loginName;
 
     @Schema(title = "手机号码")
     private String telephoneNumber;
@@ -106,12 +106,12 @@ public class GlobalUser implements Serializable {
         this.name = name;
     }
 
-    public String getUsername() {
-        return username;
+    public String getLoginName() {
+        return loginName;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setLoginName(String loginName) {
+        this.loginName = loginName;
     }
 
     public String getTelephoneNumber() {
@@ -219,7 +219,7 @@ public class GlobalUser implements Serializable {
     }
 
     public boolean getForceChangePassword() {
-        if (ApplicationContextHolder.getInstance().getBean(CommonProperties.class).forcePasswordChangesWhenNecessary()) {
+        if (ApplicationContextHolder.getInstance().getBean(GlobalProperties.class).forcePasswordChangesWhenNecessary()) {
             return state == UserState.INITIALIZATION
                     || getPasswordExpireAt() == null
                     || getPasswordExpireAt().isBefore(Instant.now());

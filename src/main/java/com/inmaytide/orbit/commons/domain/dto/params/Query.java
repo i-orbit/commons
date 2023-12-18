@@ -14,7 +14,7 @@ import java.io.Serializable;
  * @author inmaytide
  * @since 2023/4/7
  */
-public class Query<T extends Entity> implements Serializable {
+public abstract class Query<T extends Entity> implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 5168025452213712156L;
@@ -22,9 +22,7 @@ public class Query<T extends Entity> implements Serializable {
     @Parameter(description = "关键字搜索")
     private String queryName;
 
-    public LambdaQueryWrapper<T> toWrapper() {
-        return new LambdaQueryWrapper<>();
-    }
+    public abstract LambdaQueryWrapper<T> toWrapper();
 
     public String getQueryName() {
         return queryName;

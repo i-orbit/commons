@@ -94,7 +94,7 @@ public final class ReflectionUtils {
             LOG.trace("Try to load class \"{}\"", reader.getClassMetadata().getClassName());
             return Optional.of(ClassUtils.forName(reader.getClassMetadata().getClassName(), ClassUtils.getDefaultClassLoader()));
         } catch (NoClassDefFoundError | ClassNotFoundException | UnsupportedClassVersionError e) {
-            LOG.trace("Failed to load class \"{}\"", reader.getClassMetadata().getClassName(), e);
+            LOG.error("Failed to load class \"{}\"", reader.getClassMetadata().getClassName(), e);
         }
         return Optional.empty();
     }

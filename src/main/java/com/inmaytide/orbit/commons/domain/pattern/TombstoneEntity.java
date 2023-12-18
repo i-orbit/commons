@@ -1,7 +1,7 @@
 package com.inmaytide.orbit.commons.domain.pattern;
 
 import com.baomidou.mybatisplus.annotation.TableLogic;
-import com.inmaytide.orbit.commons.consts.Is;
+import com.inmaytide.orbit.commons.constants.Is;
 import io.swagger.v3.oas.annotations.media.Schema;
 
 import java.io.Serial;

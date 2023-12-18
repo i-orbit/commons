@@ -1,7 +1,7 @@
 package com.inmaytide.orbit.commons.domain;
 
 import com.baomidou.mybatisplus.annotation.TableField;
-import com.inmaytide.orbit.commons.consts.Is;
+import com.inmaytide.orbit.commons.constants.Is;
 import io.swagger.v3.oas.annotations.media.Schema;
 
 import java.io.Serial;

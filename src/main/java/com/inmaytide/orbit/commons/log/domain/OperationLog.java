@@ -1,8 +1,8 @@
 package com.inmaytide.orbit.commons.log.domain;
 
 import com.baomidou.mybatisplus.annotation.TableField;
-import com.inmaytide.orbit.commons.consts.Constants;
-import com.inmaytide.orbit.commons.consts.Is;
+import com.inmaytide.orbit.commons.constants.Constants;
+import com.inmaytide.orbit.commons.constants.Is;
 import com.inmaytide.orbit.commons.domain.pattern.Entity;
 import com.inmaytide.orbit.commons.utils.ApplicationContextHolder;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -71,7 +71,7 @@ public class OperationLog extends Entity {
 
     public OperationLog() {
         this.operationTime = Instant.now();
-        this.tenantId = Constants.NON_TENANT_ID;
+        this.tenantId = Constants.Markers.NON_TENANT_ID;
         try {
             this.setService(ApplicationContextHolder.getInstance().getProperty("spring.application.name"));
         } catch (Exception e) {

@@ -11,7 +11,7 @@ import java.io.Serial;
  * @author inmaytide
  * @since 2023/4/7
  */
-public class Pageable<T extends Entity> extends Query<T> {
+public abstract class Pageable<T extends Entity> extends Query<T> {
 
     @Serial
     private static final long serialVersionUID = -4333214352924071775L;

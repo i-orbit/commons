@@ -1,7 +1,7 @@
 package com.inmaytide.orbit.commons.domain;
 
-import com.inmaytide.orbit.commons.consts.Roles;
-import com.inmaytide.orbit.commons.consts.UserState;
+import com.inmaytide.orbit.commons.constants.Roles;
+import com.inmaytide.orbit.commons.constants.UserState;
 import com.inmaytide.orbit.commons.utils.ApplicationContextHolder;
 import org.apache.commons.lang3.StringUtils;
 
@@ -28,11 +28,11 @@ public class Robot implements Serializable {
 
     private String name;
 
-    private String username;
+    private String loginName;
 
     private String password;
 
-    private GlobalUser user;
+    private SystemUser user;
 
     private Robot() {
 
@@ -48,7 +48,7 @@ public class Robot implements Serializable {
                             .orElseThrow(() -> new UnsupportedOperationException("There is no valid robot configuration in the spring context"));
                     if (INSTANCE.id == null
                             || StringUtils.isBlank(INSTANCE.name)
-                            || StringUtils.isBlank(INSTANCE.username)
+                            || StringUtils.isBlank(INSTANCE.loginName)
                             || StringUtils.isBlank(INSTANCE.password)) {
                         throw new UnsupportedOperationException("There is no valid robot configuration in the spring context");
                     }
@@ -75,12 +75,12 @@ public class Robot implements Serializable {
         this.name = name;
     }
 
-    public String getUsername() {
-        return username;
+    public String getLoginName() {
+        return loginName;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setLoginName(String loginName) {
+        this.loginName = loginName;
     }
 
     public String getPassword() {
@@ -91,12 +91,12 @@ public class Robot implements Serializable {
         this.password = password;
     }
 
-    public GlobalUser toGlobalUser() {
+    public SystemUser toSystemUser() {
         if (user == null) {
-            user = new GlobalUser();
+            user = new SystemUser();
             user.setId(Robot.getInstance().getId());
             user.setName(Robot.getInstance().getName());
-            user.setUsername(Robot.getInstance().getUsername());
+            user.setLoginName(Robot.getInstance().getLoginName());
             user.setState(UserState.NORMAL);
             user.setAuthorities(Collections.emptyList());
             user.setRoles(Collections.singletonList(Roles.ROLE_ROBOT.name()));

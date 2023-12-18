@@ -13,13 +13,16 @@ import java.time.Instant;
  */
 @Component
 public class CustomizedMetaObjectHandler implements MetaObjectHandler {
+
     @Override
     public void insertFill(MetaObject entity) {
         SecurityUtils.getAuthorizedUserAllowUnauthorized().ifPresent(user -> {
             this.strictInsertFill(entity, "createdBy", user::getId, Long.class);
+            this.strictUpdateFill(entity, "modifiedBy", () -> SecurityUtils.getAuthorizedUser().getId(), Long.class);
             this.strictInsertFill(entity, "tenant", user::getTenantId, Long.class);
         });
         this.strictInsertFill(entity, "createdTime", Instant::now, Instant.class);
+        this.strictUpdateFill(entity, "modifiedTime", Instant::now, Instant.class);
         this.strictInsertFill(entity, "version", () -> 0, Integer.class);
     }
 
@@ -30,4 +33,5 @@ public class CustomizedMetaObjectHandler implements MetaObjectHandler {
         });
         this.strictUpdateFill(entity, "modifiedTime", Instant::now, Instant.class);
     }
+
 }

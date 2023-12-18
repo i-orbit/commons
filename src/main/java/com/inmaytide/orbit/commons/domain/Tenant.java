@@ -1,7 +1,7 @@
 package com.inmaytide.orbit.commons.domain;
 
-import com.inmaytide.orbit.commons.consts.Is;
-import com.inmaytide.orbit.commons.consts.TenantState;
+import com.inmaytide.orbit.commons.constants.Is;
+import com.inmaytide.orbit.commons.constants.TenantState;
 import com.inmaytide.orbit.commons.domain.pattern.Entity;
 
 import java.io.Serial;

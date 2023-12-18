@@ -57,12 +57,12 @@ public final class CodecUtils {
         return new String(cipher.doFinal(inputByte));
     }
 
-    public static UUID generateUUID(String value) {
-        Objects.requireNonNull(value);
-        return UUID.nameUUIDFromBytes(value.getBytes(StandardCharsets.UTF_8));
+    public static String nameUUID(String name) {
+        Objects.requireNonNull(name);
+        return UUID.nameUUIDFromBytes(name.getBytes(StandardCharsets.UTF_8)).toString().replaceAll("-", "");
     }
 
-    public static String generateUUID() {
+    public static String randomUUID() {
         return UUID.randomUUID().toString().replaceAll("-", "");
     }
 
@@ -76,7 +76,7 @@ public final class CodecUtils {
             throw new UnsupportedOperationException(String.valueOf(len));
         }
         StringBuilder sb = new StringBuilder();
-        String uuid = generateUUID();
+        String uuid = randomUUID();
         for (int i = 0; i < 8; i++) {
             String str = uuid.substring(i * 4, i * 4 + 4);
             int x = Integer.parseInt(str, 16);

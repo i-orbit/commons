@@ -1,4 +1,4 @@
-package com.inmaytide.orbit.commons.consts;
+package com.inmaytide.orbit.commons.constants;
 
 /**
  * @author inmaytide

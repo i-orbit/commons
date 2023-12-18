@@ -1,7 +1,7 @@
 package com.inmaytide.orbit.commons.domain;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.inmaytide.orbit.commons.consts.Platforms;
+import com.inmaytide.orbit.commons.constants.Platforms;
 import com.inmaytide.orbit.commons.utils.ApplicationContextHolder;
 import org.apache.commons.lang3.StringUtils;
 

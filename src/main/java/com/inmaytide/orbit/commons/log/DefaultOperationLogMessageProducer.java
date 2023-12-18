@@ -17,7 +17,7 @@ public class DefaultOperationLogMessageProducer implements OperationLogMessagePr
 
     @Override
     public void produce(OperationLog log) {
-        rabbitProducer.sendRealMessage(log, ROUTE_KEY_OPERATION_LOG);
+        rabbitProducer.sendMessage(log, ROUTE_KEY_OPERATION_LOG);
     }
 
 }

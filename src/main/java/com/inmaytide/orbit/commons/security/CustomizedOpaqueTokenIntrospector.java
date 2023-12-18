@@ -146,7 +146,7 @@ public class CustomizedOpaqueTokenIntrospector implements OpaqueTokenIntrospecto
                     + contentType + "' is not compatible with JSON");
         }
 
-        HTTPResponse response = new HTTPResponse(responseEntity.getStatusCodeValue());
+        HTTPResponse response = new HTTPResponse(responseEntity.getStatusCode().value());
         response.setHeader(HttpHeaders.CONTENT_TYPE, contentType.toString());
         response.setContent(responseEntity.getBody());
 
@@ -230,8 +230,7 @@ public class CustomizedOpaqueTokenIntrospector implements OpaqueTokenIntrospecto
             }
         }
         if (claims.get(CLAIMS_KEY_AUTHORITIES) != null) {
-            if (claims.get(CLAIMS_KEY_AUTHORITIES) instanceof JSONArray) {
-                JSONArray array = (JSONArray) claims.get(CLAIMS_KEY_AUTHORITIES);
+            if (claims.get(CLAIMS_KEY_AUTHORITIES) instanceof JSONArray array) {
                 if (!array.isEmpty()) {
                     array.stream().filter(Objects::nonNull).map(Objects::toString).map(SimpleGrantedAuthority::new).forEach(authorities::add);
                 }

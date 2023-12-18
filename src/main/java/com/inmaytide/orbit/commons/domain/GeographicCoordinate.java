@@ -16,13 +16,13 @@ public class GeographicCoordinate implements Serializable {
     @Serial
     private static final long serialVersionUID = 8801313037798553919L;
 
-    @Schema(title = "归属实体对象唯一标识", required = true)
+    @Schema(title = "归属实体对象唯一标识", requiredMode = Schema.RequiredMode.REQUIRED)
     private Long attribution;
 
-    @Schema(title = "经度", required = true)
+    @Schema(title = "经度", requiredMode = Schema.RequiredMode.REQUIRED)
     private BigDecimal longitude;
 
-    @Schema(title = "纬度", required = true)
+    @Schema(title = "纬度", requiredMode = Schema.RequiredMode.REQUIRED)
     private BigDecimal latitude;
 
     public Long getAttribution() {

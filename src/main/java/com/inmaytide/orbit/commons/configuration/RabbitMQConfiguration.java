@@ -1,6 +1,6 @@
 package com.inmaytide.orbit.commons.configuration;
 
-import com.inmaytide.orbit.commons.consts.RabbitMQ;
+import com.inmaytide.orbit.commons.constants.Constants;
 import com.inmaytide.orbit.commons.log.OperationLogMessageProducer;
 import org.springframework.amqp.core.*;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -18,12 +18,12 @@ public class RabbitMQConfiguration {
 
     @Bean
     public DirectExchange directExchange() {
-        return new DirectExchange(RabbitMQ.DIRECT_EXCHANGE, true, false);
+        return new DirectExchange(Constants.RabbitMQ.DIRECT_EXCHANGE, true, false);
     }
 
     @Bean
     public CustomExchange delayedExchange() {
-        return new CustomExchange(RabbitMQ.DIRECT_DELAY_EXCHANGE, "x-delayed-message", true, false, Map.of("x-delayed-type", "direct"));
+        return new CustomExchange(Constants.RabbitMQ.DIRECT_DELAY_EXCHANGE, "x-delayed-message", true, false, Map.of("x-delayed-type", "direct"));
     }
 
     @Bean(name = "operationLogQueue")

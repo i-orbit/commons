@@ -12,8 +12,4 @@ public interface SystemUserService {
 
     SystemUser get(Serializable id);
 
-    default SystemUser getByLoginName(String loginName) {
-        throw new UnsupportedOperationException();
-    }
-
 }

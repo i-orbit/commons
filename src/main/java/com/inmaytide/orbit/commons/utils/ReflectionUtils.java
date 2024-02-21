@@ -57,7 +57,7 @@ public final class ReflectionUtils {
     }
 
     public static Set<Class<?>> findClasses(String packageName, Class<?> assignableFrom, boolean includeInterfaces, boolean includeAbstractClasses) throws IOException {
-        if (StringUtils.isBlank(packageName) || assignableFrom == null) {
+        if (StringUtils.isBlank(packageName)) {
             LOG.warn("The method \"findClasses\" was passed invalid parameters, and no results were found.");
             return Collections.emptySet();
         }
@@ -69,7 +69,7 @@ public final class ReflectionUtils {
         Set<Class<?>> classes = Stream.of(resources).map(ReflectionUtils::loadClass)
                 .filter(Optional::isPresent)
                 .map(Optional::get)
-                .filter(c -> ClassUtils.isAssignable(c, assignableFrom))
+                .filter(c -> assignableFrom == null || ClassUtils.isAssignable(c, assignableFrom))
                 .collect(Collectors.toSet());
         // 如果不包含接口和抽象类
         if (!includeInterfaces) {

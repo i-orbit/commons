@@ -49,24 +49,36 @@ public class OperationLoggingAspect {
         this.throwableTranslator = throwableTranslator;
     }
 
+    private OperationLog build(JoinPoint point, Is result) {
+        OperationLog log = OperationLogUtils.build(getRequest(), getMethod(point));
+        log.setResult(result);
+        return log;
+    }
+
 
     @AfterReturning(value = "@annotation(com.inmaytide.orbit.commons.log.annotation.OperationLogging)", returning = "returnVal")
     public void onSuccess(JoinPoint point, Object returnVal) throws Throwable {
         Method method = getMethod(point);
         OperationLogging annotation = method.getAnnotation(OperationLogging.class);
-        OperationLog log = OperationLogUtils.build(getRequest(), method);
-        log.setResult(Is.Y);
+        OperationLog log = build(point, Is.Y);
         if (annotation.retainResponseBody()) {
             log.setResponse(objectMapper.writeValueAsString(returnVal));
+        }
+        if (annotation.retainArguments()) {
+            log.setArguments("");
         }
         producer.produce(log);
     }
 
     @AfterThrowing(value = "@annotation(com.inmaytide.orbit.commons.log.annotation.OperationLogging)", throwing = "e")
     public void onFailed(JoinPoint point, Throwable e) {
-        OperationLog log = OperationLogUtils.build(getRequest(), getMethod(point));
-        log.setResult(Is.N);
+        Method method = getMethod(point);
+        OperationLogging annotation = method.getAnnotation(OperationLogging.class);
+        OperationLog log = build(point, Is.N);
         throwableTranslator.translate(e).ifPresent(ex -> log.setResponse(DefaultResponse.withException(ex).URL(getRequest().getRequestURI()).build().toString()));
+        if (annotation.retainArguments()) {
+            log.setArguments("");
+        }
         producer.produce(log);
     }
 

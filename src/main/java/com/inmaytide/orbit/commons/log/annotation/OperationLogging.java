@@ -34,12 +34,12 @@ public @interface OperationLogging {
     String business() default "";
 
     /**
-     * 日志中是记录请求中的参数信息 <br/>
+     * 日志中是否记录请求中的参数信息 <br/>
      */
     boolean retainArguments() default false;
 
     /**
-     * 日志中是记录请求返回的内容 <br/>
+     * 日志中是否记录请求返回的内容 <br/>
      * 请求响应异常时强制保留返回内容，即错误信息
      */
     boolean retainResponseBody() default false;

@@ -78,7 +78,7 @@ public class CustomizedOpaqueTokenIntrospector implements OpaqueTokenIntrospecto
 
     private HttpHeaders requestHeaders() {
         HttpHeaders headers = new HttpHeaders();
-        headers.setBasicAuth(getClientDetails().getClientId(), getClientDetails().getClientSecret());
+//        headers.setBasicAuth(getClientDetails().getClientId(), getClientDetails().getClientSecret());
         headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
         return headers;
     }
@@ -86,6 +86,8 @@ public class CustomizedOpaqueTokenIntrospector implements OpaqueTokenIntrospecto
     private MultiValueMap<String, String> requestBody(String token) {
         MultiValueMap<String, String> body = new LinkedMultiValueMap<>();
         body.add("token", token);
+        body.add("client_id", getClientDetails().getClientId());
+        body.add("client_secret", getClientDetails().getClientSecret());
         return body;
     }
 

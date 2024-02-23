@@ -22,7 +22,6 @@ public class DatabaseConfiguration {
     public MybatisPlusInterceptor mybatisPlusInterceptor() {
         MybatisPlusInterceptor interceptor = new MybatisPlusInterceptor();
         interceptor.addInnerInterceptor(new OptimisticLockerInnerInterceptor());
-        interceptor.addInnerInterceptor(new TenantLineInnerInterceptor());
         return interceptor;
     }
 

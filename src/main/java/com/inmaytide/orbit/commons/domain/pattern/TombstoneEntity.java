@@ -16,7 +16,7 @@ public abstract class TombstoneEntity extends AuditEntity {
     @Serial
     private static final long serialVersionUID = 7802160617960166500L;
 
-    @TableLogic(value = "N", delval = "Y")
+    @TableLogic(value = "'N'", delval = "'Y'")
     private Is deleted;
 
     public Is getDeleted() {

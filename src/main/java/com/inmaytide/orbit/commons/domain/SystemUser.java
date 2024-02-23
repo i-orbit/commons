@@ -23,6 +23,9 @@ public class SystemUser implements Serializable {
     @Schema(title = "唯一标识")
     private Long id;
 
+    @Schema(title = "用户所属租户")
+    private Long tenant;
+
     @Schema(title = "默认所属组织")
     private Long defaultUnderOrganization;
 
@@ -53,9 +56,6 @@ public class SystemUser implements Serializable {
     @Schema(title = "电子签名存储地址")
     private String signature;
 
-    @Schema(title = "用户所属租户")
-    private Long tenantId;
-
     @Schema(title = "用户拥有角色编号")
     private List<String> roles;
 
@@ -80,6 +80,14 @@ public class SystemUser implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Long getTenant() {
+        return tenant;
+    }
+
+    public void setTenant(Long tenant) {
+        this.tenant = tenant;
     }
 
     public Long getDefaultUnderOrganization() {
@@ -160,14 +168,6 @@ public class SystemUser implements Serializable {
 
     public void setSignature(String signature) {
         this.signature = signature;
-    }
-
-    public Long getTenantId() {
-        return tenantId;
-    }
-
-    public void setTenantId(Long tenantId) {
-        this.tenantId = tenantId;
     }
 
     public List<String> getRoles() {

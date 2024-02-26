@@ -88,7 +88,7 @@ public class SecurityUtils {
      */
     public static boolean isTenantAdministrator(Long tenantId) {
         return getAuthorizedUser().getRoles().contains(Roles.ROLE_T_ADMINISTRATOR.name())
-                && Objects.equals(getAuthorizedUser().getTenantId(), tenantId);
+                && Objects.equals(getAuthorizedUser().getTenant(), tenantId);
     }
 
     /**

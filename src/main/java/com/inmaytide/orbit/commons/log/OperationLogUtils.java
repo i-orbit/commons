@@ -26,7 +26,7 @@ public final class OperationLogUtils {
         OperationLog log = new OperationLog();
         if (operator != null) {
             log.setOperator(operator.getId());
-            log.setTenantId(operator.getTenantId());
+            log.setTenantId(operator.getTenant());
         }
         return log;
     }

@@ -19,7 +19,7 @@ public abstract class Query<T extends Entity> implements Serializable {
     @Serial
     private static final long serialVersionUID = 5168025452213712156L;
 
-    @Parameter(description = "关键字搜索")
+    @Schema(title = "关键字搜索")
     private String queryName;
 
     public abstract LambdaQueryWrapper<T> toWrapper();

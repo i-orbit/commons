@@ -1,8 +1,8 @@
 package com.inmaytide.orbit.commons.log.domain;
 
 import com.baomidou.mybatisplus.annotation.TableField;
+import com.inmaytide.orbit.commons.constants.Bool;
 import com.inmaytide.orbit.commons.constants.Constants;
-import com.inmaytide.orbit.commons.constants.Is;
 import com.inmaytide.orbit.commons.domain.pattern.Entity;
 import com.inmaytide.orbit.commons.utils.ApplicationContextHolder;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -34,7 +34,7 @@ public class OperationLog extends Entity {
     private Instant operationTime;
 
     @Schema(title = "操作结果")
-    private Is result;
+    private Bool result;
 
     @Schema(title = "客户端信息", description = "通过HttpHeaders[User-Agent]获取, 包含系统/浏览器版本等信息")
     private String clientDescription;
@@ -111,11 +111,11 @@ public class OperationLog extends Entity {
         this.operationTime = operationTime;
     }
 
-    public Is getResult() {
+    public Bool getResult() {
         return result;
     }
 
-    public void setResult(Is result) {
+    public void setResult(Bool result) {
         this.result = result;
     }
 

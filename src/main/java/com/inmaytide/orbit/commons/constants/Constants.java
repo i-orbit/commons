@@ -35,6 +35,8 @@ public final class Constants {
          */
         public static final Long NON_TENANT_ID = 3721L;
 
+        public static final String SPRING_SECURITY_ROLE_PREFIX = "ROLE_";
+
     }
 
     public static final class RequestParameters {
@@ -103,6 +105,8 @@ public final class Constants {
          * 用户密码有效时间(天)
          */
         public static final String USER_PASSWORD_VALID_IN_DAYS = "times.days.user.password.valid";
+
+        public static final String SYSTEM_NAME = "system.name";
 
     }
 

@@ -3,6 +3,7 @@ package com.inmaytide.orbit.commons.utils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.core.io.DefaultResourceLoader;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.core.io.support.ResourcePatternResolver;
@@ -62,14 +63,14 @@ public final class ReflectionUtils {
             return Collections.emptySet();
         }
         LOG.debug("Start scanning class files under the \"{}\" package", packageName);
-        ResourceLoader resourceLoader = ApplicationContextHolder.getInstance().getBean(ResourceLoader.class);
+        ResourceLoader resourceLoader = new DefaultResourceLoader(ReflectionUtils.class.getClassLoader());
         ResourcePatternResolver resolver = ResourcePatternUtils.getResourcePatternResolver(resourceLoader);
         Resource[] resources = resolver.getResources("classpath*:" + packageName.replaceAll("[.]", "/") + "/**/*.class");
         LOG.debug("Found a total of {} class files under the \"{}\" package", resources.length, packageName);
         Set<Class<?>> classes = Stream.of(resources).map(ReflectionUtils::loadClass)
                 .filter(Optional::isPresent)
                 .map(Optional::get)
-                .filter(c -> assignableFrom == null || ClassUtils.isAssignable(c, assignableFrom))
+                .filter(c -> assignableFrom == null || ClassUtils.isAssignable(assignableFrom, c))
                 .collect(Collectors.toSet());
         // 如果不包含接口和抽象类
         if (!includeInterfaces) {

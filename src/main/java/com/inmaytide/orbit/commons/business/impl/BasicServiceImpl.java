@@ -9,5 +9,5 @@ import com.inmaytide.orbit.commons.domain.pattern.Entity;
  * @author inmaytide
  * @since 2023/11/24
  */
-public abstract class BasicServiceImpl<T extends Entity> extends ServiceImpl<BaseMapper<T>, T> implements BasicService<T> {
+public abstract class BasicServiceImpl<M extends BaseMapper<T>, T extends Entity> extends ServiceImpl<M, T> implements BasicService<T> {
 }

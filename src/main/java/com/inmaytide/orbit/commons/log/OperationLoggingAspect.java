@@ -4,8 +4,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.inmaytide.exception.translator.ThrowableTranslator;
 import com.inmaytide.exception.web.HttpResponseException;
 import com.inmaytide.exception.web.domain.DefaultResponse;
+import com.inmaytide.exception.web.translator.HttpExceptionTranslatorDelegator;
 import com.inmaytide.orbit.commons.business.SystemUserService;
-import com.inmaytide.orbit.commons.constants.Is;
+import com.inmaytide.orbit.commons.constants.Bool;
 import com.inmaytide.orbit.commons.log.annotation.OperationLogging;
 import com.inmaytide.orbit.commons.log.domain.OperationLog;
 import jakarta.servlet.http.HttpServletRequest;
@@ -39,9 +40,9 @@ public class OperationLoggingAspect {
 
     private final ObjectMapper objectMapper;
 
-    private final ThrowableTranslator<HttpResponseException> throwableTranslator;
+    private final HttpExceptionTranslatorDelegator throwableTranslator;
 
-    public OperationLoggingAspect(SystemUserService systemUserService, StringRedisTemplate redisTemplate, OperationLogMessageProducer producer, ObjectMapper objectMapper, ThrowableTranslator<HttpResponseException> throwableTranslator) {
+    public OperationLoggingAspect(SystemUserService systemUserService, StringRedisTemplate redisTemplate, OperationLogMessageProducer producer, ObjectMapper objectMapper, HttpExceptionTranslatorDelegator throwableTranslator) {
         this.systemUserService = systemUserService;
         this.redisTemplate = redisTemplate;
         this.producer = producer;
@@ -49,7 +50,7 @@ public class OperationLoggingAspect {
         this.throwableTranslator = throwableTranslator;
     }
 
-    private OperationLog build(JoinPoint point, Is result) {
+    private OperationLog build(JoinPoint point, Bool result) {
         OperationLog log = OperationLogUtils.build(getRequest(), getMethod(point));
         log.setResult(result);
         return log;
@@ -60,7 +61,7 @@ public class OperationLoggingAspect {
     public void onSuccess(JoinPoint point, Object returnVal) throws Throwable {
         Method method = getMethod(point);
         OperationLogging annotation = method.getAnnotation(OperationLogging.class);
-        OperationLog log = build(point, Is.Y);
+        OperationLog log = build(point, Bool.Y);
         if (annotation.retainResponseBody()) {
             log.setResponse(objectMapper.writeValueAsString(returnVal));
         }
@@ -74,7 +75,7 @@ public class OperationLoggingAspect {
     public void onFailed(JoinPoint point, Throwable e) {
         Method method = getMethod(point);
         OperationLogging annotation = method.getAnnotation(OperationLogging.class);
-        OperationLog log = build(point, Is.N);
+        OperationLog log = build(point, Bool.N);
         throwableTranslator.translate(e).ifPresent(ex -> log.setResponse(DefaultResponse.withException(ex).URL(getRequest().getRequestURI()).build().toString()));
         if (annotation.retainArguments()) {
             log.setArguments("");

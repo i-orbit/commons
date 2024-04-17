@@ -1,6 +1,5 @@
 package com.inmaytide.orbit.commons.domain;
 
-import com.inmaytide.orbit.commons.constants.Is;
 import com.inmaytide.orbit.commons.constants.TenantState;
 import com.inmaytide.orbit.commons.domain.pattern.Entity;
 
@@ -22,8 +21,6 @@ public class Tenant extends Entity {
     private TenantState state;
 
     private String logo;
-
-    private Is menuSynced;
 
     private String license;
     
@@ -57,14 +54,6 @@ public class Tenant extends Entity {
 
     public void setLogo(String logo) {
         this.logo = logo;
-    }
-
-    public Is getMenuSynced() {
-        return menuSynced;
-    }
-
-    public void setMenuSynced(Is menuSynced) {
-        this.menuSynced = menuSynced;
     }
 
     public String getLicense() {

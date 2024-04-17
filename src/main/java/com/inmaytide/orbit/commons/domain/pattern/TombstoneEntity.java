@@ -26,4 +26,5 @@ public abstract class TombstoneEntity extends AuditEntity {
     public void setDeleted(Bool deleted) {
         this.deleted = deleted;
     }
+
 }

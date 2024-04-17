@@ -1,6 +1,6 @@
 package com.inmaytide.orbit.commons.domain.dto.params;
 
-import com.inmaytide.orbit.commons.constants.Is;
+import com.inmaytide.orbit.commons.constants.Bool;
 import com.inmaytide.orbit.commons.constants.Platforms;
 
 import java.io.Serial;
@@ -21,7 +21,7 @@ public class LoginParameters implements Serializable {
 
     private Platforms platform;
 
-    private Is forcedReplacement;
+    private Bool forcedReplacement;
 
     public String getLoginName() {
         return loginName;
@@ -47,11 +47,11 @@ public class LoginParameters implements Serializable {
         this.platform = platform;
     }
 
-    public Is getForcedReplacement() {
+    public Bool getForcedReplacement() {
         return forcedReplacement;
     }
 
-    public void setForcedReplacement(Is forcedReplacement) {
+    public void setForcedReplacement(Bool forcedReplacement) {
         this.forcedReplacement = forcedReplacement;
     }
 }

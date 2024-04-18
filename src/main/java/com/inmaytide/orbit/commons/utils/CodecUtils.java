@@ -9,6 +9,7 @@ import java.security.spec.PKCS8EncodedKeySpec;
 import java.security.spec.X509EncodedKeySpec;
 import java.util.Base64;
 import java.util.Objects;
+import java.util.Random;
 import java.util.UUID;
 
 /**
@@ -64,6 +65,16 @@ public final class CodecUtils {
 
     public static String randomUUID() {
         return UUID.randomUUID().toString().replaceAll("-", "");
+    }
+
+    public static String generateRandomString(int len) {
+        StringBuilder sb = new StringBuilder();
+        Random random = new Random();
+        for (int i = 0; i < len; i++) {
+            int index = random.nextInt(CHARS.length);
+            sb.append(CHARS[index]);
+        }
+        return sb.toString();
     }
 
     /**

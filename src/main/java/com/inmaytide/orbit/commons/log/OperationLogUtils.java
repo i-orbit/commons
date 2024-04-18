@@ -33,7 +33,7 @@ public final class OperationLogUtils {
 
     public static @NonNull OperationLog build(@NonNull HttpServletRequest request, @NonNull Method method) {
         OperationLogging annotation = method.getAnnotation(OperationLogging.class);
-        SystemUser user = SecurityUtils.getAuthorizedUser();
+        SystemUser user = SecurityUtils.getAuthorizedUserAllowUnauthorized().orElse(null);
         OperationLog log = OperationLogUtils.build(user);
         log.setDescription(OperationLogUtils.getDescription(method, annotation));
         log.setBusiness(OperationLogUtils.getBusiness(method, annotation));

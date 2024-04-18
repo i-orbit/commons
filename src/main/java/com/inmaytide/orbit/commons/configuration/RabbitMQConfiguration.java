@@ -3,6 +3,9 @@ package com.inmaytide.orbit.commons.configuration;
 import com.inmaytide.orbit.commons.constants.Constants;
 import com.inmaytide.orbit.commons.log.OperationLogMessageProducer;
 import org.springframework.amqp.core.*;
+import org.springframework.amqp.support.converter.DefaultClassMapper;
+import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
+import org.springframework.amqp.support.converter.MessageConverter;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,6 +18,15 @@ import java.util.Map;
  */
 @Configuration
 public class RabbitMQConfiguration {
+
+    @Bean
+    public MessageConverter jsonToMapMessageConverter() {
+        DefaultClassMapper defaultClassMapper = new DefaultClassMapper();
+        defaultClassMapper.setTrustedPackages("*"); // trusted packages
+        Jackson2JsonMessageConverter jackson2JsonMessageConverter = new Jackson2JsonMessageConverter();
+        jackson2JsonMessageConverter.setClassMapper(defaultClassMapper);
+        return jackson2JsonMessageConverter;
+    }
 
     @Bean
     public DirectExchange directExchange() {

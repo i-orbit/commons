@@ -1,9 +1,11 @@
 package com.inmaytide.orbit.commons.domain.pattern.handler;
 
+import com.baomidou.mybatisplus.core.MybatisPlusVersion;
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
 import com.inmaytide.orbit.commons.constants.Bool;
 import com.inmaytide.orbit.commons.security.SecurityUtils;
 import org.apache.ibatis.reflection.MetaObject;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.stereotype.Component;
 
 import java.time.Instant;
@@ -13,6 +15,7 @@ import java.time.Instant;
  * @since 2023/7/21
  */
 @Component
+@ConditionalOnClass(MybatisPlusVersion.class)
 public class CustomizedMetaObjectHandler implements MetaObjectHandler {
 
     @Override

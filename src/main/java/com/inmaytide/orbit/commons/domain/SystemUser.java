@@ -1,6 +1,8 @@
 package com.inmaytide.orbit.commons.domain;
 
-import com.inmaytide.orbit.commons.configuration.GlobalProperties;
+import com.inmaytide.orbit.commons.business.SystemPropertyService;
+import com.inmaytide.orbit.commons.constants.Bool;
+import com.inmaytide.orbit.commons.constants.Constants;
 import com.inmaytide.orbit.commons.constants.UserState;
 import com.inmaytide.orbit.commons.utils.ApplicationContextHolder;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -219,7 +221,12 @@ public class SystemUser implements Serializable {
     }
 
     public boolean getForceChangePassword() {
-        if (ApplicationContextHolder.getInstance().getBean(GlobalProperties.class).forcePasswordChangesWhenNecessary()) {
+        Bool forceChangePasswordWhenNecessary = ApplicationContextHolder.getInstance()
+                .getBean(SystemPropertyService.class)
+                .getValue(getTenant(), Constants.SystemPropertyKeys.FORCE_CHANGE_PASSWORD_WHEN_NECESSARY)
+                .map(Bool::valueOf)
+                .orElse(Bool.N);
+        if (forceChangePasswordWhenNecessary == Bool.Y) {
             return state == UserState.INITIALIZATION
                     || getPasswordExpireAt() == null
                     || getPasswordExpireAt().isBefore(Instant.now());

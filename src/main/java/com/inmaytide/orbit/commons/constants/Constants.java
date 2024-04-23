@@ -43,6 +43,8 @@ public final class Constants {
 
         public static final String ACCESS_TOKEN = "access_token";
 
+        public static final String REFRESH_TOKEN = "refresh_token";
+
         public static final String PLATFORM = "platform";
 
     }
@@ -68,8 +70,6 @@ public final class Constants {
 
         public static final String ACCESS_TOKEN_STORE = "ACCESS_TOKEN_STORE";
 
-        public static final String REFRESH_TOKEN_STORE = "REFRESH_TOKEN_STORE";
-
         public static final String TOKEN_TEMPORARY_STORE = "TOKEN_TEMPORARY_STORE";
 
         public static final String ONLINE_USER = "ONLINE_USER";
@@ -77,6 +77,8 @@ public final class Constants {
         public static final String USER_DETAILS = "USER_DETAILS";
 
         public static final String TENANT_DETAILS = "TENANT_DETAILS";
+
+        public static final String DISABLED_REFRESH_TOKEN = "DISABLED_REFRESH_TOKEN";
 
     }
 
@@ -99,13 +101,21 @@ public final class Constants {
         /**
          * 操作日志保留时间(天)
          */
-        public static final String OPL_RETENTION_TIME_IN_DAYS = "times.days.operation.log.retention";
+        public static final String OPL_RETENTION_TIME_IN_DAYS = "operation-log.retention.days";
 
         /**
          * 用户密码有效时间(天)
          */
-        public static final String USER_PASSWORD_VALID_IN_DAYS = "times.days.user.password.valid";
+        public static final String USER_PASSWORD_VALID_IN_DAYS = "user-password.valid.days";
 
+        /**
+         * 密码过期后是否强制修改密码
+         */
+        public static final String FORCE_CHANGE_PASSWORD_WHEN_NECESSARY = "force.change-password.when-necessary";
+
+        /**
+         * 系统名称
+         */
         public static final String SYSTEM_NAME = "system.name";
 
     }

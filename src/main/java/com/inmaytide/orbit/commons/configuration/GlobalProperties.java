@@ -28,10 +28,6 @@ public class GlobalProperties implements InitializingBean {
         return CommonUtils.splitByCommas(configuredValue);
     }
 
-    public boolean forcePasswordChangesWhenNecessary() {
-        return ApplicationContextHolder.getInstance().getPropertyBoolValue("orbit.security.force-password-changes-when-necessary", true);
-    }
-
     @Override
     public void afterPropertiesSet() throws Exception {
 

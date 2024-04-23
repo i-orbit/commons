@@ -57,7 +57,7 @@ public class SecurityUtils {
      */
     public static @NonNull Long getAuthorizedUserId() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication != null && !authentication.isAuthenticated() && NumberUtils.isCreatable(authentication.getName())) {
+        if (authentication != null && authentication.isAuthenticated() && NumberUtils.isCreatable(authentication.getName())) {
             return NumberUtils.toLong(authentication.getName());
         }
         throw new UnauthorizedException();

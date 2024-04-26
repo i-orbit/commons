@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 import java.util.List;
@@ -128,6 +129,9 @@ public class OrbitClientDetails implements Serializable {
     }
 
     public String getClientSecretBasicAuthentication() {
-        return "Basic " + Base64.getEncoder().encodeToString((getClientId() + ":" + getClientSecret()).getBytes(StandardCharsets.UTF_8));
+        String clientId = URLEncoder.encode(getClientId(), StandardCharsets.UTF_8);
+        String clientSecret = URLEncoder.encode(getClientSecret(), StandardCharsets.UTF_8);
+        String authorization = clientId + ":" + clientSecret;
+        return "Basic " + Base64.getEncoder().encodeToString(authorization.getBytes(StandardCharsets.UTF_8));
     }
 }

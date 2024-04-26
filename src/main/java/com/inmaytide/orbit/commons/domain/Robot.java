@@ -7,6 +7,7 @@ import org.apache.commons.lang3.StringUtils;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 import java.util.Collections;
@@ -94,7 +95,10 @@ public class Robot implements Serializable {
     }
 
     public String getClientSecretBasicAuthentication() {
-        return "Basic " + Base64.getEncoder().encodeToString((getInstance() + ":" + getPassword()).getBytes(StandardCharsets.UTF_8));
+        String clientId = URLEncoder.encode(ROBOT_CLIENT_ID, StandardCharsets.UTF_8);
+        String clientSecret = URLEncoder.encode(getPassword(), StandardCharsets.UTF_8);
+        String authorization = clientId + ":" + clientSecret;
+        return "Basic " + Base64.getEncoder().encodeToString(authorization.getBytes(StandardCharsets.UTF_8));
     }
 
     public SystemUser toSystemUser() {

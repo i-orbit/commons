@@ -28,6 +28,12 @@ public class Oauth2Token implements Serializable {
 
     private String scope;
 
+    private Long userId;
+
+    private String username;
+
+    private Long tenant;
+
     public String getAccessToken() {
         return accessToken;
     }
@@ -66,5 +72,29 @@ public class Oauth2Token implements Serializable {
 
     public void setScope(String scope) {
         this.scope = scope;
+    }
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public Long getTenant() {
+        return tenant;
+    }
+
+    public void setTenant(Long tenant) {
+        this.tenant = tenant;
     }
 }

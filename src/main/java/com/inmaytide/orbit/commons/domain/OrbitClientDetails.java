@@ -3,9 +3,13 @@ package com.inmaytide.orbit.commons.domain;
 import com.inmaytide.orbit.commons.utils.ApplicationContextHolder;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.util.CollectionUtils;
+import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.nio.charset.StandardCharsets;
+import java.util.Base64;
 import java.util.List;
 
 /**
@@ -121,5 +125,9 @@ public class OrbitClientDetails implements Serializable {
 
     public void setIntrospectionUri(String introspectionUri) {
         this.introspectionUri = introspectionUri;
+    }
+
+    public String getClientSecretBasicAuthentication() {
+        return "Basic " + Base64.getEncoder().encodeToString((getClientId() + ":" + getClientSecret()).getBytes(StandardCharsets.UTF_8));
     }
 }

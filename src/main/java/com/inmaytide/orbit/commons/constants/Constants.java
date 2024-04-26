@@ -72,7 +72,7 @@ public final class Constants {
 
         public static final String TOKEN_TEMPORARY_STORE = "TOKEN_TEMPORARY_STORE";
 
-        public static final String ONLINE_USER = "ONLINE_USER";
+        public static final String USER_ACTIVITY = "USER_ACTIVITY";
 
         public static final String USER_DETAILS = "USER_DETAILS";
 

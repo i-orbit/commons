@@ -7,6 +7,8 @@ import org.apache.commons.lang3.StringUtils;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.nio.charset.StandardCharsets;
+import java.util.Base64;
 import java.util.Collections;
 
 /**
@@ -89,6 +91,10 @@ public class Robot implements Serializable {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getClientSecretBasicAuthentication() {
+        return "Basic " + Base64.getEncoder().encodeToString((getInstance() + ":" + getPassword()).getBytes(StandardCharsets.UTF_8));
     }
 
     public SystemUser toSystemUser() {

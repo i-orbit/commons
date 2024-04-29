@@ -1,6 +1,7 @@
 package com.inmaytide.orbit.commons.utils;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
 
@@ -8,6 +9,7 @@ import java.util.Collections;
 import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
 
 /**
  * @author inmaytide
@@ -55,7 +57,7 @@ public final class ValueCaches {
 
     public static Set<String> keys(String cacheName) {
         Set<String> keys = getOperations().getOperations().keys(cacheName + "::*");
-        return keys == null ? Collections.emptySet() : keys;
+        return keys == null ? Collections.emptySet() : keys.stream().map(e -> StringUtils.removeStart(e,cacheName + "::")).collect(Collectors.toSet());
     }
 
     public static void put(String cacheName, String key, String value) {

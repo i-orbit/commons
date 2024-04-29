@@ -18,10 +18,10 @@ public abstract class Pageable<T extends Entity> extends Query<T> {
     private static final long serialVersionUID = -4333214352924071775L;
 
     @Schema(title = "当前页码")
-    private Integer pageNumber;
+    private Integer pageNumber = 1;
 
     @Schema(title = "每页数据条数")
-    private Integer pageSize;
+    private Integer pageSize = 10;
 
     public Integer getPageNumber() {
         return pageNumber;

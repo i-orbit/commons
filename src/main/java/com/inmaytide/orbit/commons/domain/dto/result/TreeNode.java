@@ -1,5 +1,6 @@
 package com.inmaytide.orbit.commons.domain.dto.result;
 
+import com.inmaytide.orbit.Version;
 import io.swagger.v3.oas.annotations.media.Schema;
 import org.springframework.beans.BeanUtils;
 
@@ -17,8 +18,8 @@ import java.util.stream.Collectors;
 public class TreeNode<T> implements Serializable {
 
     @Serial
-    private static final long serialVersionUID = 1552067496526042450L;
-    
+    private static final long serialVersionUID = Version.SERIAL_VERSION_UID;
+
     @Schema(title = "唯一标识", description = "一般等于关联数据实例对象的唯一标识")
     private Serializable id;
 

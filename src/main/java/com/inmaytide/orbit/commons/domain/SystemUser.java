@@ -1,5 +1,6 @@
 package com.inmaytide.orbit.commons.domain;
 
+import com.inmaytide.orbit.Version;
 import com.inmaytide.orbit.commons.business.SystemPropertyService;
 import com.inmaytide.orbit.commons.constants.Bool;
 import com.inmaytide.orbit.commons.constants.Constants;
@@ -20,7 +21,7 @@ import java.util.List;
 public class SystemUser implements Serializable {
 
     @Serial
-    private static final long serialVersionUID = -1609661989868009319L;
+    private static final long serialVersionUID = Version.SERIAL_VERSION_UID;
 
     @Schema(title = "唯一标识")
     private Long id;

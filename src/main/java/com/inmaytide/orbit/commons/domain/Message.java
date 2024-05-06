@@ -2,6 +2,7 @@ package com.inmaytide.orbit.commons.domain;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.inmaytide.exception.web.BadRequestException;
+import com.inmaytide.orbit.Version;
 import com.inmaytide.orbit.commons.constants.MessageSendingMode;
 import com.inmaytide.orbit.commons.domain.pattern.TombstoneEntity;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -21,7 +22,7 @@ import java.util.List;
 public class Message implements Serializable {
 
     @Serial
-    private static final long serialVersionUID = 4286381611998362844L;
+    private static final long serialVersionUID = Version.SERIAL_VERSION_UID;
 
     private String title;
 

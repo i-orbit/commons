@@ -7,22 +7,31 @@ import java.io.Serial;
 import java.util.Objects;
 
 /**
- *
  * @author inmaytide
  * @since 2023/3/11
  */
 public class Version {
 
+    private static final int MAJOR = 2;
+
+    private static final int MINOR = 0;
+
+    private static final int PATCH = 0;
+
+    /**
+     * Global Serialization value for Spring Authorization Server classes.
+     */
+    public static final long SERIAL_VERSION_UID = get().hashCode();
+
     /**
      * System version number <br />
-     *
-     * format: MajorVersion.MinorVersion.InternalVersion
+     * <p>
+     * format: MajorVersion.MinorVersion.PatchVersion
      */
-    private static final String VERSION = "2.0.0";
-
     public static String get() {
-        return VERSION;
+        return MAJOR + "." + MINOR + "." + PATCH;
     }
+
 
     /**
      * 判断一个版本号主版本与系统当前版本是否匹配
@@ -30,7 +39,7 @@ public class Version {
      * @throws MalformedVersionException 版本号为空或格式不正确
      */
     public static boolean matchMajorVersion(String version) throws MalformedVersionException {
-        return Objects.equals(getMajorVersion(get()), getMajorVersion(version));
+        return Objects.equals(MAJOR, getMajorVersion(version));
     }
 
     private static Integer getMajorVersion(String version) throws MalformedVersionException {

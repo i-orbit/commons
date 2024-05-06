@@ -16,7 +16,7 @@ import java.time.Instant;
 public abstract class AuditEntity extends Entity {
 
     @Serial
-    private static final long serialVersionUID = 1916927544766638648L;
+    private static final long serialVersionUID = com.inmaytide.orbit.Version.SERIAL_VERSION_UID;
 
     @Schema(title = "创建人")
     @TableField(fill = FieldFill.INSERT)

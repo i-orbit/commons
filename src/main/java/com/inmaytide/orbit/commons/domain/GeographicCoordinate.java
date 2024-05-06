@@ -1,5 +1,6 @@
 package com.inmaytide.orbit.commons.domain;
 
+import com.inmaytide.orbit.Version;
 import io.swagger.v3.oas.annotations.media.Schema;
 
 import java.io.Serial;
@@ -14,7 +15,7 @@ import java.math.BigDecimal;
 public class GeographicCoordinate implements Serializable {
 
     @Serial
-    private static final long serialVersionUID = 8801313037798553919L;
+    private static final long serialVersionUID = Version.SERIAL_VERSION_UID;
 
     @Schema(title = "归属实体对象唯一标识", requiredMode = Schema.RequiredMode.REQUIRED)
     private Long attribution;

@@ -1,5 +1,6 @@
 package com.inmaytide.orbit.commons.domain;
 
+import com.inmaytide.orbit.Version;
 import com.inmaytide.orbit.commons.constants.Roles;
 import com.inmaytide.orbit.commons.constants.UserState;
 import com.inmaytide.orbit.commons.utils.ApplicationContextHolder;
@@ -19,7 +20,7 @@ import java.util.Collections;
 public class Robot implements Serializable {
 
     @Serial
-    private static final long serialVersionUID = 1136144481198643169L;
+    private static final long serialVersionUID = Version.SERIAL_VERSION_UID;
 
     public static final String ROBOT_GRANT_TYPE = "client_credentials";
 

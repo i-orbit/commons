@@ -1,5 +1,6 @@
 package com.inmaytide.orbit.commons.domain;
 
+import com.inmaytide.orbit.Version;
 import com.inmaytide.orbit.commons.constants.Sharing;
 import com.inmaytide.orbit.commons.domain.pattern.TombstoneEntity;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -15,7 +16,7 @@ import java.math.BigDecimal;
 public class FileMeta extends TombstoneEntity {
 
     @Serial
-    private static final long serialVersionUID = -2683208285740852201L;
+    private static final long serialVersionUID = Version.SERIAL_VERSION_UID;
 
     @Schema(title = "文件名称")
     private String name;

@@ -53,7 +53,7 @@ public class SnowflakeIdWorker {
     /**
      * 时间截向左移22位(5+5+12)
      */
-    private static final long TIMESTAMP_LEFT_SHIFT = SEQUENCE_BITS + WORKER_ID_BITS + DATACENTER_ID_SHIFT;
+    private static final long TIMESTAMP_LEFT_SHIFT = SEQUENCE_BITS + WORKER_ID_BITS + DATACENTER_ID_BITS;
 
     /**
      * 生成序列的掩码，这里为4095 (0b111111111111=0xfff=4095)

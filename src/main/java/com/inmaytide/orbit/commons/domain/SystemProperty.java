@@ -1,5 +1,6 @@
 package com.inmaytide.orbit.commons.domain;
 
+import com.inmaytide.orbit.Version;
 import com.inmaytide.orbit.commons.constants.Bool;
 import io.swagger.v3.oas.annotations.media.Schema;
 
@@ -17,7 +18,7 @@ import java.io.Serializable;
 public class SystemProperty implements Serializable {
 
     @Serial
-    private static final long serialVersionUID = 6752525462362816880L;
+    private static final long serialVersionUID = Version.SERIAL_VERSION_UID;
 
     @Schema(title = "所属租户", description = "=3721时为系统全局")
     private Long tenantId;

@@ -1,9 +1,12 @@
 package com.inmaytide.orbit.commons.domain.dto.result;
 
 import com.github.pagehelper.PageInfo;
+import com.inmaytide.orbit.Version;
 import com.inmaytide.orbit.commons.domain.pattern.Entity;
 import io.swagger.v3.oas.annotations.media.Schema;
 
+import java.io.Serial;
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -11,7 +14,10 @@ import java.util.List;
  * @since 2023/4/7
  */
 @Schema(title = "分页查询返回实体")
-public class PageResult<T extends Entity> {
+public class PageResult<T extends Entity> implements Serializable {
+
+    @Serial
+    private static final long serialVersionUID = Version.SERIAL_VERSION_UID;
 
     @Schema(title = "当前页码")
     private Integer pageNumber;

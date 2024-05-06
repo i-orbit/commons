@@ -1,5 +1,6 @@
 package com.inmaytide.orbit.commons.domain;
 
+import com.inmaytide.orbit.Version;
 import com.inmaytide.orbit.commons.constants.TenantState;
 import com.inmaytide.orbit.commons.domain.pattern.Entity;
 
@@ -12,7 +13,7 @@ import java.io.Serial;
 public class Tenant extends Entity {
 
     @Serial
-    private static final long serialVersionUID = -6847409286061576833L;
+    private static final long serialVersionUID = Version.SERIAL_VERSION_UID;
 
     private String name;
 
@@ -23,7 +24,7 @@ public class Tenant extends Entity {
     private String logo;
 
     private String license;
-    
+
     public String getName() {
         return name;
     }

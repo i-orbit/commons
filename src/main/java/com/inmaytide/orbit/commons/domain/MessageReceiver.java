@@ -1,5 +1,6 @@
 package com.inmaytide.orbit.commons.domain;
 
+import com.inmaytide.orbit.Version;
 import com.inmaytide.orbit.commons.constants.MessageReadingStatus;
 import com.inmaytide.orbit.commons.constants.MessageSendingMode;
 import com.inmaytide.orbit.commons.constants.MessageSendingStatus;
@@ -16,7 +17,7 @@ import java.time.Instant;
 public class MessageReceiver extends Entity {
 
     @Serial
-    private static final long serialVersionUID = -7529195872053007367L;
+    private static final long serialVersionUID = Version.SERIAL_VERSION_UID;
 
     private MessageSendingMode sendingMode;
 

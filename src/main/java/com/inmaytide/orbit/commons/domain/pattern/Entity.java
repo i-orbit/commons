@@ -2,6 +2,7 @@ package com.inmaytide.orbit.commons.domain.pattern;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
+import com.inmaytide.orbit.Version;
 import com.inmaytide.orbit.commons.domain.validation.groups.Update;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotNull;
@@ -17,7 +18,7 @@ import java.io.Serializable;
 public abstract class Entity implements Serializable {
 
     @Serial
-    private static final long serialVersionUID = -2907777165945798043L;
+    private static final long serialVersionUID = Version.SERIAL_VERSION_UID;
 
     @Schema(title = "唯一标识")
     @NotNull(groups = {Update.class})

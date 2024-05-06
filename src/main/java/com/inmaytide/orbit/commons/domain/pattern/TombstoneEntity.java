@@ -1,6 +1,7 @@
 package com.inmaytide.orbit.commons.domain.pattern;
 
 import com.baomidou.mybatisplus.annotation.TableLogic;
+import com.inmaytide.orbit.Version;
 import com.inmaytide.orbit.commons.constants.Bool;
 import io.swagger.v3.oas.annotations.media.Schema;
 
@@ -14,7 +15,7 @@ import java.io.Serial;
 public abstract class TombstoneEntity extends AuditEntity {
 
     @Serial
-    private static final long serialVersionUID = 7802160617960166500L;
+    private static final long serialVersionUID = Version.SERIAL_VERSION_UID;
 
     @TableLogic(value = "'N'", delval = "'Y'")
     private Bool deleted;

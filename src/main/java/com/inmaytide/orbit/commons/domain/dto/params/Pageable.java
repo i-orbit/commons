@@ -1,5 +1,6 @@
 package com.inmaytide.orbit.commons.domain.dto.params;
 
+import com.inmaytide.orbit.Version;
 import com.inmaytide.orbit.commons.domain.pattern.Entity;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -15,7 +16,7 @@ import java.io.Serial;
 public abstract class Pageable<T extends Entity> extends Query<T> {
 
     @Serial
-    private static final long serialVersionUID = -4333214352924071775L;
+    private static final long serialVersionUID = Version.SERIAL_VERSION_UID;
 
     @Schema(title = "当前页码")
     private Integer pageNumber = 1;

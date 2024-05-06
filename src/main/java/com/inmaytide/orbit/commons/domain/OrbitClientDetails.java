@@ -1,5 +1,6 @@
 package com.inmaytide.orbit.commons.domain;
 
+import com.inmaytide.orbit.Version;
 import com.inmaytide.orbit.commons.utils.ApplicationContextHolder;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.util.CollectionUtils;
@@ -22,7 +23,7 @@ public class OrbitClientDetails implements Serializable {
     public static final String ORBIT_CLIENT_ID = "orbit";
 
     @Serial
-    private static final long serialVersionUID = 8638107769549228653L;
+    private static final long serialVersionUID = Version.SERIAL_VERSION_UID;
 
     private volatile static OrbitClientDetails INSTANCE;
 

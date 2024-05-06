@@ -1,5 +1,6 @@
 package com.inmaytide.orbit.commons.domain.dto.params;
 
+import com.inmaytide.orbit.Version;
 import com.inmaytide.orbit.commons.constants.Bool;
 import com.inmaytide.orbit.commons.constants.Platforms;
 
@@ -13,7 +14,7 @@ import java.io.Serializable;
 public class LoginParameters implements Serializable {
 
     @Serial
-    private static final long serialVersionUID = 7051872545165327125L;
+    private static final long serialVersionUID = Version.SERIAL_VERSION_UID;
 
     private String loginName;
 

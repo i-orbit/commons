@@ -1,6 +1,7 @@
 package com.inmaytide.orbit.commons.domain;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.inmaytide.orbit.Version;
 
 import java.io.Serial;
 import java.io.Serializable;
@@ -12,7 +13,7 @@ import java.io.Serializable;
 public class Oauth2Token implements Serializable {
 
     @Serial
-    private static final long serialVersionUID = 1816622740559450009L;
+    private static final long serialVersionUID = Version.SERIAL_VERSION_UID;
 
     @JsonProperty("access_token")
     private String accessToken;

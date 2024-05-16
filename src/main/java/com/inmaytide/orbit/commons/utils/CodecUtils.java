@@ -1,16 +1,19 @@
 package com.inmaytide.orbit.commons.utils;
 
 import javax.crypto.Cipher;
+import java.io.BufferedInputStream;
+import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.security.KeyFactory;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.security.interfaces.RSAPrivateKey;
 import java.security.interfaces.RSAPublicKey;
 import java.security.spec.PKCS8EncodedKeySpec;
 import java.security.spec.X509EncodedKeySpec;
-import java.util.Base64;
-import java.util.Objects;
-import java.util.Random;
-import java.util.UUID;
+import java.util.*;
 
 /**
  * @author inmaytide
@@ -67,6 +70,11 @@ public final class CodecUtils {
         return UUID.randomUUID().toString().replaceAll("-", "");
     }
 
+    /**
+     * 随机生成一个指定长度的字符串
+     *
+     * @param len 指定长度
+     */
     public static String generateRandomString(int len) {
         StringBuilder sb = new StringBuilder();
         Random random = new Random();
@@ -95,4 +103,37 @@ public final class CodecUtils {
         }
         return sb.toString();
     }
+
+    public static String toHexString(byte[] data) {
+        StringBuilder value = new StringBuilder(data.length * 2);
+        for (byte b : data) {
+            String hex = Integer.toHexString(b);
+            if (hex.length() == 1) {
+                value.append("0");
+            } else if (hex.length() == 8) {
+                hex = hex.substring(6);
+            }
+            value.append(hex);
+        }
+        return value.toString().toLowerCase(Locale.getDefault());
+    }
+
+    public static String getSHA256Value(Path file) {
+        Objects.requireNonNull(file);
+        if (!Files.exists(file)) {
+            throw new IllegalArgumentException("File not found: " + file);
+        }
+        try (BufferedInputStream is = new BufferedInputStream(Files.newInputStream(file))) {
+            MessageDigest digest = MessageDigest.getInstance("SHA-256");
+            byte[] buffer = new byte[16384];
+            int sizeRead;
+            while ((sizeRead = is.read(buffer)) != -1) {
+                digest.update(buffer, 0, sizeRead);
+            }
+            return CodecUtils.toHexString(digest.digest());
+        } catch (IOException | NoSuchAlgorithmException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 }

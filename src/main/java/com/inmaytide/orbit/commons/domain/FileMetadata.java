@@ -1,43 +1,40 @@
 package com.inmaytide.orbit.commons.domain;
 
 import com.inmaytide.orbit.Version;
-import com.inmaytide.orbit.commons.constants.Sharing;
-import com.inmaytide.orbit.commons.domain.pattern.TombstoneEntity;
-import io.swagger.v3.oas.annotations.media.Schema;
+import com.inmaytide.orbit.commons.constants.Bool;
+import com.inmaytide.orbit.commons.domain.pattern.Entity;
 
 import java.io.Serial;
-import java.math.BigDecimal;
+import java.time.Instant;
 
 /**
+ * 文件库文件元数据
+ *
  * @author inmaytide
- * @since 2024/3/4
+ * @since 2024/4/7
  */
-@Schema(title = "文件库文件基础信息")
-public class FileMeta extends TombstoneEntity {
+public class FileMetadata extends Entity {
 
     @Serial
     private static final long serialVersionUID = Version.SERIAL_VERSION_UID;
 
-    @Schema(title = "文件名称")
     private String name;
 
-    @Schema(title = "文件类型(后缀名)")
     private String extension;
 
-    @Schema(title = "文件大小(bytes)")
-    private BigDecimal size;
+    private Long size;
 
-    @Schema(title = "文件存储路径")
     private String address;
 
-    @Schema(title = "图片/视频类型的文件缩略图")
     private String thumbnailAddress;
 
-    @Schema(title = "文件共享级别")
-    private Sharing sharing;
-
-    @Schema(title = "SHA265值")
     private String sha256;
+
+    private Bool verified;
+
+    private Bool deleted;
+
+    private Instant deleteTime;
 
     public String getName() {
         return name;
@@ -55,11 +52,11 @@ public class FileMeta extends TombstoneEntity {
         this.extension = extension;
     }
 
-    public BigDecimal getSize() {
+    public Long getSize() {
         return size;
     }
 
-    public void setSize(BigDecimal size) {
+    public void setSize(Long size) {
         this.size = size;
     }
 
@@ -79,14 +76,6 @@ public class FileMeta extends TombstoneEntity {
         this.thumbnailAddress = thumbnailAddress;
     }
 
-    public Sharing getSharing() {
-        return sharing;
-    }
-
-    public void setSharing(Sharing sharing) {
-        this.sharing = sharing;
-    }
-
     public String getSha256() {
         return sha256;
     }
@@ -94,4 +83,29 @@ public class FileMeta extends TombstoneEntity {
     public void setSha256(String sha256) {
         this.sha256 = sha256;
     }
+
+    public Bool getVerified() {
+        return verified;
+    }
+
+    public void setVerified(Bool verified) {
+        this.verified = verified;
+    }
+
+    public Bool getDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(Bool deleted) {
+        this.deleted = deleted;
+    }
+
+    public Instant getDeleteTime() {
+        return deleteTime;
+    }
+
+    public void setDeleteTime(Instant deleteTime) {
+        this.deleteTime = deleteTime;
+    }
+
 }

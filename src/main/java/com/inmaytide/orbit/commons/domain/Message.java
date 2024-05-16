@@ -1,10 +1,8 @@
 package com.inmaytide.orbit.commons.domain;
 
-import com.baomidou.mybatisplus.annotation.TableField;
 import com.inmaytide.exception.web.BadRequestException;
 import com.inmaytide.orbit.Version;
 import com.inmaytide.orbit.commons.constants.MessageSendingMode;
-import com.inmaytide.orbit.commons.domain.pattern.TombstoneEntity;
 import io.swagger.v3.oas.annotations.media.Schema;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.util.CollectionUtils;
@@ -32,7 +30,7 @@ public class Message implements Serializable {
 
     private String url;
 
-    private List<FileMeta> attachments;
+    private List<FileMetadata> attachments;
 
     private List<MessageReceiver> receivers;
 
@@ -72,14 +70,14 @@ public class Message implements Serializable {
         this.url = url;
     }
 
-    public List<FileMeta> getAttachments() {
+    public List<FileMetadata> getAttachments() {
         if (attachments == null) {
             return new ArrayList<>();
         }
         return attachments;
     }
 
-    public void setAttachments(List<FileMeta> attachments) {
+    public void setAttachments(List<FileMetadata> attachments) {
         this.attachments = attachments;
     }
 

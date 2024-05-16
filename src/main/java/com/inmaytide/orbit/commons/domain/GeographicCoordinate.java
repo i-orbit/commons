@@ -2,6 +2,7 @@ package com.inmaytide.orbit.commons.domain;
 
 import com.inmaytide.orbit.Version;
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.NotNull;
 
 import java.io.Serial;
 import java.io.Serializable;
@@ -18,20 +19,22 @@ public class GeographicCoordinate implements Serializable {
     private static final long serialVersionUID = Version.SERIAL_VERSION_UID;
 
     @Schema(title = "归属实体对象唯一标识", requiredMode = Schema.RequiredMode.REQUIRED)
-    private Long attribution;
+    private Long businessDataId;
 
+    @NotNull
     @Schema(title = "经度", requiredMode = Schema.RequiredMode.REQUIRED)
     private BigDecimal longitude;
 
+    @NotNull
     @Schema(title = "纬度", requiredMode = Schema.RequiredMode.REQUIRED)
     private BigDecimal latitude;
 
-    public Long getAttribution() {
-        return attribution;
+    public Long getBusinessDataId() {
+        return businessDataId;
     }
 
-    public void setAttribution(Long attribution) {
-        this.attribution = attribution;
+    public void setBusinessDataId(Long businessDataId) {
+        this.businessDataId = businessDataId;
     }
 
     public BigDecimal getLongitude() {

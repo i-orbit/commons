@@ -96,7 +96,7 @@ public class Robot implements Serializable {
     }
 
     public String getClientSecretBasicAuthentication() {
-        String clientId = URLEncoder.encode(ROBOT_CLIENT_ID, StandardCharsets.UTF_8);
+        String clientId = URLEncoder.encode(getLoginName(), StandardCharsets.UTF_8);
         String clientSecret = URLEncoder.encode(getPassword(), StandardCharsets.UTF_8);
         String authorization = clientId + ":" + clientSecret;
         return "Basic " + Base64.getEncoder().encodeToString(authorization.getBytes(StandardCharsets.UTF_8));

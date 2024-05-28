@@ -1,5 +1,7 @@
 package com.inmaytide.orbit.commons.business;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.toolkit.support.SFunction;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
@@ -10,10 +12,8 @@ import com.inmaytide.orbit.commons.domain.dto.result.AffectedResult;
 import com.inmaytide.orbit.commons.domain.dto.result.PageResult;
 import com.inmaytide.orbit.commons.domain.pattern.Entity;
 
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * @author inmaytide
@@ -21,17 +21,9 @@ import java.util.Optional;
  */
 public interface BasicService<T extends Entity> extends IService<T> {
 
-    /**
-     * 更新操作(增/删/改)后执行的一些通用操作
-     * 比如: 清除相关缓存
-     */
-    default void updated() {
-
-    }
-
     default T create(T entity) {
         getBaseMapper().insert(entity);
-        updated();
+        changed();
         return get(entity.getId()).orElseThrow(() -> new ObjectNotFoundException(String.valueOf(entity.getId())));
     }
 
@@ -39,12 +31,14 @@ public interface BasicService<T extends Entity> extends IService<T> {
         if (ids == null || ids.isEmpty()) {
             return AffectedResult.NOT_AFFECTED;
         }
-        return AffectedResult.withAffected(getBaseMapper().deleteBatchIds(ids));
+        int affected = getBaseMapper().deleteBatchIds(ids);
+        changed();
+        return AffectedResult.withAffected(affected);
     }
 
     default T update(T entity) {
         getBaseMapper().updateById(entity);
-        updated();
+        changed();
         return get(entity.getId()).orElseThrow(() -> new ObjectNotFoundException(String.valueOf(entity.getId())));
     }
 
@@ -65,7 +59,35 @@ public interface BasicService<T extends Entity> extends IService<T> {
         return Optional.of(t);
     }
 
+    /**
+     * 查询数据时设置一些非持久化用于展示的字段信息
+     */
     default void setExtraAttributes(Collection<T> entities) {
+
+    }
+
+    /**
+     * 查询指定数据对象的某个字段值 <br/>
+     * 比如: 用于通过用户唯一标识获取对应的用户姓名
+     *
+     * @param ids         需要查询的数据对象唯一标识列表
+     * @param fieldGetter 需获取的字段获取器
+     */
+    default Map<Long, String> findFieldValueByIds(List<Long> ids, SFunction<T, String> fieldGetter) {
+        if (ids == null || ids.isEmpty()) {
+            return Map.of();
+        }
+        LambdaQueryWrapper<T> wrapper = new LambdaQueryWrapper<>();
+        wrapper.select(fieldGetter, T::getId);
+        wrapper.in(T::getId, ids);
+        return getBaseMapper().selectList(wrapper).stream().collect(Collectors.toMap(T::getId, fieldGetter));
+    }
+
+    /**
+     * 更新操作(增/删/改)后执行的一些通用操作
+     * 比如: 清除相关缓存
+     */
+    default void changed() {
 
     }
 

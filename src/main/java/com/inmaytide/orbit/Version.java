@@ -12,6 +12,8 @@ import java.util.Objects;
  */
 public class Version {
 
+    private static final String DEFAULT_SYSTEM_NAME = "Orbit智慧互联";
+
     private static final int MAJOR = 2;
 
     private static final int MINOR = 0;
@@ -30,6 +32,10 @@ public class Version {
      */
     public static String get() {
         return MAJOR + "." + MINOR + "." + PATCH;
+    }
+
+    public static String getDefaultSystemName() {
+        return DEFAULT_SYSTEM_NAME;
     }
 
 

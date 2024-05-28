@@ -50,6 +50,15 @@ public interface BasicService<T extends Entity> extends IService<T> {
         }
     }
 
+    default List<T> findByIds(List<Long> ids) {
+        if (ids == null || ids.isEmpty()) {
+            return List.of();
+        }
+        List<T> list = getBaseMapper().selectBatchIds(ids);
+        setExtraAttributes(list);
+        return list;
+    }
+
     default Optional<T> get(Long id) {
         T t = getBaseMapper().selectById(id);
         if (t == null) {

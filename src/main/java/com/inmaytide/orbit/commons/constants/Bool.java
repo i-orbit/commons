@@ -6,6 +6,10 @@ package com.inmaytide.orbit.commons.constants;
  */
 public enum Bool {
 
-    Y, N
+    Y, N;
+
+    public static Bool withValue(boolean value) {
+        return value ? Y : N;
+    }
 
 }

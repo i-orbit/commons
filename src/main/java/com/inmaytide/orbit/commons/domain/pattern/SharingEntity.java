@@ -25,8 +25,8 @@ public interface SharingEntity {
         return switch (getSharing()) {
             case GENERIC -> true;
             case TENANT -> Objects.equals(getTenant(), user.getTenant());
-            case ORGANIZATION -> user.getPerspective().getOrganizations().contains(getOrganization());
-            case AREA -> user.getPerspective().getAreas().contains(getArea());
+            case ORGANIZATION -> user.getPermission().getOrganizations().contains(getOrganization());
+            case AREA -> user.getPermission().getAreas().contains(getArea());
             case PRIVATE -> Objects.equals(getCreatedBy(), user.getId());
             case null -> Objects.equals(getCreatedBy(), user.getId());
         };

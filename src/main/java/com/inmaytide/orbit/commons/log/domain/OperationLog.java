@@ -1,6 +1,7 @@
 package com.inmaytide.orbit.commons.log.domain;
 
 import com.baomidou.mybatisplus.annotation.TableField;
+import com.inmaytide.orbit.Version;
 import com.inmaytide.orbit.commons.constants.Bool;
 import com.inmaytide.orbit.commons.constants.Constants;
 import com.inmaytide.orbit.commons.domain.pattern.Entity;
@@ -18,7 +19,7 @@ import java.time.Instant;
 public class OperationLog extends Entity {
 
     @Serial
-    private static final long serialVersionUID = 3471044645864428769L;
+    private static final long serialVersionUID = Version.SERIAL_VERSION_UID;
 
     @Schema(title = "所属租户")
     private Long tenantId;

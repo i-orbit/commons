@@ -4,8 +4,6 @@ import com.inmaytide.orbit.Version;
 import com.inmaytide.orbit.commons.utils.ApplicationContextHolder;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.util.CollectionUtils;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.io.Serial;
 import java.io.Serializable;

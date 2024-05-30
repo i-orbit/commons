@@ -109,8 +109,10 @@ public class Robot implements Serializable {
             user.setName(Robot.getInstance().getName());
             user.setLoginName(Robot.getInstance().getLoginName());
             user.setState(UserState.NORMAL);
-            user.setAuthorities(Collections.emptyList());
-            user.setRoles(Collections.singletonList(Roles.ROLE_ROBOT.name()));
+            Permission permission = new Permission();
+            permission.setAuthorities(Collections.emptyList());
+            permission.setRoles(Collections.singletonList(Roles.ROLE_ROBOT.name()));
+            user.setPermission(permission);
         }
         return user;
     }

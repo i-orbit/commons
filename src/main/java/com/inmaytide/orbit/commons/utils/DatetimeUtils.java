@@ -1,7 +1,6 @@
 package com.inmaytide.orbit.commons.utils;
 
 import java.time.Instant;
-import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalAdjusters;
@@ -13,6 +12,8 @@ import java.time.temporal.TemporalAdjusters;
 public final class DatetimeUtils {
 
     public static final ZoneOffset ZONE_OFFSET_EAST8 = ZoneOffset.ofHours(8);
+
+    public static final String PATTERN_DATE_WITHOUT_JOINER = "yyyyMMdd";
 
     private DatetimeUtils() {
 
@@ -68,7 +69,7 @@ public final class DatetimeUtils {
     }
 
     public static String formatDateWithoutJoiner(Instant time) {
-        return format(time, "yyyyMMdd");
+        return format(time, PATTERN_DATE_WITHOUT_JOINER);
     }
 
 }

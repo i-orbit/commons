@@ -29,11 +29,23 @@ public class SystemUser implements Serializable {
     @Schema(title = "用户所属租户")
     private Long tenant;
 
-    @Schema(title = "默认所属组织")
-    private Long defaultUnderOrganization;
+    @Schema(title = "默认所属组织唯一标识")
+    private Long organizationId;
 
-    @Schema(title = "所属组织唯一标识列表", description = "一个用户允许归属于多个组织")
-    private List<Long> underOrganizations;
+    @Schema(title = "默认所属组织名称")
+    private String organizationName;
+
+    @Schema(title = "所属组织列表", description = "一个用户允许归属于多个组织")
+    private List<Organization> organizations;
+
+    @Schema(title = "默认岗位唯一标识")
+    private Long positionId;
+
+    @Schema(title = "默认岗位名称")
+    private String positionName;
+
+    @Schema(title = "岗位列表", description = "同一用户允许兼任多个岗位")
+    private List<Position> positions;
 
     @Schema(title = "用户姓名")
     private String name;
@@ -59,14 +71,8 @@ public class SystemUser implements Serializable {
     @Schema(title = "电子签名存储地址")
     private String signature;
 
-    @Schema(title = "用户拥有角色编号")
-    private List<String> roles;
-
-    @Schema(title = "用户拥有功能权限编号")
-    private List<String> authorities;
-
-    @Schema(title = "用户当前视角(数据权限)")
-    private Perspective perspective;
+    @Schema(title = "用户权限信息")
+    private Permission permission;
 
     @Schema(title = "用户状态")
     private UserState state;
@@ -76,6 +82,9 @@ public class SystemUser implements Serializable {
 
     @Schema(title = "密码到期时间")
     private Instant passwordExpireAt;
+
+    @Schema(title = "用户角色列表")
+    private List<Role> roles;
 
     public Long getId() {
         return id;
@@ -93,20 +102,52 @@ public class SystemUser implements Serializable {
         this.tenant = tenant;
     }
 
-    public Long getDefaultUnderOrganization() {
-        return defaultUnderOrganization;
+    public Long getOrganizationId() {
+        return organizationId;
     }
 
-    public void setDefaultUnderOrganization(Long defaultUnderOrganization) {
-        this.defaultUnderOrganization = defaultUnderOrganization;
+    public void setOrganizationId(Long organizationId) {
+        this.organizationId = organizationId;
     }
 
-    public List<Long> getUnderOrganizations() {
-        return underOrganizations;
+    public String getOrganizationName() {
+        return organizationName;
     }
 
-    public void setUnderOrganizations(List<Long> underOrganizations) {
-        this.underOrganizations = underOrganizations;
+    public void setOrganizationName(String organizationName) {
+        this.organizationName = organizationName;
+    }
+
+    public List<Organization> getOrganizations() {
+        return organizations;
+    }
+
+    public void setOrganizations(List<Organization> organizations) {
+        this.organizations = organizations;
+    }
+
+    public Long getPositionId() {
+        return positionId;
+    }
+
+    public void setPositionId(Long positionId) {
+        this.positionId = positionId;
+    }
+
+    public String getPositionName() {
+        return positionName;
+    }
+
+    public void setPositionName(String positionName) {
+        this.positionName = positionName;
+    }
+
+    public List<Position> getPositions() {
+        return positions;
+    }
+
+    public void setPositions(List<Position> positions) {
+        this.positions = positions;
     }
 
     public String getName() {
@@ -173,28 +214,12 @@ public class SystemUser implements Serializable {
         this.signature = signature;
     }
 
-    public List<String> getRoles() {
-        return roles;
+    public Permission getPermission() {
+        return permission;
     }
 
-    public void setRoles(List<String> roles) {
-        this.roles = roles;
-    }
-
-    public List<String> getAuthorities() {
-        return authorities;
-    }
-
-    public void setAuthorities(List<String> authorities) {
-        this.authorities = authorities;
-    }
-
-    public Perspective getPerspective() {
-        return perspective;
-    }
-
-    public void setPerspective(Perspective perspective) {
-        this.perspective = perspective;
+    public void setPermission(Permission permission) {
+        this.permission = permission;
     }
 
     public UserState getState() {
@@ -219,6 +244,14 @@ public class SystemUser implements Serializable {
 
     public void setPasswordExpireAt(Instant passwordExpireAt) {
         this.passwordExpireAt = passwordExpireAt;
+    }
+
+    public List<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<Role> roles) {
+        this.roles = roles;
     }
 
     public boolean getForceChangePassword() {

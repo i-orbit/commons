@@ -2,12 +2,14 @@ package com.inmaytide.orbit.commons.domain.dto.result;
 
 import com.inmaytide.orbit.Version;
 import io.swagger.v3.oas.annotations.media.Schema;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.BeanUtils;
+import org.springframework.lang.NonNull;
 
 import java.io.Serial;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Objects;
+import java.util.TreeSet;
 import java.util.stream.Collectors;
 
 /**
@@ -15,7 +17,7 @@ import java.util.stream.Collectors;
  * @since 2023/6/16
  */
 @Schema(title = "树结构数据节点实体")
-public class TreeNode<T> implements Serializable {
+public class TreeNode<T> implements Serializable, Comparable<TreeNode<T>> {
 
     @Serial
     private static final long serialVersionUID = Version.SERIAL_VERSION_UID;
@@ -39,18 +41,21 @@ public class TreeNode<T> implements Serializable {
     private Integer level;
 
     @Schema(title = "子节点列表")
-    private List<TreeNode<T>> children;
+    private TreeSet<TreeNode<T>> children;
 
     @Schema(title = "节点父级标识", description = "根据需要可设置为父级节点唯一标识或父级节点数据对象")
     private Object parent;
 
+    @Schema(title = "排序字段")
+    private Integer sequence;
+
     public TreeNode() {
-        this.children = new ArrayList<>();
+        this.children = new TreeSet<>();
     }
 
     public TreeNode(T entity) {
         this.entity = entity;
-        this.children = new ArrayList<>();
+        this.children = new TreeSet<>();
     }
 
     /**
@@ -59,7 +64,7 @@ public class TreeNode<T> implements Serializable {
     public TreeNode<Object> toNonGenericNode() {
         TreeNode<Object> node = new TreeNode<>();
         BeanUtils.copyProperties(this, node, "children");
-        node.setChildren(getChildren().stream().map(TreeNode::toNonGenericNode).collect(Collectors.toList()));
+        node.setChildren(getChildren().stream().map(TreeNode::toNonGenericNode).collect(Collectors.toCollection(TreeSet::new)));
         return node;
     }
 
@@ -112,11 +117,11 @@ public class TreeNode<T> implements Serializable {
         this.level = level;
     }
 
-    public List<TreeNode<T>> getChildren() {
+    public TreeSet<TreeNode<T>> getChildren() {
         return children;
     }
 
-    public void setChildren(List<TreeNode<T>> children) {
+    public void setChildren(TreeSet<TreeNode<T>> children) {
         this.children = children;
     }
 
@@ -128,4 +133,19 @@ public class TreeNode<T> implements Serializable {
         this.parent = parent;
     }
 
+    public @NonNull Integer getSequence() {
+        if (sequence == null) {
+            return Integer.MAX_VALUE;
+        }
+        return sequence;
+    }
+
+    public void setSequence(Integer sequence) {
+        this.sequence = sequence;
+    }
+
+    @Override
+    public int compareTo(@NotNull TreeNode<T> o) {
+        return this.getSequence().compareTo(Objects.requireNonNull(o).getSequence());
+    }
 }

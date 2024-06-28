@@ -2,7 +2,6 @@ package com.inmaytide.orbit.commons.domain.dto.params;
 
 import com.inmaytide.orbit.Version;
 import com.inmaytide.orbit.commons.domain.pattern.Entity;
-import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Schema;
 
 import java.io.Serial;
@@ -39,4 +38,5 @@ public abstract class Pageable<T extends Entity> extends Query<T> {
     public void setPageSize(Integer pageSize) {
         this.pageSize = pageSize;
     }
+
 }

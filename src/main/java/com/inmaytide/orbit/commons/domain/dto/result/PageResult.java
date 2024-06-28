@@ -75,4 +75,5 @@ public class PageResult<T extends Entity> implements Serializable {
     public void setElements(List<T> elements) {
         this.elements = elements;
     }
+
 }

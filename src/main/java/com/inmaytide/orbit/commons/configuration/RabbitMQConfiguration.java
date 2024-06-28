@@ -45,7 +45,7 @@ public class RabbitMQConfiguration {
 
     @Bean
     public Binding bindingNotify(@Qualifier("operationLogQueue") Queue queue,
-                                 @Qualifier("directExchange") DirectExchange directExchange) {
+                                 DirectExchange directExchange) {
         return BindingBuilder.bind(queue).to(directExchange).with(OperationLogMessageProducer.ROUTE_KEY_OPERATION_LOG);
     }
 

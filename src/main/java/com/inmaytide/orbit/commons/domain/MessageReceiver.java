@@ -1,14 +1,10 @@
 package com.inmaytide.orbit.commons.domain;
 
 import com.inmaytide.orbit.Version;
-import com.inmaytide.orbit.commons.constants.MessageReadingStatus;
 import com.inmaytide.orbit.commons.constants.MessageSendingMode;
-import com.inmaytide.orbit.commons.constants.MessageSendingStatus;
 import com.inmaytide.orbit.commons.domain.pattern.Entity;
 
 import java.io.Serial;
-import java.math.BigDecimal;
-import java.time.Instant;
 
 /**
  * @author inmaytide
@@ -47,4 +43,5 @@ public class MessageReceiver extends Entity {
     public void setSendingMode(MessageSendingMode sendingMode) {
         this.sendingMode = sendingMode;
     }
+
 }

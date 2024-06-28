@@ -68,7 +68,6 @@ public class TreeNode<T> implements Serializable, Comparable<TreeNode<T>> {
         return node;
     }
 
-
     public Serializable getId() {
         return id;
     }

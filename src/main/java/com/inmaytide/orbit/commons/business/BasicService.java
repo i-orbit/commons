@@ -1,11 +1,10 @@
 package com.inmaytide.orbit.commons.business;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.support.SFunction;
-import com.baomidou.mybatisplus.extension.service.IService;
-import com.github.pagehelper.Page;
-import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
+import com.baomidou.mybatisplus.extension.plugins.pagination.PageDTO;
 import com.inmaytide.exception.web.ObjectNotFoundException;
 import com.inmaytide.orbit.commons.domain.dto.params.Pageable;
 import com.inmaytide.orbit.commons.domain.dto.result.AffectedResult;
@@ -19,7 +18,9 @@ import java.util.stream.Collectors;
  * @author inmaytide
  * @since 2023/4/7
  */
-public interface BasicService<T extends Entity> extends IService<T> {
+public interface BasicService<T extends Entity> {
+
+    BaseMapper<T> getBaseMapper();
 
     default T create(T entity) {
         getBaseMapper().insert(entity);
@@ -43,11 +44,10 @@ public interface BasicService<T extends Entity> extends IService<T> {
     }
 
     default PageResult<T> pagination(Pageable<T> params) {
-        try (Page<T> p = PageHelper.startPage(params.getPageNumber(), params.getPageSize())) {
-            PageInfo<T> pi = p.doSelectPageInfo(() -> getBaseMapper().selectList(params.toWrapper()));
-            setExtraAttributes(pi.getList());
-            return PageResult.with(pi);
-        }
+        IPage<T> page = PageDTO.of(params.getPageNumber(), params.getPageSize());
+        getBaseMapper().selectList(page, params.toWrapper());
+        setExtraFields(page.getRecords());
+        return PageResult.with(page);
     }
 
     default List<T> findByIds(List<Long> ids) {
@@ -55,7 +55,7 @@ public interface BasicService<T extends Entity> extends IService<T> {
             return List.of();
         }
         List<T> list = getBaseMapper().selectBatchIds(ids);
-        setExtraAttributes(list);
+        setExtraFields(list);
         return list;
     }
 
@@ -64,14 +64,14 @@ public interface BasicService<T extends Entity> extends IService<T> {
         if (t == null) {
             return Optional.empty();
         }
-        setExtraAttributes(Collections.singleton(t));
+        setExtraFields(Collections.singleton(t));
         return Optional.of(t);
     }
 
     /**
      * 查询数据时设置一些非持久化用于展示的字段信息
      */
-    default void setExtraAttributes(Collection<T> entities) {
+    default void setExtraFields(Collection<T> entities) {
 
     }
 

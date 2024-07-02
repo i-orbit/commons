@@ -1,6 +1,6 @@
 package com.inmaytide.orbit.commons.domain.dto.result;
 
-import com.github.pagehelper.PageInfo;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.inmaytide.orbit.Version;
 import com.inmaytide.orbit.commons.domain.pattern.Entity;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -35,12 +35,12 @@ public class PageResult<T extends Entity> implements Serializable {
 
     }
 
-    public static <T extends Entity> PageResult<T> with(PageInfo<T> pi) {
+    public static <T extends Entity> PageResult<T> with(IPage<T> page) {
         PageResult<T> res = new PageResult<>();
-        res.setPageNumber(pi.getPageNum());
-        res.setPageSize(pi.getPageSize());
-        res.setElements(pi.getList());
-        res.setTotal(Long.valueOf(pi.getTotal()).intValue());
+        res.setPageNumber(Long.valueOf(page.getCurrent()).intValue());
+        res.setPageSize(Long.valueOf(page.getSize()).intValue());
+        res.setElements(page.getRecords());
+        res.setTotal(Long.valueOf(page.getTotal()).intValue());
         return res;
     }
 

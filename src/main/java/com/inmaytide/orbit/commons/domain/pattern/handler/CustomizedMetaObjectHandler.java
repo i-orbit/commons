@@ -23,7 +23,9 @@ public class CustomizedMetaObjectHandler implements MetaObjectHandler {
         SecurityUtils.getAuthorizedUserAllowUnauthorized().ifPresent(user -> {
             this.strictInsertFill(entity, "createdBy", user::getId, Long.class);
             this.strictInsertFill(entity, "modifiedBy", user::getId, Long.class);
-            this.strictInsertFill(entity, "tenant", user::getTenant, Long.class);
+            if (entity.getValue("tenant") == null) {
+                this.strictInsertFill(entity, "tenant", user::getTenant, Long.class);
+            }
         });
         this.strictInsertFill(entity, "deleted", () -> Bool.N, Bool.class);
         this.strictInsertFill(entity, "createdTime", Instant::now, Instant.class);

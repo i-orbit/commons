@@ -8,7 +8,7 @@ import java.io.Serializable;
  */
 public enum Platforms implements Serializable {
 
-    WEB, APP;
+    WEB, APP, WECHAT;
 
 }
 

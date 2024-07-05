@@ -82,7 +82,7 @@ public interface BasicService<T extends Entity> {
      * @param ids         需要查询的数据对象唯一标识列表
      * @param fieldGetter 需获取的字段获取器
      */
-    default Map<Long, String> findFieldValueByIds(List<Long> ids, SFunction<T, String> fieldGetter) {
+    default <R> Map<Long, R> findFieldValueByIds(List<Long> ids, SFunction<T, R> fieldGetter) {
         if (ids == null || ids.isEmpty()) {
             return Map.of();
         }

@@ -28,7 +28,7 @@ public class RabbitMQConfiguration {
         return jackson2JsonMessageConverter;
     }
 
-    @Bean
+    @Bean(name = "directExchange")
     public DirectExchange directExchange() {
         return new DirectExchange(Constants.RabbitMQ.DIRECT_EXCHANGE, true, false);
     }
@@ -45,7 +45,7 @@ public class RabbitMQConfiguration {
 
     @Bean
     public Binding bindingNotify(@Qualifier("operationLogQueue") Queue queue,
-                                 DirectExchange directExchange) {
+                                 @Qualifier("directExchange") DirectExchange directExchange) {
         return BindingBuilder.bind(queue).to(directExchange).with(OperationLogMessageProducer.ROUTE_KEY_OPERATION_LOG);
     }
 

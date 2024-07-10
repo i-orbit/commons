@@ -102,6 +102,11 @@ public class Robot implements Serializable {
         return "Basic " + Base64.getEncoder().encodeToString(authorization.getBytes(StandardCharsets.UTF_8));
     }
 
+    public static void main(String[] args) {
+        String authorization = "robot:orbit-robot-9527";
+        System.out.println("Basic " + Base64.getEncoder().encodeToString(authorization.getBytes(StandardCharsets.UTF_8)));
+    }
+
     public SystemUser toSystemUser() {
         if (user == null) {
             user = new SystemUser();

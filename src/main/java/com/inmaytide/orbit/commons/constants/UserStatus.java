@@ -6,7 +6,7 @@ package com.inmaytide.orbit.commons.constants;
  * @author inmaytide
  * @since 2023/3/31
  */
-public enum UserState {
+public enum UserStatus {
 
     /**
      * 初始化状态, 用户创建后从未登录过

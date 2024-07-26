@@ -1,7 +1,7 @@
 package com.inmaytide.orbit.commons.domain;
 
 import com.inmaytide.orbit.Version;
-import com.inmaytide.orbit.commons.constants.TenantState;
+import com.inmaytide.orbit.commons.constants.TenantStatus;
 import com.inmaytide.orbit.commons.domain.pattern.Entity;
 
 import java.io.Serial;
@@ -19,7 +19,7 @@ public class Tenant extends Entity {
 
     private String alias;
 
-    private TenantState state;
+    private TenantStatus state;
 
     private String logo;
 
@@ -41,11 +41,11 @@ public class Tenant extends Entity {
         this.alias = alias;
     }
 
-    public TenantState getState() {
+    public TenantStatus getState() {
         return state;
     }
 
-    public void setState(TenantState state) {
+    public void setState(TenantStatus state) {
         this.state = state;
     }
 

@@ -4,7 +4,7 @@ package com.inmaytide.orbit.commons.constants;
  * @author inmaytide
  * @since 2023/5/19
  */
-public enum TenantState {
+public enum TenantStatus {
 
     /**
      * 初始化状态

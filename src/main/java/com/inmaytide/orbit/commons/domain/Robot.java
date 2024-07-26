@@ -2,7 +2,7 @@ package com.inmaytide.orbit.commons.domain;
 
 import com.inmaytide.orbit.Version;
 import com.inmaytide.orbit.commons.constants.Roles;
-import com.inmaytide.orbit.commons.constants.UserState;
+import com.inmaytide.orbit.commons.constants.UserStatus;
 import com.inmaytide.orbit.commons.utils.ApplicationContextHolder;
 import org.apache.commons.lang3.StringUtils;
 
@@ -113,7 +113,7 @@ public class Robot implements Serializable {
             user.setId(Robot.getInstance().getId());
             user.setName(Robot.getInstance().getName());
             user.setLoginName(Robot.getInstance().getLoginName());
-            user.setState(UserState.NORMAL);
+            user.setStatus(UserStatus.NORMAL);
             Permission permission = new Permission();
             permission.setAuthorities(Collections.emptyList());
             permission.setRoles(Collections.singletonList(Roles.ROLE_ROBOT.name()));

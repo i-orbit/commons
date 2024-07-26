@@ -4,7 +4,7 @@ import com.inmaytide.orbit.Version;
 import com.inmaytide.orbit.commons.business.SystemPropertyService;
 import com.inmaytide.orbit.commons.constants.Bool;
 import com.inmaytide.orbit.commons.constants.Constants;
-import com.inmaytide.orbit.commons.constants.UserState;
+import com.inmaytide.orbit.commons.constants.UserStatus;
 import com.inmaytide.orbit.commons.utils.ApplicationContextHolder;
 import io.swagger.v3.oas.annotations.media.Schema;
 
@@ -75,7 +75,7 @@ public class SystemUser implements Serializable {
     private Permission permission;
 
     @Schema(title = "用户状态")
-    private UserState state;
+    private UserStatus status;
 
     @Schema(title = "用户离岗时任务代理人")
     private Long proxy;
@@ -222,12 +222,12 @@ public class SystemUser implements Serializable {
         this.permission = permission;
     }
 
-    public UserState getState() {
-        return state;
+    public UserStatus getStatus() {
+        return status;
     }
 
-    public void setState(UserState state) {
-        this.state = state;
+    public void setStatus(UserStatus status) {
+        this.status = status;
     }
 
     public Long getProxy() {
@@ -261,7 +261,7 @@ public class SystemUser implements Serializable {
                 .map(Bool::valueOf)
                 .orElse(Bool.N);
         if (forceChangePasswordWhenNecessary == Bool.Y) {
-            return state == UserState.INITIALIZATION
+            return getStatus() == UserStatus.INITIALIZATION
                     || getPasswordExpireAt() == null
                     || getPasswordExpireAt().isBefore(Instant.now());
         }

@@ -45,9 +45,15 @@ public interface BasicService<T extends Entity> {
 
     default PageResult<T> pagination(Pageable<T> params) {
         IPage<T> page = PageDTO.of(params.getPageNumber(), params.getPageSize());
-        getBaseMapper().selectList(page, params.toWrapper());
-        setExtraFields(page.getRecords());
-        return PageResult.with(page);
+        List<T> list = getBaseMapper().selectList(page, params.toWrapper());
+        setExtraFields(list);
+        PageResult.PageResultBuilder<T> builder = PageResult.builder();
+        return builder
+                .pageNumber(params.getPageNumber())
+                .pageSize(params.getPageSize())
+                .total(page.getTotal())
+                .elements(list)
+                .build();
     }
 
     default List<T> findByIds(List<Long> ids) {

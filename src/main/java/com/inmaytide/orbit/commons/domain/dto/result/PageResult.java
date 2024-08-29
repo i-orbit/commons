@@ -8,6 +8,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * @author inmaytide
@@ -35,13 +36,8 @@ public class PageResult<T extends Entity> implements Serializable {
 
     }
 
-    public static <T extends Entity> PageResult<T> with(IPage<T> page) {
-        PageResult<T> res = new PageResult<>();
-        res.setPageNumber(Long.valueOf(page.getCurrent()).intValue());
-        res.setPageSize(Long.valueOf(page.getSize()).intValue());
-        res.setElements(page.getRecords());
-        res.setTotal(Long.valueOf(page.getTotal()).intValue());
-        return res;
+    public static <T extends Entity> PageResultBuilder<T> builder() {
+        return new PageResultBuilder<>();
     }
 
     public Integer getPageNumber() {
@@ -74,6 +70,75 @@ public class PageResult<T extends Entity> implements Serializable {
 
     public void setElements(List<T> elements) {
         this.elements = elements;
+    }
+
+    public static class PageResultBuilder<T extends Entity> {
+
+        private Integer pageNumber;
+
+        private Integer pageSize;
+
+        private Integer total;
+
+        private List<T> elements;
+
+        private IPage<T> page;
+
+        public PageResultBuilder<T> pageNumber(Integer pageNumber) {
+            this.pageNumber = Objects.requireNonNull(pageNumber);
+            return this;
+        }
+
+        public PageResultBuilder<T> pageNumber(Long pageNumber) {
+            this.pageNumber = Objects.requireNonNull(pageNumber).intValue();
+            return this;
+        }
+
+        public PageResultBuilder<T> pageSize(Integer pageSize) {
+            this.pageSize = Objects.requireNonNull(pageSize);
+            return this;
+        }
+
+        public PageResultBuilder<T> pageSize(Long pageSize) {
+            this.pageSize = Objects.requireNonNull(pageSize).intValue();
+            return this;
+        }
+
+        public PageResultBuilder<T> total(Integer total) {
+            this.total = Objects.requireNonNull(total);
+            return this;
+        }
+
+        public PageResultBuilder<T> total(Long total) {
+            this.total = Objects.requireNonNull(total).intValue();
+            return this;
+        }
+
+        public PageResultBuilder<T> elements(List<T> elements) {
+            this.elements = Objects.requireNonNull(elements);
+            return this;
+        }
+
+        public PageResultBuilder<T> page(IPage<T> page) {
+            this.page = page;
+            return this;
+        }
+
+        public PageResult<T> build() {
+            PageResult<T> res = new PageResult<>();
+            if (page != null) {
+                res.setPageNumber(Long.valueOf(page.getCurrent()).intValue());
+                res.setPageSize(Long.valueOf(page.getSize()).intValue());
+                res.setElements(page.getRecords());
+                res.setTotal(Long.valueOf(page.getTotal()).intValue());
+            }
+
+            res.setPageNumber(pageNumber == null ? res.getPageNumber() : pageNumber);
+            res.setPageSize(pageSize == null ? res.getPageSize() : pageSize);
+            res.setTotal(total == null ? res.getTotal() : total);
+            res.setElements(elements == null ? res.getElements() : elements);
+            return res;
+        }
     }
 
 }

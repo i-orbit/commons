@@ -55,4 +55,5 @@ public class LoginParameters implements Serializable {
     public void setForcedReplacement(Bool forcedReplacement) {
         this.forcedReplacement = forcedReplacement;
     }
+
 }

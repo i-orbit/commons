@@ -3,6 +3,7 @@ package com.inmaytide.orbit.commons.business;
 import com.inmaytide.orbit.commons.domain.SystemUser;
 
 import java.io.Serializable;
+import java.util.Optional;
 
 /**
  * @author inmaytide
@@ -11,5 +12,7 @@ import java.io.Serializable;
 public interface SystemUserService {
 
     SystemUser get(Serializable id);
+
+    Optional<SystemUser> findByUsername(String username);
 
 }

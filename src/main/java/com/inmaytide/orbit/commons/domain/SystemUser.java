@@ -26,6 +26,9 @@ public class SystemUser implements Serializable {
     @Schema(title = "唯一标识")
     private Long id;
 
+    @Schema(title = "是否是租户管理员")
+    private Bool isTenantAdministrator;
+
     @Schema(title = "用户所属租户")
     private Long tenant;
 
@@ -52,6 +55,9 @@ public class SystemUser implements Serializable {
 
     @Schema(title = "用户登录名")
     private String loginName;
+
+    @Schema(title = "登录密码")
+    private String password;
 
     @Schema(title = "手机号码")
     private String telephoneNumber;
@@ -92,6 +98,14 @@ public class SystemUser implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Bool getIsTenantAdministrator() {
+        return isTenantAdministrator;
+    }
+
+    public void setIsTenantAdministrator(Bool isTenantAdministrator) {
+        this.isTenantAdministrator = isTenantAdministrator;
     }
 
     public Long getTenant() {
@@ -164,6 +178,14 @@ public class SystemUser implements Serializable {
 
     public void setLoginName(String loginName) {
         this.loginName = loginName;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getTelephoneNumber() {

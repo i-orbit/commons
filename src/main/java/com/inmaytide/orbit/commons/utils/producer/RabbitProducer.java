@@ -2,9 +2,11 @@ package com.inmaytide.orbit.commons.utils.producer;
 
 import com.inmaytide.orbit.commons.constants.Constants;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.stereotype.Component;
 
 @Component
+@ConditionalOnClass(RabbitTemplate.class)
 public class RabbitProducer {
 
     private final RabbitTemplate rabbitTemplate;

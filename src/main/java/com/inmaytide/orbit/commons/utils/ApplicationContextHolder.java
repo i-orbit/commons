@@ -6,6 +6,7 @@ import org.springframework.boot.context.properties.bind.Binder;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.lang.NonNull;
+import org.springframework.stereotype.Component;
 
 import java.util.Objects;
 
@@ -13,6 +14,7 @@ import java.util.Objects;
  * @author inmaytide
  * @since 2023/4/7
  */
+@Component
 public class ApplicationContextHolder implements ApplicationContextAware {
 
     private static ApplicationContextHolder INSTANCE;

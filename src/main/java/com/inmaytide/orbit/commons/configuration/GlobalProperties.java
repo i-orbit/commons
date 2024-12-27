@@ -25,8 +25,17 @@ public class GlobalProperties implements InitializingBean {
         return CommonUtils.splitByCommas(configuredValue);
     }
 
+    public String getGatewayURI() {
+        return ApplicationContextHolder.getInstance().getProperty("orbit.server.gateway-uri");
+    }
+
+    public String getAuthorizationServerURI() {
+        return ApplicationContextHolder.getInstance().getProperty("orbit.server.authorization-uri");
+    }
+
     @Override
     public void afterPropertiesSet() throws Exception {
 
     }
+
 }

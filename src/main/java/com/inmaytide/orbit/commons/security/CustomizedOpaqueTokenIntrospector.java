@@ -1,6 +1,7 @@
 package com.inmaytide.orbit.commons.security;
 
 
+import com.inmaytide.orbit.commons.configuration.GlobalProperties;
 import com.inmaytide.orbit.commons.domain.OrbitClientDetails;
 import com.nimbusds.oauth2.sdk.ErrorObject;
 import com.nimbusds.oauth2.sdk.TokenIntrospectionResponse;
@@ -10,8 +11,9 @@ import com.nimbusds.oauth2.sdk.id.Audience;
 import net.minidev.json.JSONArray;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.springframework.core.convert.converter.Converter;
-import org.springframework.http.*;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.oauth2.core.OAuth2AuthenticatedPrincipal;
@@ -20,13 +22,12 @@ import org.springframework.security.oauth2.server.resource.introspection.BadOpaq
 import org.springframework.security.oauth2.server.resource.introspection.OAuth2IntrospectionAuthenticatedPrincipal;
 import org.springframework.security.oauth2.server.resource.introspection.OAuth2IntrospectionException;
 import org.springframework.security.oauth2.server.resource.introspection.OpaqueTokenIntrospector;
-import org.springframework.util.Assert;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
-import org.springframework.web.client.RestOperations;
-import org.springframework.web.client.RestTemplate;
+import org.springframework.web.reactive.function.BodyInserters;
+import org.springframework.web.reactive.function.client.WebClient;
 
-import java.net.URI;
+import java.time.Duration;
 import java.time.Instant;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -45,16 +46,12 @@ public class CustomizedOpaqueTokenIntrospector implements OpaqueTokenIntrospecto
 
     private final Log logger = LogFactory.getLog(this.getClass());
 
-    private final RestOperations restOperations;
+    private final WebClient client;
 
     private OrbitClientDetails clientDetails;
 
-    private Converter<String, RequestEntity<?>> requestEntityConverter;
-
-    public CustomizedOpaqueTokenIntrospector(RestTemplate restTemplate) {
-        Assert.notNull(restTemplate, "restTemplate cannot be null");
-        this.restOperations = restTemplate;
-
+    public CustomizedOpaqueTokenIntrospector(GlobalProperties properties) {
+        this.client = WebClient.create(properties.getAuthorizationServerURI());
     }
 
     private OrbitClientDetails getClientDetails() {
@@ -64,26 +61,7 @@ public class CustomizedOpaqueTokenIntrospector implements OpaqueTokenIntrospecto
         return this.clientDetails;
     }
 
-
-    private Converter<String, RequestEntity<?>> getRequestEntityConverter() {
-        if (requestEntityConverter == null) {
-            this.requestEntityConverter = (token) -> {
-                HttpHeaders headers = requestHeaders();
-                MultiValueMap<String, String> body = requestBody(token);
-                return new RequestEntity<>(body, headers, HttpMethod.POST, URI.create(getClientDetails().getIntrospectionUri()));
-            };
-        }
-        return requestEntityConverter;
-    }
-
-    private HttpHeaders requestHeaders() {
-        HttpHeaders headers = new HttpHeaders();
-//        headers.setBasicAuth(getClientDetails().getClientId(), getClientDetails().getClientSecret());
-        headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
-        return headers;
-    }
-
-    private MultiValueMap<String, String> requestBody(String token) {
+    private MultiValueMap<String, String> getRequestBody(String token) {
         MultiValueMap<String, String> body = new LinkedMultiValueMap<>();
         body.add("token", token);
         body.add("client_id", getClientDetails().getClientId());
@@ -93,70 +71,51 @@ public class CustomizedOpaqueTokenIntrospector implements OpaqueTokenIntrospecto
 
     @Override
     public OAuth2AuthenticatedPrincipal introspect(String token) {
-        RequestEntity<?> requestEntity = getRequestEntityConverter().convert(token);
-        if (requestEntity == null) {
-            throw new OAuth2IntrospectionException("requestEntityConverter returned a null entity");
-        }
-        ResponseEntity<String> responseEntity = makeRequest(requestEntity);
-        HTTPResponse httpResponse = adaptToNimbusResponse(responseEntity);
-        TokenIntrospectionResponse introspectionResponse = parseNimbusResponse(httpResponse);
-        TokenIntrospectionSuccessResponse introspectionSuccessResponse = castToNimbusSuccess(introspectionResponse);
-        // relying solely on the authorization server to validate this token (not checking
-        // 'exp', for example)
-        if (!introspectionSuccessResponse.isActive()) {
+        TokenIntrospectionSuccessResponse introspectionSuccessResponse = client.post()
+                .uri(getClientDetails().getIntrospectionUri())
+                .contentType(MediaType.MULTIPART_FORM_DATA)
+                .accept(MediaType.APPLICATION_JSON)
+                .body(BodyInserters.fromFormData(getRequestBody(token)))
+                .retrieve()
+                .toEntity(String.class)
+                .map(this::toNimbusSuccess)
+                .block(Duration.ofSeconds(5));
+        if (introspectionSuccessResponse == null || !introspectionSuccessResponse.isActive()) {
             this.logger.trace("Did not validate token since it is inactive");
             throw new BadOpaqueTokenException("Provided token isn't active");
         }
         return convertClaimsSet(introspectionSuccessResponse);
     }
 
-    /**
-     * Sets the {@link Converter} used for converting the OAuth 2.0 access token to a
-     * {@link RequestEntity} representation of the OAuth 2.0 token introspection request.
-     *
-     * @param requestEntityConverter the {@link Converter} used for converting to a
-     *                               {@link RequestEntity} representation of the token introspection request
-     */
-    public void setRequestEntityConverter(Converter<String, RequestEntity<?>> requestEntityConverter) {
-        Assert.notNull(requestEntityConverter, "requestEntityConverter cannot be null");
-        this.requestEntityConverter = requestEntityConverter;
+    private TokenIntrospectionSuccessResponse toNimbusSuccess(ResponseEntity<String> entity) {
+        HTTPResponse httpResponse = adaptToNimbusResponse(entity);
+        TokenIntrospectionResponse tokenIntrospectionResponse = parseNimbusResponse(httpResponse);
+        return castToNimbusSuccess(tokenIntrospectionResponse);
     }
 
-    private ResponseEntity<String> makeRequest(RequestEntity<?> requestEntity) {
-        try {
-            return this.restOperations.exchange(requestEntity, String.class);
-        } catch (Exception ex) {
-            throw new OAuth2IntrospectionException(ex.getMessage(), ex);
-        }
-    }
-
-    private HTTPResponse adaptToNimbusResponse(ResponseEntity<String> responseEntity) {
-        MediaType contentType = responseEntity.getHeaders().getContentType();
+    private HTTPResponse adaptToNimbusResponse(ResponseEntity<String> entity) {
+        MediaType contentType = entity.getHeaders().getContentType();
 
         if (contentType == null) {
             this.logger.trace("Did not receive Content-Type from introspection endpoint in response");
 
-            throw new OAuth2IntrospectionException(
-                    "Introspection endpoint response was invalid, as no Content-Type header was provided");
+            throw new OAuth2IntrospectionException("Introspection endpoint response was invalid, as no Content-Type header was provided");
         }
 
         // Nimbus expects JSON, but does not appear to validate this header first.
         if (!contentType.isCompatibleWith(MediaType.APPLICATION_JSON)) {
             this.logger.trace("Did not receive JSON-compatible Content-Type from introspection endpoint in response");
-
-            throw new OAuth2IntrospectionException("Introspection endpoint response was invalid, as content type '"
-                    + contentType + "' is not compatible with JSON");
+            throw new OAuth2IntrospectionException("Introspection endpoint response was invalid, as content type '" + contentType + "' is not compatible with JSON");
         }
 
-        HTTPResponse response = new HTTPResponse(responseEntity.getStatusCode().value());
+        HTTPResponse response = new HTTPResponse(entity.getStatusCode().value());
         response.setHeader(HttpHeaders.CONTENT_TYPE, contentType.toString());
-        response.setContent(responseEntity.getBody());
+        response.setContent(entity.getBody());
 
         if (response.getStatusCode() != HTTPResponse.SC_OK) {
             this.logger.trace("Introspection endpoint returned non-OK status code");
 
-            throw new OAuth2IntrospectionException(
-                    "Introspection endpoint responded with HTTP status code " + response.getStatusCode());
+            throw new OAuth2IntrospectionException("Introspection endpoint responded with HTTP status code " + response.getStatusCode());
         }
         return response;
     }

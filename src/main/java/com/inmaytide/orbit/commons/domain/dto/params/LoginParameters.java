@@ -49,6 +49,9 @@ public class LoginParameters implements Serializable {
     }
 
     public Bool getForcedReplacement() {
+        if (forcedReplacement == null) {
+            forcedReplacement = Bool.N;
+        }
         return forcedReplacement;
     }
 

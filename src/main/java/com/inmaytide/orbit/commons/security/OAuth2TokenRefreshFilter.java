@@ -1,5 +1,6 @@
 package com.inmaytide.orbit.commons.security;
 
+import com.inmaytide.exception.web.servlet.DefaultHandlerExceptionResolver;
 import com.inmaytide.orbit.commons.business.RefreshTokenService;
 import com.inmaytide.orbit.commons.constants.Constants;
 import com.inmaytide.orbit.commons.domain.Oauth2Token;
@@ -46,7 +47,12 @@ public class OAuth2TokenRefreshFilter implements Filter {
         String accessToken = bearerTokenResolver.resolve(request);
         if (StringUtils.isNotBlank(accessToken) && requireRenew(accessToken)) {
             log.debug("The access token needs to be refreshed");
-            request = refreshAccessToken(request, response, accessToken);
+            try {
+                request = refreshAccessToken(request, response, accessToken);
+            } catch (Exception e) {
+                ApplicationContextHolder.getInstance().getBean(DefaultHandlerExceptionResolver.class).resolveException(request, response, null, e);
+                return;
+            }
         }
         chain.doFilter(request, response);
     }

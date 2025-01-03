@@ -1,5 +1,6 @@
 package com.inmaytide.orbit.commons.security;
 
+import com.inmaytide.orbit.commons.constants.Constants;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import org.apache.commons.lang3.StringUtils;
@@ -18,8 +19,6 @@ import java.util.stream.Stream;
  */
 public class CustomizedBearerTokenResolver implements BearerTokenResolver {
 
-    private static final String ACCESS_TOKEN_COOKIE_NAME = "access_token";
-
     private final DefaultBearerTokenResolver httpHeadersAndRequestParametersResolver;
 
     public CustomizedBearerTokenResolver() {
@@ -36,7 +35,7 @@ public class CustomizedBearerTokenResolver implements BearerTokenResolver {
         }
         if (request.getCookies() != null) {
             return Stream.of(request.getCookies())
-                    .filter(e -> Objects.equals(e.getName(), ACCESS_TOKEN_COOKIE_NAME))
+                    .filter(e -> Objects.equals(e.getName(), Constants.RequestParameters.ACCESS_TOKEN))
                     .findFirst()
                     .map(Cookie::getValue)
                     .orElse(null);

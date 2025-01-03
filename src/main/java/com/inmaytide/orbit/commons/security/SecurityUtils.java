@@ -39,6 +39,14 @@ public class SecurityUtils {
         return authentication != null && authentication.isAuthenticated();
     }
 
+    public static Optional<String> getAccessToken() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication != null && authentication.isAuthenticated() && authentication instanceof BearerTokenAuthentication bearerTokenAuthentication) {
+            return Optional.of(bearerTokenAuthentication.getToken().getTokenValue());
+        }
+        return Optional.empty();
+    }
+
     /**
      * 获取当前用户详细信息
      *

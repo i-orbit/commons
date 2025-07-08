@@ -21,24 +21,24 @@ public class CustomizedMetaObjectHandler implements MetaObjectHandler {
     @Override
     public void insertFill(MetaObject entity) {
         SecurityUtils.getAuthorizedUserAllowUnauthorized().ifPresent(user -> {
-            this.strictInsertFill(entity, "createdBy", user::getId, Long.class);
-            this.strictInsertFill(entity, "modifiedBy", user::getId, Long.class);
+            this.strictInsertFill(entity, "createdBy", user::getId, String.class);
+            this.strictInsertFill(entity, "updatedBy", user::getId, String.class);
             if (entity.getValue("tenant") == null) {
-                this.strictInsertFill(entity, "tenant", user::getTenant, Long.class);
+                this.strictInsertFill(entity, "tenant", user::getTenant, String.class);
             }
         });
-        this.strictInsertFill(entity, "deleted", () -> Bool.N, Bool.class);
-        this.strictInsertFill(entity, "createdTime", Instant::now, Instant.class);
-        this.strictUpdateFill(entity, "modifiedTime", Instant::now, Instant.class);
+        this.strictInsertFill(entity, "createdAt", Instant::now, Instant.class);
+        this.strictUpdateFill(entity, "updatedAt", Instant::now, Instant.class);
         this.strictInsertFill(entity, "version", () -> 0, Integer.class);
+        this.strictInsertFill(entity, "deleted", () -> Bool.N, Bool.class);
     }
 
     @Override
     public void updateFill(MetaObject entity) {
         SecurityUtils.getAuthorizedUserAllowUnauthorized().ifPresent(user -> {
-            this.strictUpdateFill(entity, "modifiedBy", user::getId, Long.class);
+            this.strictUpdateFill(entity, "updatedBy", user::getId, String.class);
         });
-        this.strictUpdateFill(entity, "modifiedTime", Instant::now, Instant.class);
+        this.strictUpdateFill(entity, "updatedAt", Instant::now, Instant.class);
     }
 
 

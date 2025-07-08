@@ -34,7 +34,7 @@ public class FileMetadata extends Entity {
 
     private Bool deleted;
 
-    private Instant deleteTime;
+    private Instant deleteAt;
 
     public String getName() {
         return name;
@@ -100,12 +100,11 @@ public class FileMetadata extends Entity {
         this.deleted = deleted;
     }
 
-    public Instant getDeleteTime() {
-        return deleteTime;
+    public Instant getDeleteAt() {
+        return deleteAt;
     }
 
-    public void setDeleteTime(Instant deleteTime) {
-        this.deleteTime = deleteTime;
+    public void setDeleteAt(Instant deleteAt) {
+        this.deleteAt = deleteAt;
     }
-
 }

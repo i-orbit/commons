@@ -26,7 +26,7 @@ public class BatchUpdate<T> implements Serializable {
      * 不能为空
      */
     @NotNull
-    private Long businessDataId;
+    private String businessDataId;
 
     /**
      * 附属信息对象列表<br/>
@@ -39,17 +39,17 @@ public class BatchUpdate<T> implements Serializable {
 
     }
 
-    public BatchUpdate(@NotNull Long businessDataId, @NotNull List<T> elements) {
+    public BatchUpdate(@NotNull String businessDataId, @NotNull List<T> elements) {
         Assert.notEmpty(elements, "elements cannot be empty");
         this.businessDataId = Objects.requireNonNull(businessDataId);
         this.elements = elements;
     }
 
-    public Long getBusinessDataId() {
+    public String getBusinessDataId() {
         return businessDataId;
     }
 
-    public void setBusinessDataId(Long businessDataId) {
+    public void setBusinessDataId(String businessDataId) {
         this.businessDataId = businessDataId;
     }
 

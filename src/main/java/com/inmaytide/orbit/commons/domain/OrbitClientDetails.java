@@ -46,24 +46,22 @@ public class OrbitClientDetails implements Serializable {
         if (null == INSTANCE) {
             synchronized (OrbitClientDetails.class) {
                 if (null == INSTANCE) {
-                    if (INSTANCE == null) {
-                        INSTANCE = ApplicationContextHolder.getInstance()
-                                .getBinder()
-                                .bind("orbit.security", OrbitClientDetails.class)
-                                .orElseThrow(() -> new UnsupportedOperationException("There is no valid security client details configuration in the spring context"));
+                    INSTANCE = ApplicationContextHolder.getInstance()
+                            .getBinder()
+                            .bind("orbit.security", OrbitClientDetails.class)
+                            .orElseThrow(() -> new UnsupportedOperationException("There is no valid security client details configuration in the spring context"));
 
-                        if (StringUtils.isBlank(INSTANCE.clientId)
-                                || StringUtils.isBlank(INSTANCE.clientSecret)
-                                || StringUtils.isBlank(INSTANCE.introspectionUri)
-                                || INSTANCE.accessTokenValiditySeconds == null
-                                || INSTANCE.accessTokenValiditySeconds <= 0
-                                || INSTANCE.refreshTokenValiditySeconds == null
-                                || INSTANCE.refreshTokenValiditySeconds <= 0
-                                || CollectionUtils.isEmpty(INSTANCE.authorizedGrantTypes)) {
-                            throw new UnsupportedOperationException("There is no valid security client details configuration in the spring context");
-                        }
-
+                    if (StringUtils.isBlank(INSTANCE.clientId)
+                            || StringUtils.isBlank(INSTANCE.clientSecret)
+                            || StringUtils.isBlank(INSTANCE.introspectionUri)
+                            || INSTANCE.accessTokenValiditySeconds == null
+                            || INSTANCE.accessTokenValiditySeconds <= 0
+                            || INSTANCE.refreshTokenValiditySeconds == null
+                            || INSTANCE.refreshTokenValiditySeconds <= 0
+                            || CollectionUtils.isEmpty(INSTANCE.authorizedGrantTypes)) {
+                        throw new UnsupportedOperationException("There is no valid security client details configuration in the spring context");
                     }
+
                 }
             }
 

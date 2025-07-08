@@ -61,7 +61,7 @@ public final class CodecUtils {
         return new String(cipher.doFinal(inputByte));
     }
 
-    public static String nameUUID(String name) {
+    public static String namedUUID(String name) {
         Objects.requireNonNull(name);
         return UUID.nameUUIDFromBytes(name.getBytes(StandardCharsets.UTF_8)).toString().replaceAll("-", "");
     }

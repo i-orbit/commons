@@ -22,14 +22,14 @@ public class OperationLog extends Entity {
     private static final long serialVersionUID = Version.SERIAL_VERSION_UID;
 
     @Schema(title = "所属租户")
-    private Long tenantId;
+    private String tenantId;
 
     @Schema(title = "操作人", nullable = true, description = "为NULL时表示操作人未登录或登录失败")
-    private Long operator;
+    private String operateBy;
 
     @TableField(exist = false)
     @Schema(title = "操作人姓名", accessMode = Schema.AccessMode.READ_ONLY, description = "查询时系统自动填入")
-    private String operatorName;
+    private String operateByName;
 
     @Schema(title = "操作时间")
     private Instant operationTime;
@@ -80,28 +80,28 @@ public class OperationLog extends Entity {
         }
     }
 
-    public Long getTenantId() {
+    public String getTenantId() {
         return tenantId;
     }
 
-    public void setTenantId(Long tenantId) {
+    public void setTenantId(String tenantId) {
         this.tenantId = tenantId;
     }
 
-    public Long getOperator() {
-        return operator;
+    public String getOperateBy() {
+        return operateBy;
     }
 
-    public void setOperator(Long operator) {
-        this.operator = operator;
+    public void setOperateBy(String operateBy) {
+        this.operateBy = operateBy;
     }
 
-    public String getOperatorName() {
-        return operatorName;
+    public String getOperateByName() {
+        return operateByName;
     }
 
-    public void setOperatorName(String operatorName) {
-        this.operatorName = operatorName;
+    public void setOperateByName(String operateByName) {
+        this.operateByName = operateByName;
     }
 
     public Instant getOperationTime() {

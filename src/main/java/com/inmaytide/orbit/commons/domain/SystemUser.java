@@ -24,16 +24,16 @@ public class SystemUser implements Serializable {
     private static final long serialVersionUID = Version.SERIAL_VERSION_UID;
 
     @Schema(title = "唯一标识")
-    private Long id;
+    private String id;
 
     @Schema(title = "是否是租户管理员")
     private Bool isTenantAdministrator;
 
     @Schema(title = "用户所属租户")
-    private Long tenant;
+    private String tenant;
 
     @Schema(title = "默认所属组织唯一标识")
-    private Long organizationId;
+    private String organizationId;
 
     @Schema(title = "默认所属组织名称")
     private String organizationName;
@@ -42,7 +42,7 @@ public class SystemUser implements Serializable {
     private List<Organization> organizations;
 
     @Schema(title = "默认岗位唯一标识")
-    private Long positionId;
+    private String positionId;
 
     @Schema(title = "默认岗位名称")
     private String positionName;
@@ -84,7 +84,7 @@ public class SystemUser implements Serializable {
     private UserStatus status;
 
     @Schema(title = "用户离岗时任务代理人")
-    private Long proxy;
+    private String proxy;
 
     @Schema(title = "密码到期时间")
     private Instant passwordExpireAt;
@@ -92,11 +92,11 @@ public class SystemUser implements Serializable {
     @Schema(title = "用户角色列表")
     private List<Role> roles;
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -108,19 +108,19 @@ public class SystemUser implements Serializable {
         this.isTenantAdministrator = isTenantAdministrator;
     }
 
-    public Long getTenant() {
+    public String getTenant() {
         return tenant;
     }
 
-    public void setTenant(Long tenant) {
+    public void setTenant(String tenant) {
         this.tenant = tenant;
     }
 
-    public Long getOrganizationId() {
+    public String getOrganizationId() {
         return organizationId;
     }
 
-    public void setOrganizationId(Long organizationId) {
+    public void setOrganizationId(String organizationId) {
         this.organizationId = organizationId;
     }
 
@@ -140,11 +140,11 @@ public class SystemUser implements Serializable {
         this.organizations = organizations;
     }
 
-    public Long getPositionId() {
+    public String getPositionId() {
         return positionId;
     }
 
-    public void setPositionId(Long positionId) {
+    public void setPositionId(String positionId) {
         this.positionId = positionId;
     }
 
@@ -252,11 +252,11 @@ public class SystemUser implements Serializable {
         this.status = status;
     }
 
-    public Long getProxy() {
+    public String getProxy() {
         return proxy;
     }
 
-    public void setProxy(Long proxy) {
+    public void setProxy(String proxy) {
         this.proxy = proxy;
     }
 

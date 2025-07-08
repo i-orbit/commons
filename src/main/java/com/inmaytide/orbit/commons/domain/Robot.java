@@ -28,7 +28,7 @@ public class Robot implements Serializable {
 
     private static volatile Robot INSTANCE;
 
-    private Long id;
+    private String id;
 
     private String name;
 
@@ -63,11 +63,11 @@ public class Robot implements Serializable {
         return INSTANCE;
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 

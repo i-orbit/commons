@@ -6,6 +6,6 @@ package com.inmaytide.orbit.commons.constants;
  */
 public enum MessageReadingStatus {
 
-    READED, UNREAD
+    READ, UNREAD
 
 }

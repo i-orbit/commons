@@ -25,9 +25,9 @@ import java.util.stream.Stream;
  * @author inmaytide
  * @since 2025/1/2
  */
-public class OAuth2TokenRefreshFilter implements Filter {
+public class OAuth2AccessTokenRefreshFilter implements Filter {
 
-    private static final Logger log = LoggerFactory.getLogger(OAuth2TokenRefreshFilter.class);
+    private static final Logger log = LoggerFactory.getLogger(OAuth2AccessTokenRefreshFilter.class);
 
     /**
      * access_token 离过期时间还有多少秒时自动刷新
@@ -74,7 +74,7 @@ public class OAuth2TokenRefreshFilter implements Filter {
             doCache(accessToken, token);
             setTokenCookies(response, token);
         }
-        return new RefreshedTokenHttpServletRequestWrapper(request, refreshedToken);
+        return new OAuth2RefreshedTokenHttpServletRequestWrapper(request, refreshedToken);
     }
 
     private void doCache(final String key, final Oauth2Token value) {

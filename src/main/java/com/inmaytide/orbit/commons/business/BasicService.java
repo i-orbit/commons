@@ -28,11 +28,11 @@ public interface BasicService<T extends Entity> {
         return get(entity.getId()).orElseThrow(() -> new ObjectNotFoundException(String.valueOf(entity.getId())));
     }
 
-    default AffectedResult deleteByIds(List<Long> ids) {
+    default AffectedResult deleteByIds(List<String> ids) {
         if (ids == null || ids.isEmpty()) {
             return AffectedResult.NOT_AFFECTED;
         }
-        int affected = getBaseMapper().deleteBatchIds(ids);
+        int affected = getBaseMapper().deleteByIds(ids);
         changed();
         return AffectedResult.withAffected(affected);
     }
@@ -44,15 +44,14 @@ public interface BasicService<T extends Entity> {
     }
 
     default PageResult<T> pagination(Pageable<T> params) {
-        IPage<T> page = PageDTO.of(params.getPageNumber(), params.getPageSize());
-        List<T> list = getBaseMapper().selectList(page, params.toWrapper());
-        setExtraFields(list);
+        IPage<T> page = getBaseMapper().selectPage(PageDTO.of(params.getPageNumber(), params.getPageSize()), params.toWrapper());
+        setExtraFields(page.getRecords());
         PageResult.PageResultBuilder<T> builder = PageResult.builder();
         return builder
                 .pageNumber(params.getPageNumber())
                 .pageSize(params.getPageSize())
                 .total(page.getTotal())
-                .elements(list)
+                .elements(page.getRecords())
                 .build();
     }
 
@@ -60,12 +59,12 @@ public interface BasicService<T extends Entity> {
         if (ids == null || ids.isEmpty()) {
             return List.of();
         }
-        List<T> list = getBaseMapper().selectBatchIds(ids);
+        List<T> list = getBaseMapper().selectByIds(ids);
         setExtraFields(list);
         return list;
     }
 
-    default Optional<T> get(Long id) {
+    default Optional<T> get(String id) {
         T t = getBaseMapper().selectById(id);
         if (t == null) {
             return Optional.empty();
@@ -88,7 +87,7 @@ public interface BasicService<T extends Entity> {
      * @param ids         需要查询的数据对象唯一标识列表
      * @param fieldGetter 需获取的字段获取器
      */
-    default <R> Map<Long, R> findFieldValueByIds(List<Long> ids, SFunction<T, R> fieldGetter) {
+    default <R> Map<String, R> findFieldValueByIds(List<Long> ids, SFunction<T, R> fieldGetter) {
         if (ids == null || ids.isEmpty()) {
             return Map.of();
         }

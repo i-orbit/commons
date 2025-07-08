@@ -5,8 +5,7 @@ import com.baomidou.mybatisplus.core.incrementer.IdentifierGenerator;
 import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.OptimisticLockerInnerInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerInterceptor;
-import com.inmaytide.orbit.commons.business.id.snowflake.SnowflakeIdGenerator;
-import org.springframework.beans.factory.annotation.Value;
+import com.inmaytide.orbit.commons.business.id.CustomizedIdentifierGenerator;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -31,9 +30,8 @@ public class DatabaseConfiguration {
      * 全局的唯一标识生成器
      */
     @Bean
-    public IdentifierGenerator identifierGenerator(@Value("${orbit.server.worker-id}") Long workerId, @Value("${orbit.server.data-center-id}") Long dataCenterId) {
-        return new SnowflakeIdGenerator(workerId, dataCenterId);
+    public IdentifierGenerator identifierGenerator() {
+        return new CustomizedIdentifierGenerator();
     }
-
 
 }

@@ -33,7 +33,7 @@ public final class Constants {
         /**
          * 数据库表结构中租户字段必填, 但数据无租户信息的情况下填入的默认值
          */
-        public static final Long NON_TENANT_ID = 3721L;
+        public static final String NON_TENANT_ID = "018ea39f9f86e8d1b3e21d497dcd9caa";
 
         public static final String SPRING_SECURITY_ROLE_PREFIX = "ROLE_";
 
@@ -77,8 +77,6 @@ public final class Constants {
         public static final String USER_DETAILS = "USER_DETAILS";
 
         public static final String TENANT_DETAILS = "TENANT_DETAILS";
-
-        public static final String DISABLED_REFRESH_TOKEN = "DISABLED_REFRESH_TOKEN";
 
     }
 

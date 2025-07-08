@@ -19,7 +19,7 @@ public class GeographicCoordinate implements Serializable {
     private static final long serialVersionUID = Version.SERIAL_VERSION_UID;
 
     @Schema(title = "归属实体对象唯一标识", requiredMode = Schema.RequiredMode.REQUIRED)
-    private Long businessDataId;
+    private String businessDataId;
 
     @NotNull
     @Schema(title = "经度", requiredMode = Schema.RequiredMode.REQUIRED)
@@ -29,11 +29,11 @@ public class GeographicCoordinate implements Serializable {
     @Schema(title = "纬度", requiredMode = Schema.RequiredMode.REQUIRED)
     private BigDecimal latitude;
 
-    public Long getBusinessDataId() {
+    public String getBusinessDataId() {
         return businessDataId;
     }
 
-    public void setBusinessDataId(Long businessDataId) {
+    public void setBusinessDataId(String businessDataId) {
         this.businessDataId = businessDataId;
     }
 

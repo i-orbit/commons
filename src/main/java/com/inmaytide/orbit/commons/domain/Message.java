@@ -129,7 +129,7 @@ public class Message implements Serializable {
             return this;
         }
 
-        public Builder receiver(MessageSendingMode sendingMode, Long userId) {
+        public Builder receiver(MessageSendingMode sendingMode, String userId) {
             this.receivers.add(new MessageReceiver(sendingMode, userId));
             return this;
         }

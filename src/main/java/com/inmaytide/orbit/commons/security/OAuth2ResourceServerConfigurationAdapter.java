@@ -12,23 +12,24 @@ import org.springframework.web.servlet.HandlerExceptionResolver;
  * @author inmaytide
  * @since 2025/1/3
  */
-public class Oauth2ResourceServerConfigurationAdapter {
+public class OAuth2ResourceServerConfigurationAdapter {
 
     private final HandlerExceptionResolver exceptionResolver;
 
     private final GlobalProperties properties;
 
-    public Oauth2ResourceServerConfigurationAdapter(HandlerExceptionResolver exceptionResolver, GlobalProperties properties) {
+    public OAuth2ResourceServerConfigurationAdapter(HandlerExceptionResolver exceptionResolver, GlobalProperties properties) {
         this.exceptionResolver = exceptionResolver;
         this.properties = properties;
     }
 
     protected HttpSecurity configure(HttpSecurity http) throws Exception {
-        http.addFilterBefore(new OAuth2TokenRefreshFilter(), SecurityContextHolderFilter.class);
+        http.addFilterBefore(new OAuth2AccessTokenRefreshFilter(), SecurityContextHolderFilter.class);
         http.csrf(AbstractHttpConfigurer::disable);
         http.formLogin(AbstractHttpConfigurer::disable);
-        http.sessionManagement(c -> c.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
+        http.anonymous(AbstractHttpConfigurer::disable);
         http.headers(c -> c.httpStrictTransportSecurity(HeadersConfigurer.HstsConfig::disable));
+        http.sessionManagement(c -> c.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
         http.exceptionHandling(c -> {
             c.accessDeniedHandler((req, res, ex) -> exceptionResolver.resolveException(req, res, null, ex));
             c.authenticationEntryPoint((req, res, ex) -> exceptionResolver.resolveException(req, res, null, ex));

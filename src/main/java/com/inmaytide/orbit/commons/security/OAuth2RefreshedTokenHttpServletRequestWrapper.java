@@ -14,11 +14,11 @@ import java.util.Set;
  * @author inmaytide
  * @since 2025/1/3
  */
-public class RefreshedTokenHttpServletRequestWrapper extends HttpServletRequestWrapper {
+public class OAuth2RefreshedTokenHttpServletRequestWrapper extends HttpServletRequestWrapper {
 
     private final String accessToken;
 
-    public RefreshedTokenHttpServletRequestWrapper(HttpServletRequest request, String accessToken) {
+    public OAuth2RefreshedTokenHttpServletRequestWrapper(HttpServletRequest request, String accessToken) {
         super(request);
         this.accessToken = accessToken;
     }

@@ -2,6 +2,8 @@ package com.inmaytide.orbit.commons.utils;
 
 import jakarta.servlet.http.HttpServletRequest;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 import java.util.List;
 import java.util.regex.Pattern;
@@ -12,7 +14,7 @@ import java.util.regex.Pattern;
  */
 public final class HttpUtils {
 
-    public final static List<String> HEADER_NAMES_FOR_CLIENT_ID = List.of("X-Client-address", "X-Forward-For", "x-forwarded-for", "Proxy-Client-IP", "WL-Proxy-Client-IP", "HTTP_CLIENT_IP", "HTTP_X_FORWARDED_FOR");
+    public final static List<String> HEADER_NAMES_FOR_CLIENT_ID = List.of("X-Client-IP", "X-Client-Address", "X-Forwarded-For", "x-forwarded-for", "Proxy-Client-IP", "WL-Proxy-Client-IP", "HTTP_CLIENT_IP", "HTTP_X_FORWARDED_FOR");
 
     public static String getIpAddress(String addresses) {
         if (StringUtils.isBlank(addresses)) {
@@ -29,6 +31,11 @@ public final class HttpUtils {
             }
         }
         return request.getRemoteHost();
+    }
+
+    public static HttpServletRequest getRequest() {
+        ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
+        return attributes.getRequest();
     }
 
 }

@@ -16,11 +16,11 @@ public class FileAssociation extends TombstoneEntity {
     @Serial
     private static final long serialVersionUID = Version.SERIAL_VERSION_UID;
 
-    private Long fileId;
+    private String fileId;
 
     private String business;
 
-    private Long businessDataId;
+    private String businessDataId;
 
     private String businessDataDescription;
 
@@ -28,11 +28,11 @@ public class FileAssociation extends TombstoneEntity {
         return new Builder();
     }
 
-    public Long getFileId() {
+    public String getFileId() {
         return fileId;
     }
 
-    public void setFileId(Long fileId) {
+    public void setFileId(String fileId) {
         this.fileId = fileId;
     }
 
@@ -44,11 +44,11 @@ public class FileAssociation extends TombstoneEntity {
         this.business = business;
     }
 
-    public Long getBusinessDataId() {
+    public String getBusinessDataId() {
         return businessDataId;
     }
 
-    public void setBusinessDataId(Long businessDataId) {
+    public void setBusinessDataId(String businessDataId) {
         this.businessDataId = businessDataId;
     }
 
@@ -62,15 +62,15 @@ public class FileAssociation extends TombstoneEntity {
 
     public static class Builder {
 
-        private Long fileId;
+        private String fileId;
 
         private String business;
 
-        private Long businessDataId;
+        private String businessDataId;
 
         private String businessDataDescription;
 
-        public Builder fileId(Long fileId) {
+        public Builder fileId(String fileId) {
             this.fileId = fileId;
             return this;
         }
@@ -80,7 +80,7 @@ public class FileAssociation extends TombstoneEntity {
             return this;
         }
 
-        public Builder businessDataId(Long businessDataId) {
+        public Builder businessDataId(String businessDataId) {
             this.businessDataId = businessDataId;
             return this;
         }

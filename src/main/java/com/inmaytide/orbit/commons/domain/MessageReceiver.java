@@ -17,22 +17,22 @@ public class MessageReceiver extends Entity {
 
     private MessageSendingMode sendingMode;
 
-    private Long receiver;
+    private String receiver;
 
 
     public MessageReceiver() {
     }
 
-    public MessageReceiver(MessageSendingMode sendingMode, Long receiver) {
+    public MessageReceiver(MessageSendingMode sendingMode, String receiver) {
         this.sendingMode = sendingMode;
         this.receiver = receiver;
     }
 
-    public Long getReceiver() {
+    public String getReceiver() {
         return receiver;
     }
 
-    public void setReceiver(Long receiver) {
+    public void setReceiver(String receiver) {
         this.receiver = receiver;
     }
 

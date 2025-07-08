@@ -2,7 +2,7 @@ package com.inmaytide.orbit.commons.domain.dto.result;
 
 import com.inmaytide.orbit.Version;
 import io.swagger.v3.oas.annotations.media.Schema;
-import org.jetbrains.annotations.NotNull;
+import jakarta.validation.constraints.NotNull;
 import org.springframework.beans.BeanUtils;
 import org.springframework.lang.NonNull;
 

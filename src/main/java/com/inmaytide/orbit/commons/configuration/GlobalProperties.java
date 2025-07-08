@@ -1,5 +1,6 @@
 package com.inmaytide.orbit.commons.configuration;
 
+import com.inmaytide.orbit.commons.domain.OrbitClientDetails;
 import com.inmaytide.orbit.commons.utils.ApplicationContextHolder;
 import com.inmaytide.orbit.commons.utils.CommonUtils;
 import org.springframework.beans.factory.InitializingBean;
@@ -31,6 +32,10 @@ public class GlobalProperties implements InitializingBean {
 
     public String getAuthorizationServerURI() {
         return ApplicationContextHolder.getInstance().getProperty("orbit.server.authorization-uri");
+    }
+
+    public int getSessionValidInSeconds() {
+        return ApplicationContextHolder.getInstance().getProperty("orbit.security.session-valid-in-seconds", Integer.class, OrbitClientDetails.getInstance().getAccessTokenValiditySeconds() * 6);
     }
 
     @Override

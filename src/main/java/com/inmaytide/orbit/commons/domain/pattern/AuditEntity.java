@@ -20,7 +20,7 @@ public abstract class AuditEntity extends Entity {
 
     @Schema(title = "创建人")
     @TableField(fill = FieldFill.INSERT)
-    private Long createdBy;
+    private String createdBy;
 
     @TableField(exist = false)
     @Schema(title = "创建人姓名")
@@ -28,63 +28,31 @@ public abstract class AuditEntity extends Entity {
 
     @Schema(title = "创建时间")
     @TableField(fill = FieldFill.INSERT)
-    private Instant createdTime;
+    private Instant createdAt;
 
     @Schema(title = "最后修改人")
     @TableField(fill = FieldFill.UPDATE)
-    private Long modifiedBy;
+    private String updatedBy;
 
     @TableField(exist = false)
     @Schema(title = "最后修改人姓名")
-    private String modifiedByName;
+    private String updatedByName;
 
     @Schema(title = "最后修改时间")
     @TableField(fill = FieldFill.UPDATE)
-    private Instant modifiedTime;
+    private Instant updatedAt;
 
     @Version
     @Schema(title = "数据版本(修改次数,乐观锁)")
     @TableField(fill = FieldFill.INSERT)
     private Integer version;
 
-    public Long getCreatedBy() {
+    public String getCreatedBy() {
         return createdBy;
     }
 
-    public void setCreatedBy(Long createdBy) {
+    public void setCreatedBy(String createdBy) {
         this.createdBy = createdBy;
-    }
-
-    public Instant getCreatedTime() {
-        return createdTime;
-    }
-
-    public void setCreatedTime(Instant createdTime) {
-        this.createdTime = createdTime;
-    }
-
-    public Long getModifiedBy() {
-        return modifiedBy;
-    }
-
-    public void setModifiedBy(Long modifiedBy) {
-        this.modifiedBy = modifiedBy;
-    }
-
-    public Instant getModifiedTime() {
-        return modifiedTime;
-    }
-
-    public void setModifiedTime(Instant modifiedTime) {
-        this.modifiedTime = modifiedTime;
-    }
-
-    public Integer getVersion() {
-        return version;
-    }
-
-    public void setVersion(Integer version) {
-        this.version = version;
     }
 
     public String getCreatedByName() {
@@ -95,11 +63,43 @@ public abstract class AuditEntity extends Entity {
         this.createdByName = createdByName;
     }
 
-    public String getModifiedByName() {
-        return modifiedByName;
+    public Instant getCreatedAt() {
+        return createdAt;
     }
 
-    public void setModifiedByName(String modifiedByName) {
-        this.modifiedByName = modifiedByName;
+    public void setCreatedAt(Instant createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public String getUpdatedBy() {
+        return updatedBy;
+    }
+
+    public void setUpdatedBy(String updatedBy) {
+        this.updatedBy = updatedBy;
+    }
+
+    public String getUpdatedByName() {
+        return updatedByName;
+    }
+
+    public void setUpdatedByName(String updatedByName) {
+        this.updatedByName = updatedByName;
+    }
+
+    public Instant getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(Instant updatedAt) {
+        this.updatedAt = updatedAt;
+    }
+
+    public Integer getVersion() {
+        return version;
+    }
+
+    public void setVersion(Integer version) {
+        this.version = version;
     }
 }

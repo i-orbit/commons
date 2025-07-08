@@ -13,13 +13,13 @@ public interface SharingEntity {
 
     Sharing getSharing();
 
-    Long getTenant();
+    String getTenant();
 
-    Long getOrganization();
+    String getOrganization();
 
-    Long getArea();
+    String getArea();
 
-    Long getCreatedBy();
+    String getCreatedBy();
 
     default boolean isAuthorized(SystemUser user) {
         return switch (getSharing()) {
